@@ -25,11 +25,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-type  SectionProps = PropsWithChildren<{
+type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function  Section({children, title}: SectionProps): JSX.Element {
+function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -55,7 +55,7 @@ function  Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
-function  App(): JSX.Element {
+function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -96,7 +96,7 @@ function  App(): JSX.Element {
   );
 }
 
-const  styles = StyleSheet.create({
+const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
