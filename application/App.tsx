@@ -15,15 +15,15 @@ import {
   Text,
   useColorScheme,
   View,
-}  from 'react-native';
+} from 'react-native';
 
 import {
-  Color,
+  Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
-}  from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen';
 
 type  SectionProps = PropsWithChildren<{
   title: string;
