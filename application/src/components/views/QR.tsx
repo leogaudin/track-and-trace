@@ -14,10 +14,37 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 
 export class ScanScreen extends Component {
+  state = {
+    back: false,
+    flash: false,
+  };
+
+  changeCamera = () => {
+    this.setState({
+      back: !this.state.back,
+    });
+  };
+
+  flashController = () => {
+    this.setState({
+      flash: !this.state.flash,
+    });
+  };
+
   onSuccess = e => {
-    Linking.openURL(e.data).catch(err =>
-      console.error('An error occured', err)
-    );
+    Alert.alert('Result ', e.data, [
+      {
+        text: 'COPY',
+        onPress: () => {
+          Clipboard.setString(e.data);
+        },
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
   };
 
   render() {
@@ -31,8 +58,17 @@ export class ScanScreen extends Component {
     // }
     return (
       <QRCodeScanner
+        fadeIn={true}
+        showMarker={true}
+        reactivate={true}
+        reactivateTimeout={3000}
+        cameraType={this.state.back ? 'front' : 'back'}
         onRead={this.onSuccess}
-        flashMode={RNCamera.Constants.FlashMode.torch}
+        flashMode={
+          this.state.flash
+            ? RNCamera.Constants.FlashMode.torch
+            : RNCamera.Constants.FlashMode.off
+        }
         topContent={
           <Text style={styles.centerText}>
             Go to{' '}
