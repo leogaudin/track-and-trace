@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -15,7 +15,10 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
 } from 'react-native';
+
+import { ScanScreen } from './src/components/views/QR.tsx';
 
 import {
   Colors,
@@ -68,7 +71,8 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
+      <ScanScreen />
+      {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
@@ -91,7 +95,8 @@ function App(): JSX.Element {
           </Section>
           <LearnMoreLinks />
         </View>
-      </ScrollView>
+      </ScrollView> */}
+
     </SafeAreaView>
   );
 }
