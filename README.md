@@ -12,12 +12,14 @@
 | Envoi des données au serveur | :x: |
 
 ## Bases de données SQL
+
 | Composant | Statut |
 | ------------ | ------------- |
 | Base de données de distribution | :x: |
 | Base de données des administrateurs | :x: |
 
 ## Tableau de bord et Générateur de QR Codes
+
 | Composant | Statut |
 | ------------ | ------------- |
 | Génération basique | :x: |
@@ -28,6 +30,7 @@
 | Sommaire des anomalies | :x: |
 
 ## Architecture serveur
+
 | Composant | Statut |
 | ------------ | ------------- |
 | Communication entre le scanner et le serveur | :x: |
@@ -36,6 +39,7 @@
 | Implémentation de l'écosystème | :x: |
 
 # Extensions
+
 | Composant | Statut |
 | ------------ | ------------- |
 | Scan hors ligne | :x: |
