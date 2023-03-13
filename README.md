@@ -13,11 +13,13 @@
 
 ## Bases de données SQL
 | Composant | Statut |
+| ------------ | ------------- |
 | Base de données de distribution | :x: |
 | Base de données des administrateurs | :x: |
 
 ## Tableau de bord et Générateur de QR Codes
 | Composant | Statut |
+| ------------ | ------------- |
 | Génération basique | :x: |
 | Interface web | :x: |
 | Éditeur de base de données | :x: |
@@ -27,6 +29,7 @@
 
 ## Architecture serveur
 | Composant | Statut |
+| ------------ | ------------- |
 | Communication entre le scanner et le serveur | :x: |
 | Communication entre le serveur et le tableau de bord | :x: |
 | Sécurité et authentification | :x: |
@@ -34,4 +37,5 @@
 
 # Extensions
 | Composant | Statut |
+| ------------ | ------------- |
 | Scan hors ligne | :x: |
