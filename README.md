@@ -3,15 +3,16 @@
 # Tronc de l'application
 
 ## Scanner de QR Codes
+
 | Composant | Statut |
 | ------------ | ------------- |
-| Scan | :heavy_check_mark: |
+| Scan | :white_check_mark: |
 | Récupération des métadonnées | :x: |
 | Formulaire d'envoi | :x: |
 | Identification de l'opérateur | :x: |
 | Envoi des données au serveur | :x: |
 
-## Bases de données SQL
+## Bases de données SQL
 
 | Composant | Statut |
 | ------------ | ------------- |
@@ -29,7 +30,7 @@
 | Sommaire des cartons en circulation | :x: |
 | Sommaire des anomalies | :x: |
 
-## Architecture serveur
+## Architecture serveur
 
 | Composant | Statut |
 | ------------ | ------------- |
