@@ -1,5 +1,5 @@
 <h1 id="track-and-trace">track-and-trace</h1>
-<p align="center">
+<p align="center" width="100%">
 <h1 id="tronc-de-l-application">Tronc de l&#39;application</h1>
 <h2 id="scanner-de-qr-codes">Scanner de QR Codes</h2>
 <table>
