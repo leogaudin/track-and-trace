@@ -4,8 +4,8 @@
 	<img src="https://img.shields.io/static/v1?label=android&message=5%2E0&color=brightgreen" />
 	<img src="https://img.shields.io/static/v1?label=ios&message=12%2E4&color=blueviolet" />
 	<p>Repository du projet "Track-and-Trace" dans le cadre du programme <i>Read@Home</i> de la Banque Mondiale.</p>
-	<h1 id="tronc-de-l-application">Tronc de l&#39;application</h1>
-	<h2 id="scanner-de-qr-codes">Scanner de QR Codes</h2>
+	<h2 id="tronc-de-l-application">Tronc de l&#39;application</h2>
+	<h3 id="scanner-de-qr-codes">Scanner de QR Codes</h3>
 	<table>
 		<thead>
 			<tr>
@@ -36,7 +36,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h2 id="bases-de-donn-es-sql">Bases de données SQL</h2>
+	<h3 id="bases-de-donn-es-sql">Bases de données SQL</h3>
 	<table>
 		<thead>
 			<tr>
@@ -59,7 +59,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h2 id="tableau-de-bord-et-g-n-rateur-de-qr-codes">Tableau de bord et Générateur de QR Codes</h2>
+	<h3 id="tableau-de-bord-et-g-n-rateur-de-qr-codes">Tableau de bord et Générateur de QR Codes</h3>
 	<table>
 		<thead>
 			<tr>
@@ -94,7 +94,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h2 id="architecture-serveur">Architecture serveur</h2>
+	<h3 id="architecture-serveur">Architecture serveur</h3>
 	<table>
 		<thead>
 			<tr>
@@ -121,7 +121,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h1 id="extensions">Extensions</h1>
+	<h2 id="extensions">Extensions</h2>
 	<table>
 		<thead>
 			<tr>
