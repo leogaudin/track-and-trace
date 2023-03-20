@@ -1,7 +1,7 @@
 <div align="center">
 	<img src="https://img.shields.io/github/license/leogaudin/track-and-trace" />
 	<img src="https://img.shields.io/static/v1?label=android&message=5%2E0&color=brightgreen" />
-	<img src="https://img.shields.io/static/v1?label=ios&message=12%2E4&color=white" />
+	<img src="https://img.shields.io/static/v1?label=ios&message=12%2E4&color=blueviolet" />
 	<p>Repository du projet "Track-and-Trace" dans le cadre du programme <i>Read@Home</i> de la Banque Mondiale.</p>
 	<h1 id="tronc-de-l-application">Tronc de l&#39;application</h1>
 	<h2 id="scanner-de-qr-codes">Scanner de QR Codes</h2>
