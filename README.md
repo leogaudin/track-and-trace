@@ -1,4 +1,3 @@
-<h1 id="track-and-trace">track-and-trace</h1>
 <div align="center">
 	<img src="https://img.shields.io/github/license/leogaudin/track-and-trace" />
 	<p>Repository du projet "Track-and-Trace" dans le cadre du programme <i>Read@Home</i> de la Banque Mondiale.</p>
