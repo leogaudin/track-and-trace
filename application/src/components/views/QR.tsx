@@ -1,107 +1,133 @@
 'use strict';
 
-import React, { Component, useState, useEffect } from 'react';
-
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Linking
-} from 'react-native';
-
+import React, {Component, useState} from 'react';
+import {Alert, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import Clipboard from '@react-native-community/clipboard';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
+import {RNCamera} from 'react-native-camera';
+import globalStyles from '../../styles/GlobalStyles';
+import {useSafeAreaFrame} from 'react-native-safe-area-context';
 
-export class ScanScreen extends Component {
-  state = {
-    back: false,
-    flash: false,
-  };
+// export class ScanScreen extends Component {
+//   state = {
+//     back: false,
+//     flash: false,
+//   };
 
-  changeCamera = () => {
-    this.setState({
-      back: !this.state.back,
-    });
-  };
+//   changeCamera = () => {
+//     this.setState({
+//       back: !this.state.back,
+//     });
+//   };
 
-  flashController = () => {
-    this.setState({
-      flash: !this.state.flash,
-    });
-  };
+//   flashController = () => {
+//     if (!this.state.back) {
+//       this.setState({
+//         flash: !this.state.flash,
+//       });
+//     }
+//   };
 
-  onSuccess = e => {
-    Alert.alert('Result ', e.data, [
-      {
-        text: 'COPY',
-        onPress: () => {
-          Clipboard.setString(e.data);
-        },
-      },
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-    ]);
-  };
+//   onSuccess = (e: {data: string}) => {
+//     Alert.alert('Result ', e.data, [
+//       {
+//         text: 'Copy',
+//         onPress: () => {
+//           Clipboard.setString(e.data);
+//         },
+//       },
+//       {
+//         text: 'Cancel',
+//         onPress: () => console.log('Cancel Pressed'),
+//         style: 'cancel',
+//       },
+//     ]);
+//   };
 
-  render() {
-    // const [hasPermission, setHasPermission] = useState(null);
-    // const [scanned, setScanned] = useState(false);
-    // const [text, setText] = useState('Not yet scanned');
-    // const askForCameraPermission = () => {
-    //   (async () => {
-    //     const { status } = await QRCodeScanner.req
-    //   })
-    // }
-    return (
-      <QRCodeScanner
-        fadeIn={true}
-        showMarker={true}
-        reactivate={true}
-        reactivateTimeout={3000}
-        cameraType={this.state.back ? 'front' : 'back'}
-        onRead={this.onSuccess}
-        flashMode={
-          this.state.flash
-            ? RNCamera.Constants.FlashMode.torch
-            : RNCamera.Constants.FlashMode.off
-        }
-        topContent={
-          <Text style={styles.centerText}>
-            Go to{' '}
-            <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-            your computer and scan the QR code.
-          </Text>
-        }
-        bottomContent={
-          <TouchableOpacity style={styles.buttonTouchable}>
-            <Text style={styles.buttonText}>OK. Got it!</Text>
-          </TouchableOpacity>
-        }
-      />
-    );
-  }
+//   render() {
+//     return (
+//       <View style={globalStyles.view}>
+//         <Text style={globalStyles.title}>Scan the QR Code</Text>
+//         <QRCodeScanner
+//           fadeIn={true}
+//           reactivate={true}
+//           reactivateTimeout={3000}
+//           cameraType={this.state.back ? 'front' : 'back'}
+//           cameraStyle={[globalStyles.camera]}
+//           onRead={this.onSuccess}
+//           flashMode={
+//             this.state.flash
+//               ? RNCamera.Constants.FlashMode.torch
+//               : RNCamera.Constants.FlashMode.off
+//           }
+//         />
+//         <View style={[globalStyles.horizontal]}>
+//           <Pressable
+//             onPress={this.changeCamera}
+//             style={[globalStyles.button, globalStyles.shadow]}>
+//             <Text style={globalStyles.big}>🔄</Text>
+//           </Pressable>
+//           <Pressable
+//             onPress={this.flashController}
+//             style={[globalStyles.button, globalStyles.shadow]}>
+//             <Text style={globalStyles.big}>💡</Text>
+//           </Pressable>
+//         </View>
+//       </View>
+//     );
+//   }
+// }
+
+export default function Scanner(props: any) {
+  const [flash, setFlash] = useState(false);
+
+  return (
+    <QRCodeScanner
+      fadeIn={true}
+      reactivate={true}
+      reactivateTimeout={3000}
+      // cameraType={this.state.back ? 'front' : 'back'}
+      cameraStyle={[globalStyles.camera]}
+      onRead={e => <Result data={e.data} />}
+      flashMode={
+        flash
+          ? RNCamera.Constants.FlashMode.torch
+          : RNCamera.Constants.FlashMode.off
+      }
+    />
+  );
+}
+
+function Result({data}: {data: string}) {
+  const [visible, setVisible] = useState(true);
+
+  return (
+    <Modal
+      style={[globalStyles.view, globalStyles.modal]}
+      visible={visible}
+      animationType={'slide'}
+      onRequestClose={() => {
+        setVisible(false);
+      }}>
+      <Text style={globalStyles.title}>{data}</Text>
+      <View style={globalStyles.horizontal}>
+        <Pressable
+          style={globalStyles.button}
+          onPress={() => setVisible(false)}>
+          <Text style={{fontWeight: 'normal'}}>Cancel</Text>
+        </Pressable>
+        <Pressable
+          style={globalStyles.button}
+          onPress={() => setVisible(false)}>
+          <Text>Send</Text>
+        </Pressable>
+      </View>
+    </Modal>
+  );
 }
 
 const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777'
+  marker: {
+    color: 'white',
   },
-  textBold: {
-    fontWeight: '500',
-    color: '#000'
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)'
-  },
-  buttonTouchable: {
-    padding: 16
-  }
 });
