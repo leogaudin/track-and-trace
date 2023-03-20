@@ -1,8 +1,8 @@
 <div align="center">
 	<h1>🗺️ track-and-trace</h1>
 	<img src="https://img.shields.io/github/license/leogaudin/track-and-trace" />
-	<img src="https://img.shields.io/static/v1?label=android&message=	%3E%205%2E0&color=brightgreen" />
-	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
+	<img src="https://img.shields.io/static/v1?label=android&message=	%3E5%2E0&color=brightgreen" />
+	<img src="https://img.shields.io/static/v1?label=ios&message=%3E12%2E4&color=blueviolet" />
 	<p>Repository du projet "Track-and-Trace" dans le cadre du programme <i>Read@Home</i> de la Banque Mondiale.</p>
 	<h2 id="tronc-de-l-application">Tronc de l&#39;application</h2>
 	<h3 id="scanner-de-qr-codes">Scanner de QR Codes</h3>
