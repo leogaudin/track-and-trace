@@ -15,7 +15,7 @@ export default EStyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: '25rem',
-    marginTop: '20rem',
+    marginVertical: '20rem',
   },
   big: {
     fontSize: '35rem',
@@ -26,7 +26,6 @@ export default EStyleSheet.create({
     margin: '20rem',
     borderRadius: '50rem',
     backgroundColor: '#0B71E7',
-    color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
     shadowColor: 'black',
@@ -39,11 +38,13 @@ export default EStyleSheet.create({
     margin: '20rem',
     borderRadius: '50rem',
     backgroundColor: 'white',
-    color: 'white',
     textAlign: 'center',
     shadowColor: 'black',
     shadowOpacity: 0.1,
     shadowOffset: {height: 3},
+  },
+  white: {
+    color: 'white',
   },
   shadow: {
     shadowColor: 'black',

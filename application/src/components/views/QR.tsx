@@ -2,87 +2,15 @@
 
 import React, {Component, useState} from 'react';
 import {Alert, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
-import Clipboard from '@react-native-community/clipboard';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
-import {useSafeAreaFrame} from 'react-native-safe-area-context';
-import ResultModal from '../organisms/Result'
-
-// export class ScanScreen extends Component {
-//   state = {
-//     back: false,
-//     flash: false,
-//   };
-
-//   changeCamera = () => {
-//     this.setState({
-//       back: !this.state.back,
-//     });
-//   };
-
-//   flashController = () => {
-//     if (!this.state.back) {
-//       this.setState({
-//         flash: !this.state.flash,
-//       });
-//     }
-//   };
-
-//   onSuccess = (e: {data: string}) => {
-//     Alert.alert('Result ', e.data, [
-//       {
-//         text: 'Copy',
-//         onPress: () => {
-//           Clipboard.setString(e.data);
-//         },
-//       },
-//       {
-//         text: 'Cancel',
-//         onPress: () => console.log('Cancel Pressed'),
-//         style: 'cancel',
-//       },
-//     ]);
-//   };
-
-//   render() {
-//     return (
-//       <View style={globalStyles.view}>
-//         <Text style={globalStyles.title}>Scan the QR Code</Text>
-//         <QRCodeScanner
-//           fadeIn={true}
-//           reactivate={true}
-//           reactivateTimeout={3000}
-//           cameraType={this.state.back ? 'front' : 'back'}
-//           cameraStyle={[globalStyles.camera]}
-//           onRead={this.onSuccess}
-//           flashMode={
-//             this.state.flash
-//               ? RNCamera.Constants.FlashMode.torch
-//               : RNCamera.Constants.FlashMode.off
-//           }
-//         />
-//         <View style={[globalStyles.horizontal]}>
-//           <Pressable
-//             onPress={this.changeCamera}
-//             style={[globalStyles.button, globalStyles.shadow]}>
-//             <Text style={globalStyles.big}>🔄</Text>
-//           </Pressable>
-//           <Pressable
-//             onPress={this.flashController}
-//             style={[globalStyles.button, globalStyles.shadow]}>
-//             <Text style={globalStyles.big}>💡</Text>
-//           </Pressable>
-//         </View>
-//       </View>
-//     );
-//   }
-// }
+import ResultModal from '../organisms/Result';
 
 export default function Scanner(props: any) {
   const [flash, setFlash] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState('');
+  const [data, setData] = useState({});
 
   return (
     <View>
@@ -98,8 +26,12 @@ export default function Scanner(props: any) {
         // cameraType={this.state.back ? 'front' : 'back'}
         cameraStyle={[globalStyles.camera]}
         onRead={e => {
-          setData(e.data);
-          setModalVisible(true);
+          if (!modalVisible) {
+            if (JSON.parse(e.data).hasOwnProperty('DN #')) {
+              setData(JSON.parse(e.data));
+              setModalVisible(true);
+            }
+          }
         }}
         flashMode={
           flash

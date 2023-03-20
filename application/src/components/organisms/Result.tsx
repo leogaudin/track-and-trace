@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, Modal, Pressable, Text, View} from 'react-native';
 import globalStyles from '../../styles/GlobalStyles';
 
@@ -9,12 +9,14 @@ export default function Result({
 }: {
   modalVisible: boolean;
   setModalVisible: any;
-  data: string;
+  data: object;
 }) {
+  const [locationLoaded, setLocationLoaded] = useState(false);
+
   return (
     <>
       <Modal
-        style={[globalStyles.view]}
+        style={[globalStyles.view, {backgroundColor: 'black'}]}
         visible={modalVisible}
         transparent={true}
         animationType={'slide'}
@@ -25,7 +27,14 @@ export default function Result({
         <View style={globalStyles.modalContainer}>
           <View style={globalStyles.modal}>
             <Text style={globalStyles.title}>Scan result</Text>
-            <Text>{data}</Text>
+            <Text>
+              <Text style={{fontWeight: 'bold'}}>Delivery note n°</Text>
+              <Text>{data["DN #" as keyof typeof data]}</Text>
+            </Text>
+            <Text>
+              <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
+              <Text>{Date().toLocaleString()}</Text>
+            </Text>
             <View style={globalStyles.horizontal}>
               <Pressable
                 style={globalStyles.button}
@@ -35,7 +44,7 @@ export default function Result({
               <Pressable
                 style={globalStyles.mainButton}
                 onPress={() => setModalVisible(false)}>
-                <Text style={{fontWeight: 'bold'}}>Send</Text>
+                <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>Send</Text>
               </Pressable>
             </View>
           </View>
