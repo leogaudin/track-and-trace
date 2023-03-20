@@ -7,6 +7,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
 import {useSafeAreaFrame} from 'react-native-safe-area-context';
+import ResultModal from '../organisms/Result'
 
 // export class ScanScreen extends Component {
 //   state = {
@@ -80,51 +81,61 @@ import {useSafeAreaFrame} from 'react-native-safe-area-context';
 
 export default function Scanner(props: any) {
   const [flash, setFlash] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState('');
 
   return (
-    <QRCodeScanner
-      fadeIn={true}
-      reactivate={true}
-      reactivateTimeout={3000}
-      // cameraType={this.state.back ? 'front' : 'back'}
-      cameraStyle={[globalStyles.camera]}
-      onRead={e => <Result data={e.data} />}
-      flashMode={
-        flash
-          ? RNCamera.Constants.FlashMode.torch
-          : RNCamera.Constants.FlashMode.off
-      }
-    />
+    <View>
+      <ResultModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        data={data}
+      />
+      <QRCodeScanner
+        fadeIn={true}
+        reactivate={true}
+        reactivateTimeout={3000}
+        // cameraType={this.state.back ? 'front' : 'back'}
+        cameraStyle={[globalStyles.camera]}
+        onRead={e => {
+          setData(e.data);
+          setModalVisible(true);
+        }}
+        flashMode={
+          flash
+            ? RNCamera.Constants.FlashMode.torch
+            : RNCamera.Constants.FlashMode.off
+        }
+      />
+    </View>
   );
 }
 
-function Result({data}: {data: string}) {
-  const [visible, setVisible] = useState(true);
-
-  return (
-    <Modal
-      style={[globalStyles.view, globalStyles.modal]}
-      visible={visible}
-      animationType={'slide'}
-      onRequestClose={() => {
-        setVisible(false);
-      }}>
-      <Text style={globalStyles.title}>{data}</Text>
-      <View style={globalStyles.horizontal}>
-        <Pressable
-          style={globalStyles.button}
-          onPress={() => setVisible(false)}>
-          <Text style={{fontWeight: 'normal'}}>Cancel</Text>
-        </Pressable>
-        <Pressable
-          style={globalStyles.button}
-          onPress={() => setVisible(false)}>
-          <Text>Send</Text>
-        </Pressable>
-      </View>
-    </Modal>
-  );
-}
+// function Result({data}: {data: string}) {
+//   return (
+//     <Modal
+//       style={[globalStyles.view, globalStyles.modal]}
+//       visible={visible}
+//       animationType={'slide'}
+//       onRequestClose={() => {
+//         setVisible(false);
+//       }}>
+//       <Text style={globalStyles.title}>{data}</Text>
+//       <View style={globalStyles.horizontal}>
+//         <Pressable
+//           style={globalStyles.button}
+//           onPress={() => setVisible(false)}>
+//           <Text style={{fontWeight: 'normal'}}>Cancel</Text>
+//         </Pressable>
+//         <Pressable
+//           style={globalStyles.button}
+//           onPress={() => setVisible(false)}>
+//           <Text>Send</Text>
+//         </Pressable>
+//       </View>
+//     </Modal>
+//   );
+// }
 
 const styles = StyleSheet.create({
   marker: {
