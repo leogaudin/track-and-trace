@@ -21,6 +21,7 @@ export default function Scanner(props: any) {
       />
       <QRCodeScanner
         fadeIn={true}
+        vibrate={false}
         reactivate={true}
         reactivateTimeout={3000}
         // cameraType={this.state.back ? 'front' : 'back'}
