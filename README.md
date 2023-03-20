@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>Récupération des métadonnées</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Formulaire d&#39;envoi</td>
