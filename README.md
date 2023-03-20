@@ -52,6 +52,10 @@
 				<td>Base de données des administrateurs</td>
 				<td>:x:</td>
 			</tr>
+			<tr>
+				<td>Base de données des scans</td>
+				<td>:x:</td>
+			</tr>
 		</tbody>
 	</table>
 	<h2 id="tableau-de-bord-et-g-n-rateur-de-qr-codes">Tableau de bord et Générateur de QR Codes</h2>
