@@ -1,9 +1,9 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
-EStyleSheet.build({$rem: width / 380});
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+EStyleSheet.build({$rem: WIDTH / 380});
 
 export default EStyleSheet.create({
   view: {
@@ -20,12 +20,26 @@ export default EStyleSheet.create({
   big: {
     fontSize: '35rem',
   },
-  button: {
-    padding: '20rem',
+  mainButton: {
+    paddingHorizontal: '20rem',
+    paddingVertical: '15rem',
     margin: '20rem',
     borderRadius: '50rem',
     backgroundColor: '#0B71E7',
+    color: 'white',
+    textAlign: 'center',
     fontWeight: 'bold',
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowOffset: {height: 3},
+  },
+  button: {
+    paddingHorizontal: '20rem',
+    paddingVertical: '15rem',
+    margin: '20rem',
+    borderRadius: '50rem',
+    backgroundColor: 'white',
+    color: 'white',
     textAlign: 'center',
     shadowColor: 'black',
     shadowOpacity: 0.1,
@@ -34,7 +48,7 @@ export default EStyleSheet.create({
   shadow: {
     shadowColor: 'black',
     shadowOpacity: 0.1,
-    shadowOffset: {height: 3},
+    shadowOffset: {height: 2},
   },
   horizontal: {
     flexWrap: 'wrap',
@@ -45,13 +59,22 @@ export default EStyleSheet.create({
     opacity: 0.5,
   },
   camera: {
-    width: width,
-    height: height,
+    width: WIDTH,
+    height: HEIGHT,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   modal: {
+    flex: 0,
     backgroundColor: 'white',
-    margin: '20rem',
+    margin: 10,
+    width: WIDTH * 0.9,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
