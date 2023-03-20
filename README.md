@@ -1,5 +1,6 @@
 <h1 id="track-and-trace">track-and-trace</h1>
 <div align="center">
+	<img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
 	<p>Repository du projet "Track-and-Trace" dans le cadre du programme <i>Read@Home</i> de la Banque Mondiale.</p>
 	<h1 id="tronc-de-l-application">Tronc de l&#39;application</h1>
 	<h2 id="scanner-de-qr-codes">Scanner de QR Codes</h2>
