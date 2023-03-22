@@ -11,7 +11,7 @@ import globalStyles from './src/styles/GlobalStyles';
 import {
   checkAndroidPermissions,
   checkIOSPermissions,
-} from './src/utils/CheckPermissions';
+} from './src/utils/checkPermissions';
 
 function App(): JSX.Element {
   const [hasPermissions, setHasPermissions] = useState(false);
