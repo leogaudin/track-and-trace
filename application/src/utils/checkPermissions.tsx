@@ -1,4 +1,3 @@
-import React from 'react';
 import {Alert, Linking} from 'react-native';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
@@ -52,7 +51,7 @@ export function checkAndroidPermissions(): boolean {
   return true;
 }
 
-export function checkIOSPermissions() : boolean {
+export function checkIOSPermissions(): boolean {
   check(PERMISSIONS.IOS.CAMERA).then(result => {
     switch (result) {
       case RESULTS.UNAVAILABLE:
@@ -110,7 +109,7 @@ export function checkIOSPermissions() : boolean {
           ],
         );
         request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-		checkIOSPermissions();
+        checkIOSPermissions();
         break;
       case RESULTS.BLOCKED:
         Alert.alert(

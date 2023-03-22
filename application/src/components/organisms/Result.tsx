@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, Modal, Pressable, Text, View} from 'react-native';
+import {Alert, Modal, Platform, Pressable, Text, View} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
-import {PERMISSIONS} from 'react-native-permissions';
+import {
+  checkIOSPermissions,
+  checkAndroidPermissions,
+} from '../../utils/CheckPermissions';
 
 export default function Result({
   modalVisible,
@@ -29,13 +32,18 @@ export default function Result({
         setLocationLoaded(true);
       },
       error => {
-        // switch (error.code) {
-        //   case 1:
-        //     Alert.alert(
-        //       'Permission denied',
-        //       'We need your location to know where and when the QR code are scanned. Nothing more.',
-        //     );
-        // }
+        switch (error.code) {
+          case 3:
+            Alert.alert('Timeout', 'The location search has timed out.');
+            break;
+          default:
+            if (Platform.OS === 'android') {
+              checkAndroidPermissions();
+            } else if (Platform.OS === 'ios') {
+              checkIOSPermissions();
+            }
+            break;
+        }
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 120000},
     );

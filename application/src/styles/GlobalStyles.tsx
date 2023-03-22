@@ -1,4 +1,3 @@
-import React from 'react';
 import {Dimensions} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 const WIDTH = Dimensions.get('window').width;
