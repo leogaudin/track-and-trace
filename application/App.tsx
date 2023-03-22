@@ -1,98 +1,54 @@
 import React, {useState, useEffect} from 'react';
 import {
   Alert,
-  Appearance,
   Linking,
   Platform,
+  Pressable,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ScanScreen from './src/components/views/QR';
-import {PERMISSIONS} from 'react-native-permissions';
+import globalStyles from './src/styles/GlobalStyles';
+import {
+  checkAndroidPermissions,
+  checkIOSPermissions,
+} from './src/utils/CheckPermissions';
 
 function App(): JSX.Element {
-  // if (Platform.OS === 'android') {
-  //   check(PERMISSIONS.ANDROID.CAMERA).then(result => {
-  //     switch (result) {
-  //       case RESULTS.UNAVAILABLE:
-  //         Alert.alert(
-  //           'Camera not available',
-  //           "Your device's camera is unavailable.",
-  //           [{text: 'OK', style: 'default'}],
-  //         );
-  //         break;
-  //       case RESULTS.DENIED:
-  //         Alert.alert(
-  //           'Camera not enabled',
-  //           'Please allow access to the camera.',
-  //           [
-  //             {text: 'Cancel', style: 'cancel'},
-  //             {text: 'OK', style: 'default'},
-  //           ],
-  //         );
-  //         request(PERMISSIONS.ANDROID.CAMERA);
-  //         break;
-  //     }
-  //   });
-  // } else if (Platform.OS === 'ios') {
-  //   check(PERMISSIONS.IOS.CAMERA).then(result => {
-  //     switch (result) {
-  //       case RESULTS.UNAVAILABLE:
-  //         Alert.alert(
-  //           'Camera not available',
-  //           "Your device's camera is unavailable.",
-  //           [{text: 'OK', style: 'default'}],
-  //         );
-  //         break;
-  //       case RESULTS.DENIED:
-  //         Alert.alert(
-  //           'Camera not enabled',
-  //           'Please allow access to the camera.',
-  //           [
-  //             {text: 'Cancel', style: 'cancel'},
-  //             {text: 'OK', style: 'default'},
-  //           ],
-  //         );
-  //         request(PERMISSIONS.IOS.CAMERA);
-  //         break;
-  //       case RESULTS.BLOCKED:
-  //         Alert.alert(
-  //           'Camera not enabled',
-  //           'Please allow access to the camera.',
-  //           [
-  //             {text: 'Cancel', style: 'cancel'},
-  //             {
-  //               text: 'Go to Settings',
-  //               style: 'default',
-  //               onPress: () => Linking.openSettings(),
-  //             },
-  //           ],
-  //         );
-  //         break;
-  //     }
-  //   });
-  // }
+  const [hasPermissions, setHasPermissions] = useState(false);
+
+  if (Platform.OS === 'android') {
+    setHasPermissions(checkAndroidPermissions());
+  } else if (Platform.OS === 'ios') {
+    setHasPermissions(checkIOSPermissions());
+  }
   return (
-    <SafeAreaView>
-      <ScanScreen />
+    <SafeAreaView style={globalStyles.view}>
+      {hasPermissions ? (
+        <ScanScreen />
+      ) : (
+        <View style={{height: '100%'}}>
+          <Text style={[globalStyles.title, {color: 'red'}]}>
+            The application does not have all the permissions necessary to
+            launch.
+          </Text>
+          <Pressable
+            style={globalStyles.button}
+            onPress={() => {
+              if (Platform.OS === 'android') {
+                setHasPermissions(checkAndroidPermissions());
+              } else if (Platform.OS === 'ios') {
+                setHasPermissions(checkIOSPermissions());
+              }
+            }}>
+            <Text>I have updated the permissions, check again.</Text>
+          </Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    color: 'black',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-});
 
 export default App;
