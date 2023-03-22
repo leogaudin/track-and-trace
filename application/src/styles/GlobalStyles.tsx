@@ -10,6 +10,7 @@ export default EStyleSheet.create({
     padding: '10rem',
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
   },
   title: {
     textAlign: 'center',
@@ -71,6 +72,7 @@ export default EStyleSheet.create({
     flex: 0,
     backgroundColor: 'white',
     margin: 10,
+    padding: 10,
     width: WIDTH * 0.9,
     alignItems: 'center',
     justifyContent: 'space-between',
