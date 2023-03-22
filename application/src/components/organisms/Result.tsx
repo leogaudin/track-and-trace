@@ -68,7 +68,7 @@ export default function Result({
               </Text>
             </Text>
             {locationLoaded && componentMounted ? (
-              <View style={{height: 100, width: '100%'}}>
+              <View style={{height: 150, width: '100%', margin: 10}}>
                 <MapView
                   style={{flex: 1}}
                   initialRegion={{
