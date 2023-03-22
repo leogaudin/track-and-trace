@@ -6,7 +6,7 @@ import globalStyles from '../../styles/GlobalStyles';
 import {
   checkIOSPermissions,
   checkAndroidPermissions,
-} from '../../utils/CheckPermissions';
+} from '../../utils/checkPermissions';
 
 export default function Result({
   modalVisible,
