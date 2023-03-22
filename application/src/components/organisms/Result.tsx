@@ -3,6 +3,7 @@ import {Alert, Modal, Pressable, Text, View} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
+import {PERMISSIONS} from 'react-native-permissions';
 
 export default function Result({
   modalVisible,

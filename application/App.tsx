@@ -14,7 +14,7 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ScanScreen from './src/components/views/QR';
-// import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import {PERMISSIONS} from 'react-native-permissions';
 
 function App(): JSX.Element {
   // if (Platform.OS === 'android') {

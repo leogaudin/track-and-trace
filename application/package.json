@@ -11,25 +11,9 @@
     "postinstall": "react-native setup-ios-permissions && pod-install"
   },
   "reactNativePermissionsIOS": [
-    "AppTrackingTransparency",
-    "BluetoothPeripheral",
-    "Calendars",
     "Camera",
-    "Contacts",
-    "FaceID",
-    "LocationAccuracy",
     "LocationAlways",
-    "LocationWhenInUse",
-    "MediaLibrary",
-    "Microphone",
-    "Motion",
-    "Notifications",
-    "PhotoLibrary",
-    "PhotoLibraryAddOnly",
-    "Reminders",
-    "Siri",
-    "SpeechRecognition",
-    "StoreKit"
+    "LocationWhenInUse"
   ],
   "dependencies": {
     "@react-native-community/clipboard": "^1.5.1",

@@ -6,6 +6,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
 import ResultModal from '../organisms/Result';
+import {PERMISSIONS} from 'react-native-permissions';
 
 export default function Scanner(props: any) {
   const [flash, setFlash] = useState(false);
