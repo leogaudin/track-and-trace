@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Alert, Modal, Pressable, Text, View} from 'react-native';
-import GetLocation, {Location} from 'react-native-get-location';
+import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
 
@@ -19,21 +19,25 @@ export default function Result({
 
   useEffect(() => {
     setComponentMounted(true);
-  });
+  }, []);
 
-  if (!locationLoaded) {
-    GetLocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 60000,
-    })
-      .then(location => {
-        setUserLocation(location);
+  if (!locationLoaded && componentMounted) {
+    Geolocation.getCurrentPosition(
+      position => {
+        setUserLocation(position);
         setLocationLoaded(true);
-      })
-      .catch(error => {
-        const {code, message} = error;
-        console.warn(code, message);
-      });
+      },
+      error => {
+        // switch (error.code) {
+        //   case 1:
+        //     Alert.alert(
+        //       'Permission denied',
+        //       'We need your location to know where and when the QR code are scanned. Nothing more.',
+        //     );
+        // }
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 120000},
+    );
   }
 
   return (
@@ -58,36 +62,40 @@ export default function Result({
               <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
               <Text>
                 {locationLoaded
-                  ? new Date(userLocation.time).toLocaleString()
+                  ? Date().toLocaleString()
                   : 'Determining current time...'}
               </Text>
             </Text>
             {locationLoaded && componentMounted ? (
-              // <MapView
-              //   // initialRegion={{
-              //   //   latitude: 36.69933699173192,
-              //   //   longitude: -4.438967710686544,
-              //   //   latitudeDelta: 0.4,
-              //   //   longitudeDelta: 0.3,
-              //   // }}
-              //   style={{flex: 1,}}
-              // />
-              <Text>
-                <Text style={{fontWeight: 'bold'}}>Latitude : </Text>
-                <Text>{userLocation.latitude}</Text>
-              </Text>
+              <View style={{height: 100, width: '100%'}}>
+                <MapView
+                  style={{flex: 1}}
+                  initialRegion={{
+                    latitude: userLocation.coords.latitude,
+                    longitude: userLocation.coords.longitude,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                />
+              </View>
             ) : (
-              <Text>Determining current location.../</Text>
+              <Text>Determining current location...</Text>
             )}
             <View style={globalStyles.horizontal}>
               <Pressable
                 style={globalStyles.button}
-                onPress={() => setModalVisible(false)}>
+                onPress={() => {
+                  setModalVisible(false);
+                  setLocationLoaded(false);
+                }}>
                 <Text>Cancel</Text>
               </Pressable>
               <Pressable
                 style={globalStyles.mainButton}
-                onPress={() => setModalVisible(false)}>
+                onPress={() => {
+                  setModalVisible(false);
+                  setLocationLoaded(false);
+                }}>
                 <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>
                   Send
                 </Text>
