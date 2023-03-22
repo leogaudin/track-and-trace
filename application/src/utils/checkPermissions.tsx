@@ -52,7 +52,7 @@ export function checkAndroidPermissions(): boolean {
   return true;
 }
 
-export function checkIOSPermissions() {
+export function checkIOSPermissions() : boolean {
   check(PERMISSIONS.IOS.CAMERA).then(result => {
     switch (result) {
       case RESULTS.UNAVAILABLE:
