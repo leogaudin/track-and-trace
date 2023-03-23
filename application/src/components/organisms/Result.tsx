@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, Modal, Platform, Pressable, Text, View} from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  Modal,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
@@ -23,6 +32,8 @@ export default function Result({
   const [locationLoaded, setLocationLoaded] = useState(false);
   const [userLocation, setUserLocation] = useState<any>({});
   const [componentMounted, setComponentMounted] = useState(false);
+  const [comment, setComment] = useState('');
+  const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
     setComponentMounted(true);
@@ -45,6 +56,12 @@ export default function Result({
     );
   }
 
+  function resetData() {
+    setLocationLoaded(false);
+    setUserLocation(null);
+    setComment('');
+  }
+
   return (
     <>
       <Modal
@@ -56,23 +73,24 @@ export default function Result({
         onRequestClose={() => {
           setModalVisible(false);
         }}>
-        <View style={globalStyles.modalContainer}>
-          <View style={globalStyles.modal}>
-            <Text style={globalStyles.title}>
-              <Text>Box n°</Text>
-              <Text>{data['DN #' as keyof typeof data]}</Text>
-            </Text>
-            <Text>
-              <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
-              <Text>
-                {locationLoaded
-                  ? Date().toLocaleString()
-                  : 'Determining current time...'}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={globalStyles.modalContainer}>
+            <View style={globalStyles.modal}>
+              <Text style={[globalStyles.title, {fontFamily: 'monospace'}]}>
+                <Text>Box n°</Text>
+                <Text>{data['DN #' as keyof typeof data]}</Text>
               </Text>
-            </Text>
-            {locationLoaded && componentMounted ? (
-              <View style={{height: 150, width: '100%', margin: 10}}>
-                <MapView
+              <Text>
+                <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
+                <Text>
+                  {locationLoaded
+                    ? Date().toLocaleString()
+                    : 'Determining current time...'}
+                </Text>
+              </Text>
+              {locationLoaded && componentMounted ? (
+                <View style={{height: 150, width: '100%', margin: 10}}>
+                  <MapView
                   style={{flex: 1}}
                   initialRegion={{
                     latitude: userLocation.coords.latitude,
@@ -81,32 +99,49 @@ export default function Result({
                     longitudeDelta: 0.0421,
                   }}
                 />
+                </View>
+              ) : (
+                <Text>Determining current location...</Text>
+              )}
+              <TextInput
+                editable
+                multiline
+                numberOfLines={4}
+                maxLength={140}
+                onChangeText={text => setComment(text)}
+                value={comment}
+                placeholder="Add a comment..."
+                style={[globalStyles.input]}
+              />
+              <View style={globalStyles.horizontal}>
+                <Pressable
+                  style={globalStyles.button}
+                  onPress={() => {
+                    setModalVisible(false);
+                    resetData();
+                  }}>
+                  <Text>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  style={globalStyles.mainButton}
+                  onPress={() => {
+                    setLocationLoaded(false);
+                    const dataToSend = {
+                      id: data['DN #' as keyof typeof data],
+                      location: userLocation,
+                      comment: comment,
+                    };
+                    setModalVisible(false);
+                    resetData();
+                  }}>
+                  <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>
+                    Send
+                  </Text>
+                </Pressable>
               </View>
-            ) : (
-              <Text>Determining current location...</Text>
-            )}
-            <View style={globalStyles.horizontal}>
-              <Pressable
-                style={globalStyles.button}
-                onPress={() => {
-                  setModalVisible(false);
-                  setLocationLoaded(false);
-                }}>
-                <Text>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={globalStyles.mainButton}
-                onPress={() => {
-                  setModalVisible(false);
-                  setLocationLoaded(false);
-                }}>
-                <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>
-                  Send
-                </Text>
-              </Pressable>
             </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </>
   );

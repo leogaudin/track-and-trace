@@ -86,4 +86,11 @@ export default EStyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  input: {
+    width: '100%',
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: '#0B71E7',
+    borderRadius: 10,
+  },
 });

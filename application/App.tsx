@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Platform, Pressable, SafeAreaView, Text, View} from 'react-native';
 import ScanScreen from './src/components/views/QR';
 import globalStyles from './src/styles/GlobalStyles';
