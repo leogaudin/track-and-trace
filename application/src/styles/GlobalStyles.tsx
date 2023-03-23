@@ -21,7 +21,7 @@ export default EStyleSheet.create({
     fontSize: '35rem',
   },
   mainButton: {
-    paddingHorizontal: '20rem',
+    paddingHorizontal: '30rem',
     paddingVertical: '15rem',
     margin: '20rem',
     borderRadius: '50rem',
@@ -33,7 +33,7 @@ export default EStyleSheet.create({
     shadowOffset: {height: 3},
   },
   button: {
-    paddingHorizontal: '20rem',
+    paddingHorizontal: '30rem',
     paddingVertical: '15rem',
     margin: '20rem',
     borderRadius: '50rem',

@@ -50,8 +50,8 @@ function App(): JSX.Element {
     );
   } else {
     return (
-      <View style={[globalStyles.view, {padding: 30}]}>
-        <Text style={{textAlign: 'center', fontSize: 20}}>
+      <View style={[globalStyles.view, {backgroundColor: 'whitesmoke', padding: 30}]}>
+        <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
           <Text>This application needs access to the </Text>
           <Text style={{fontWeight: 'bold'}}>camera</Text>
           <Text> and </Text>
