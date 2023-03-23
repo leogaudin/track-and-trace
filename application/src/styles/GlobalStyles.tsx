@@ -88,9 +88,11 @@ export default EStyleSheet.create({
   },
   input: {
     width: '100%',
+    height: 100,
     textAlign: 'center',
-    borderWidth: 1,
+    borderWidth: 2.5,
     borderColor: '#0B71E7',
     borderRadius: 10,
+    padding: 10,
   },
 });
