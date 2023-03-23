@@ -3,10 +3,6 @@ import {Alert, Modal, Platform, Pressable, Text, View} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
-import {
-  checkIOSPermissions,
-  checkAndroidPermissions,
-} from '../../utils/checkPermissions';
 
 export default function Result({
   modalVisible,
@@ -36,13 +32,6 @@ export default function Result({
           case 3:
             Alert.alert('Timeout', 'The location search has timed out.');
             break;
-          default:
-            if (Platform.OS === 'android') {
-              checkAndroidPermissions();
-            } else if (Platform.OS === 'ios') {
-              checkIOSPermissions();
-            }
-            break;
         }
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 120000},
@@ -62,9 +51,8 @@ export default function Result({
         }}>
         <View style={globalStyles.modalContainer}>
           <View style={globalStyles.modal}>
-            <Text style={globalStyles.title}>Scan result</Text>
-            <Text>
-              <Text style={{fontWeight: 'bold'}}>Delivery note n°</Text>
+            <Text style={globalStyles.title}>
+              <Text>Box n°</Text>
               <Text>{data['DN #' as keyof typeof data]}</Text>
             </Text>
             <Text>
