@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td>Formulaire d&#39;envoi</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Identification de l&#39;opérateur</td>
