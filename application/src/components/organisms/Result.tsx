@@ -76,7 +76,7 @@ export default function Result({
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={globalStyles.modalContainer}>
             <View style={globalStyles.modal}>
-              <Text style={[globalStyles.title, {fontFamily: 'monospace'}]}>
+              <Text style={[globalStyles.title]}>
                 <Text>Box n°</Text>
                 <Text>{data['DN #' as keyof typeof data]}</Text>
               </Text>
