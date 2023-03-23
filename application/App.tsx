@@ -50,16 +50,20 @@ function App(): JSX.Element {
     );
   } else {
     return (
-      <View style={{backgroundColor: 'red'}}>
-        <Text style={[globalStyles.title, {color: 'red'}]}>
-          The application does not have all the permissions necessary to launch.
+      <View style={[globalStyles.view, {padding: 30}]}>
+        <Text style={{textAlign: 'center', fontSize: 20}}>
+          <Text>This application needs access to the </Text>
+          <Text style={{fontWeight: 'bold'}}>camera</Text>
+          <Text> and </Text>
+          <Text style={{fontWeight: 'bold'}}>location</Text>
+          <Text> to launch. Please allow access to both and restart.</Text>
         </Text>
         <Pressable
           style={globalStyles.button}
           onPress={() => {
             RNRestart.restart();
           }}>
-          <Text>I have updated the permissions, check again.</Text>
+          <Text style={{textAlign: 'center'}}>I have updated the permissions, check again.</Text>
         </Pressable>
       </View>
     );

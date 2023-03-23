@@ -9,6 +9,7 @@ export default EStyleSheet.create({
     padding: '10rem',
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
   },
   title: {
     textAlign: 'center',
