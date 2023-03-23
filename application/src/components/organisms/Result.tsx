@@ -4,6 +4,13 @@ import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
 
+/**
+ *
+ * @param   modalVisible an array containing the value of the state hook
+ * @param   setModalVisible an array containing the state hook
+ * @param   data the JSON formatted content of the QR Code
+ * @returns the modal view
+ */
 export default function Result({
   modalVisible,
   setModalVisible,

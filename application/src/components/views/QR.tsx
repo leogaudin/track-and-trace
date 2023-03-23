@@ -7,7 +7,7 @@ import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
 import ResultModal from '../organisms/Result';
 
-export default function Scanner(props: any) {
+export default function Scanner() {
   const [flash, setFlash] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState({});

@@ -10,8 +10,18 @@ import {
 } from './src/utils/checkPermissions';
 import RNRestart from 'react-native-restart';
 
+/**
+ * Entry point of the app.
+ * First checks the permissions, and adapts the render depending on them.
+ * @returns the appropriate view: if all permissions are good, the scanner, if not, the warning message.
+ */
 function App(): JSX.Element {
   const [hasPermissions, setHasPermissions] = useState(false);
+  /**
+   *
+   * @param arr an array of booleans to check.
+   * @returns   true if all the values are true, false otherwise.
+   */
   let checker = (arr: Boolean[]) => arr.every(Boolean);
 
   useEffect(() => {
