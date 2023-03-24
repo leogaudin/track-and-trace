@@ -435,6 +435,8 @@ PODS:
     - React-perflogger (= 0.71.4)
   - ReactNativeGetLocation (3.0.1):
     - React-Core
+  - RNCAsyncStorage (1.17.12):
+    - React-Core
   - RNCClipboard (1.5.1):
     - React-Core
   - RNPermissions (3.8.0):
@@ -512,6 +514,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeGetLocation (from `../node_modules/react-native-get-location`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../node_modules/@react-native-community/clipboard`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -614,6 +617,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeGetLocation:
     :path: "../node_modules/react-native-get-location"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
     :path: "../node_modules/@react-native-community/clipboard"
   RNPermissions:
@@ -676,6 +681,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
   ReactNativeGetLocation: d8e41c5d499fd26f308502405cadb1f59e6179d6
+  RNCAsyncStorage: 09fc8595e6d6f6d5abf16b23a56b257d9c6b7c5b
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
   RNPermissions: 2b966cfd83aebd6dc513215cf754d4f11bfe92ac
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
