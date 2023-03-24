@@ -60,7 +60,6 @@ export default function Result({
 
   function resetData() {
     setLocationLoaded(false);
-    setUserLocation(null);
     setComment('');
   }
 
