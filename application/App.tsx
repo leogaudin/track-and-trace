@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import {useState, useEffect} from 'react';
 import {Platform, Pressable, SafeAreaView, Text, View} from 'react-native';
 import ScanScreen from './src/components/views/QR';
 import globalStyles from './src/styles/GlobalStyles';
@@ -50,7 +51,11 @@ function App(): JSX.Element {
     );
   } else {
     return (
-      <View style={[globalStyles.view, {backgroundColor: 'whitesmoke', padding: 30}]}>
+      <View
+        style={[
+          globalStyles.view,
+          {backgroundColor: 'whitesmoke', padding: 30},
+        ]}>
         <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
           <Text>This application needs access to the </Text>
           <Text style={{fontWeight: 'bold'}}>camera</Text>
@@ -63,7 +68,9 @@ function App(): JSX.Element {
           onPress={() => {
             RNRestart.restart();
           }}>
-          <Text style={{textAlign: 'center'}}>I have updated the permissions, check again.</Text>
+          <Text style={{textAlign: 'center'}}>
+            I have updated the permissions, check again.
+          </Text>
         </Pressable>
       </View>
     );

@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import {useState, useEffect} from 'react';
 import {
   Alert,
   Keyboard,
@@ -103,7 +104,7 @@ export default function Result({
                       borderRadius: 10,
                       overflow: 'hidden',
                     }}>
-                    <MapView
+                    {/* <MapView
                       pitchEnabled={false}
                       rotateEnabled={false}
                       scrollEnabled={false}
@@ -115,7 +116,7 @@ export default function Result({
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                       }}
-                    />
+                    /> */}
                   </View>
                 ) : (
                   <Text>Determining current location...</Text>

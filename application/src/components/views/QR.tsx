@@ -1,7 +1,7 @@
 'use strict';
 
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React from 'react';
+import {useState} from 'react';import {View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
