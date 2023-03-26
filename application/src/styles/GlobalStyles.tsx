@@ -28,7 +28,6 @@ export default EStyleSheet.create({
     alignSelf: 'stretch',
     borderRadius: '15rem',
     backgroundColor: '#0B71E7',
-    fontWeight: 'bold',
     // shadowColor: 'black',
     // shadowOpacity: 0.1,
     // shadowOffset: {height: 3},
