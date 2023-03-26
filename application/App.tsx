@@ -50,10 +50,10 @@ function App(): JSX.Element {
    */
   if (hasPermissions) {
     return (
-      <SafeAreaView>
+      <View>
         <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />
         <ScanScreen />
-      </SafeAreaView>
+      </View>
     );
   } else {
     return (
