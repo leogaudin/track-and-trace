@@ -129,7 +129,7 @@ export default function Result({
                   onChangeText={text => setComment(text)}
                   value={comment}
                   placeholder="Add a comment..."
-                  style={[globalStyles.input]}
+                  style={[globalStyles.input, {height: 100}]}
                 />
                 <View style={globalStyles.horizontal}>
                   <Pressable
