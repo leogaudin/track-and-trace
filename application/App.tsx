@@ -10,6 +10,7 @@ import {
   handleLocationPermissionIOS,
 } from './src/utils/checkPermissions';
 import RNRestart from 'react-native-restart';
+import Login from './src/components/organisms/Login';
 
 /**
  * Entry point of the app.
@@ -18,6 +19,7 @@ import RNRestart from 'react-native-restart';
  */
 function App(): JSX.Element {
   const [hasPermissions, setHasPermissions] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(true);
   /**
    *
    * @param arr an array of booleans to check.
@@ -49,6 +51,7 @@ function App(): JSX.Element {
   if (hasPermissions) {
     return (
       <SafeAreaView>
+        <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />
         <ScanScreen />
       </SafeAreaView>
     );
