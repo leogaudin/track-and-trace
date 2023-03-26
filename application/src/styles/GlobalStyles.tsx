@@ -25,6 +25,7 @@ export default EStyleSheet.create({
     paddingHorizontal: '30rem',
     paddingVertical: '15rem',
     marginVertical: '20rem',
+    marginHorizontal: '10rem',
     alignSelf: 'stretch',
     borderRadius: '15rem',
     backgroundColor: '#0B71E7',
