@@ -43,6 +43,9 @@ function App(): JSX.Element {
     }
   }, []);
 
+  /**
+   * Renders a different view depending on the state of the permissions.
+   */
   if (hasPermissions) {
     return (
       <SafeAreaView>
