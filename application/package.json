@@ -54,5 +54,16 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSameLine": true,
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": "@react-native-community"
   }
 }
