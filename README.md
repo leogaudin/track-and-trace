@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td>Identification de l&#39;opérateur</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Envoi des données au serveur</td>
