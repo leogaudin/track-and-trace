@@ -138,10 +138,10 @@ export default function Result({
                       setModalVisible(false);
                       resetData();
                     }}>
-                    <Text>Cancel</Text>
+                    <Text style={{textAlign: 'center'}}>Cancel</Text>
                   </Pressable>
                   <Pressable
-                    style={globalStyles.mainButton}
+                    style={[globalStyles.mainButton]}
                     onPress={() => {
                       setLocationLoaded(false);
                       const dataToSend = {
@@ -152,7 +152,7 @@ export default function Result({
                       setModalVisible(false);
                       resetData();
                     }}>
-                    <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>
+                    <Text style={[globalStyles.white, {fontWeight: 'bold', textAlign: 'center'}]}>
                       Send
                     </Text>
                   </Pressable>

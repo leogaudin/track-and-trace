@@ -60,15 +60,17 @@ export default function Login({
               <View style={globalStyles.modal}>
                 <Text style={globalStyles.title}>Enter your phone number</Text>
                 <Text
-                  style={{
-                    color: '#E1000F',
-                    fontStyle: 'italic',
-                    textAlign: 'center',
-                    padding: 10,
-                  }}>
-                  {isNumberValid
-                    ? ''
-                    : 'Invalid number. Please enter it without the country code, or check that it is not too short or too long.'}
+                  style={[
+                    {
+                      color: '#E1000F',
+                      fontStyle: 'italic',
+                      textAlign: 'center',
+                      padding: 10,
+                    },
+                    isNumberValid ? {display: 'none'} : {display: 'flex'},
+                  ]}>
+                  Invalid number. Please enter it without the country code, or
+                  check that it is not too short or too long.
                 </Text>
                 <PhoneInput
                   ref={phoneInput}
@@ -102,14 +104,20 @@ export default function Login({
                 <Pressable
                   style={[
                     globalStyles.mainButton,
-                    !isNumberValid ? globalStyles.disabled : {opacity: 1},
+                    !isNumberValid || number === ''
+                      ? globalStyles.disabled
+                      : {opacity: 1},
                   ]}
                   onPress={() => {
                     storeNumber(formattedNumber);
                     setModalVisible(false);
                   }}
-                  disabled={!isNumberValid}>
-                  <Text style={[globalStyles.white, {fontWeight: 'bold'}]}>
+                  disabled={!isNumberValid || number === ''}>
+                  <Text
+                    style={[
+                      globalStyles.white,
+                      {fontWeight: 'bold', textAlign: 'center'},
+                    ]}>
                     Login
                   </Text>
                 </Pressable>
