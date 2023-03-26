@@ -104,7 +104,7 @@ export default function Result({
                       borderRadius: 10,
                       overflow: 'hidden',
                     }}>
-                    {/* <MapView
+                    <MapView
                       pitchEnabled={false}
                       rotateEnabled={false}
                       scrollEnabled={false}
@@ -116,7 +116,7 @@ export default function Result({
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                       }}
-                    /> */}
+                    />
                   </View>
                 ) : (
                   <Text>Determining current location...</Text>
@@ -152,7 +152,11 @@ export default function Result({
                       setModalVisible(false);
                       resetData();
                     }}>
-                    <Text style={[globalStyles.white, {fontWeight: 'bold', textAlign: 'center'}]}>
+                    <Text
+                      style={[
+                        globalStyles.white,
+                        {fontWeight: 'bold', textAlign: 'center'},
+                      ]}>
                       Send
                     </Text>
                   </Pressable>
