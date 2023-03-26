@@ -10,9 +10,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import globalStyles from '../../styles/GlobalStyles';
 import PhoneInput from 'react-native-phone-number-input';
+import {storeString} from '../../utils/asyncStorage';
 
 export default function Login({
   modalVisible,
@@ -30,14 +30,6 @@ export default function Login({
   useEffect(() => {
     setComponentMounted(true);
   }, []);
-
-  const storeNumber = async (value: string) => {
-    try {
-      await AsyncStorage.setItem('user_number', value);
-    } catch (e) {
-      // saving error
-    }
-  };
 
   return (
     <>
@@ -109,7 +101,7 @@ export default function Login({
                       : {opacity: 1},
                   ]}
                   onPress={() => {
-                    storeNumber(formattedNumber);
+                    storeString('user_number', formattedNumber);
                     setModalVisible(false);
                   }}
                   disabled={!isNumberValid || number === ''}>
