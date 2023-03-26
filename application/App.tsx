@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {Platform, Pressable, SafeAreaView, Text, View} from 'react-native';
+import {Platform, Pressable, Text, View} from 'react-native';
 import Scanner from './src/components/views/QR';
 import globalStyles from './src/styles/GlobalStyles';
 import {
@@ -11,6 +11,7 @@ import {
 } from './src/utils/checkPermissions';
 import RNRestart from 'react-native-restart';
 import Login from './src/components/organisms/Login';
+import {getString} from './src/utils/asyncStorage';
 
 /**
  * Entry point of the app.
@@ -19,7 +20,7 @@ import Login from './src/components/organisms/Login';
  */
 function App(): JSX.Element {
   const [hasPermissions, setHasPermissions] = useState(false);
-  const [loginVisible, setLoginVisible] = useState(true);
+  const [loginVisible, setLoginVisible] = useState(false);
   /**
    *
    * @param arr an array of booleans to check.
@@ -28,6 +29,9 @@ function App(): JSX.Element {
   let checker = (arr: Boolean[]) => arr.every(Boolean);
 
   useEffect(() => {
+    /**
+     * Checks the necessary permissions.
+     */
     if (Platform.OS === 'ios') {
       Promise.all([
         handleCameraPermissionIOS(),
@@ -43,15 +47,32 @@ function App(): JSX.Element {
         setHasPermissions(checker(permissions));
       });
     }
+    /**
+     * Checks if the user is already logged in.
+     */
+    getString('user_number').then(e => {
+      if (e == null) {
+        setLoginVisible(true);
+      }
+    });
   }, []);
 
+  /**
+   * If the user is not logged in, shows the login modal and nothing else.
+   */
+  if (loginVisible) {
+    return (
+      <View>
+        <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />
+      </View>
+    );
+  }
   /**
    * Renders a different view depending on the state of the permissions.
    */
   if (hasPermissions) {
     return (
       <View>
-        <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />
         <Scanner />
       </View>
     );
