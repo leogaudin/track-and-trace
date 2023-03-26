@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {Platform, Pressable, SafeAreaView, Text, View} from 'react-native';
-import ScanScreen from './src/components/views/QR';
+import Scanner from './src/components/views/QR';
 import globalStyles from './src/styles/GlobalStyles';
 import {
   handleCameraPermissionAndroid,
@@ -52,7 +52,7 @@ function App(): JSX.Element {
     return (
       <View>
         <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />
-        <ScanScreen />
+        <Scanner />
       </View>
     );
   } else {
