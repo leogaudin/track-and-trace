@@ -21,7 +21,7 @@ const createBox = (req, res) => {
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: box._id,
+                id: box.id,
                 message: 'Box created!',
             })
         })

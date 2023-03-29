@@ -10,7 +10,8 @@ const Box = new Schema(
 		school: {type: String, required: true},
 		htName: {type: String, required: false},
 		htPhone: {type: String, required: true},
-		institutionType: {type: String, required: false}
+		institutionType: {type: String, required: false},
+		adminId: {type: String, required: true}
 	}
 )
 
