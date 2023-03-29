@@ -36,7 +36,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h3 id="bases-de-donn-es-sql">Bases de données SQL</h3>
+	<h3 id="bases-de-donn-es-sql">Bases de données</h3>
 	<table>
 		<thead>
 			<tr>
