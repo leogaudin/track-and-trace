@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 				<td>Base de données des scans</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 		</tbody>
 	</table>
