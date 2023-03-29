@@ -6,21 +6,23 @@ const cors = require('cors');
 
 const db = require('./db');
 const boxesRouter = require('./routes/boxes.router');
+const scansRouter = require('./routes/scans.router');
+const adminsRouter = require('./routes/admins.router');
 
 const app = express();
 const apiPort = 3000;
 
 dotenv.config();
 
-const uri = process.env.STRING_URI;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
+// const uri = process.env.STRING_URI;
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
 
-client.connect(err => {
-  console.log('Connected to database.');
-  // const collection = client.db('test').collection('devices');
-  // perform actions on the collection object
-  client.close();
-});
+// client.connect(err => {
+//   console.log('Connected to database.');
+//   // const collection = client.db('test').collection('devices');
+//   // perform actions on the collection object
+//   client.close();
+// });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -33,5 +35,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', boxesRouter);
+app.use('/api', scansRouter);
+app.use('/api', adminsRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
