@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const Box = new Schema(
 	{
-		id: {type: Number, required: true},
-		division: {type: String, required: false},
-		district: {type: String, required: false},
-		zone: {type: String, required: false},
-		school: {type: String, required: true},
-		htName: {type: String, required: false},
-		htPhone: {type: String, required: true},
-		institutionType: {type: String, required: false},
-		adminId: {type: String, required: true}
+		id: { type: String, required: true },
+		division: { type: String, required: false },
+		district: { type: String, required: false },
+		zone: { type: String, required: false },
+		school: { type: String, required: true },
+		htName: { type: String, required: false },
+		htPhone: { type: String, required: true },
+		institutionType: { type: String, required: false },
+		adminId: { type: String, required: true }
 	}
 )
 
