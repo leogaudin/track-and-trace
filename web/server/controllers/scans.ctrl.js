@@ -1,12 +1,20 @@
 const Scan = require('../models/scans.model')
 
-const addScan = (req, res) => {
+const addScan = async (req, res) => {
     const body = req.body
 
     if (!body) {
         return res.status(400).json({
             success: false,
             error: 'You must provide a scan',
+        })
+    }
+
+    const existentScan = await Scan.findOne({ id: body.id })
+    if (existentScan) {
+        return res.status(409).json({
+            success: false,
+            error: 'A scan with this ID already exists',
         })
     }
 
@@ -34,41 +42,41 @@ const addScan = (req, res) => {
 }
 
 const getScanById = async (req, res) => {
-	try {
-		const scan = await Scan.findOne({ id: req.params.id })
-		if (!scan) {
-			return res
-			.status(404)
-			.json({ success: false, error: 'Scan not found' })
-		}
-		return res
-			.status(200)
-			.json({ success: true, data: scan })
-	} catch (err) {
-		console.log(err)
-		return res
-			.status(400)
-			.json({ success: false, error: err })
-	}
+    try {
+        const scan = await Scan.findOne({ id: req.params.id })
+        if (!scan) {
+            return res
+                .status(404)
+                .json({ success: false, error: 'Scan not found' })
+        }
+        return res
+            .status(200)
+            .json({ success: true, data: scan })
+    } catch (err) {
+        console.log(err)
+        return res
+            .status(400)
+            .json({ success: false, error: err })
+    }
 }
 
 const getScans = async (req, res) => {
-	try {
-		const scans = await Scan.find({});
-		if (!scans.length) {
-			return res
-				.status(404)
-				.json({ success: false, error: 'Scan not found' })
-		}
-		return res
-			.status(200)
-			.json({ success: true, data: scans });
-	} catch (err) {
-		console.log(err);
-		return res.status
-			.status(400)
-			.json({ success: false, error: err });
-	}
+    try {
+        const scans = await Scan.find({});
+        if (!scans.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: 'Scan not found' })
+        }
+        return res
+            .status(200)
+            .json({ success: true, data: scans });
+    } catch (err) {
+        console.log(err);
+        return res.status
+            .status(400)
+            .json({ success: false, error: err });
+    }
 }
 
 const deleteScan = async (req, res) => {
@@ -87,7 +95,7 @@ const deleteScan = async (req, res) => {
 
 module.exports = {
     addScan,
-	deleteScan,
+    deleteScan,
     getScans,
     getScanById,
 }
