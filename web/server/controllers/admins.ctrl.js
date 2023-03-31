@@ -6,7 +6,7 @@ const addAdmin = async (req, res) => {
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'You must provide a admin',
+            error: 'You must provide an admin',
         })
     }
 
