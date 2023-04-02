@@ -70,7 +70,7 @@
 		<tbody>
 			<tr>
 				<td>Génération basique</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Interface web</td>
