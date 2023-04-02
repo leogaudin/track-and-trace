@@ -3,6 +3,8 @@ const Box = require('../models/boxes.model')
 const createBox = async (req, res) => {
     const body = req.body
 
+    body.createdAt = new Date().getTime();
+
     if (!body) {
         return res.status(400).json({
             success: false,

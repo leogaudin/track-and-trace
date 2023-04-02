@@ -11,7 +11,8 @@ const Box = new Schema(
 		htName: { type: String, required: false },
 		htPhone: { type: String, required: true },
 		institutionType: { type: String, required: false },
-		adminId: { type: String, required: true }
+		adminId: { type: String, required: true },
+		createdAt: { type: Date, required: true }
 	}
 )
 
