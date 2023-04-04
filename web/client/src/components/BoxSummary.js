@@ -3,17 +3,13 @@ import QRCode from "react-qr-code";
 import { getBox } from "../service";
 import { useEffect, useState } from "react";
 
-export default function BoxSummary({ id, open, setOpen }) {
-	const [boxData, setBoxData] = useState([]);
+export default function BoxSummary({ boxes, id, open, setOpen }) {
 
 	function handleClose() {
 		setOpen(false);
 	}
 
-	useEffect(() => {
-		getBox(id)
-			.then(setBoxData)
-	}, [id, setBoxData])
+	const boxData = boxes.filter(box => { return box.id == id })[0];
 
 	return (
 		<Dialog

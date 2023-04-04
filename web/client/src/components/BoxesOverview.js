@@ -12,18 +12,9 @@ const statusMap = {
 	problem: 'error'
 };
 
-export default function BoxesOverview() {
-	const [boxes, setBoxes] = useState([]);
-	const [scans, setScans] = useState([]);
+export default function BoxesOverview({ boxes, scans }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
-
-	useEffect(() => {
-		getBoxes()
-			.then(setBoxes)
-		getScans()
-			.then(setScans)
-	}, []);
 
 	return (
 		<Card
@@ -82,7 +73,7 @@ export default function BoxesOverview() {
 						})}
 					</TableBody>
 				</Table>
-				<BoxSummary id={boxID} open={boxDialogOpen} setOpen={setBoxDialogOpen} />
+				<BoxSummary boxes={boxes} id={boxID} open={boxDialogOpen} setOpen={setBoxDialogOpen} />
 			</CardContent>
 		</Card>
 	);
