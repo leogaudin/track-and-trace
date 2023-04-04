@@ -267,7 +267,10 @@ export function createComponents(config) {
       styleOverrides: {
         root: {
           borderBottomColor: palette.divider,
-          padding: '15px 16px'
+          padding: '15px 16px',
+          "&:hover:not(.Mui-disabled)": {
+            cursor: "pointer"
+          }
         }
       }
     },
