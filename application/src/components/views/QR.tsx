@@ -1,7 +1,8 @@
 'use strict';
 
 import React from 'react';
-import {useState} from 'react';import {View} from 'react-native';
+import {useState} from 'react';
+import {View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import globalStyles from '../../styles/GlobalStyles';
@@ -10,7 +11,7 @@ import ResultModal from '../organisms/Result';
 export default function Scanner() {
   const [flash, setFlash] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState('');
 
   return (
     <View>
@@ -27,10 +28,8 @@ export default function Scanner() {
         cameraStyle={[globalStyles.camera]}
         onRead={e => {
           if (!modalVisible) {
-            if (JSON.parse(e.data).hasOwnProperty('DN #')) {
-              setData(JSON.parse(e.data));
-              setModalVisible(true);
-            }
+            setData(e.data);
+            setModalVisible(true);
           }
         }}
         flashMode={

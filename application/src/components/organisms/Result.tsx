@@ -12,9 +12,25 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import axios from 'axios';
+import {getString} from '../../utils/asyncStorage';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
+import SparkMD5 from 'spark-md5';
+
+function sendScan(json: String) {
+  return new Promise(resolve => {
+    axios
+      .post('http://192.168.146.29:3000/api/scan', json, {
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => res.status === 201 && res.data)
+      .then(res => res.data)
+      .then(resolve)
+      .catch(console.error);
+  });
+}
 
 /**
  *
@@ -30,7 +46,7 @@ export default function Result({
 }: {
   modalVisible: boolean;
   setModalVisible: any;
-  data: object;
+  data: String;
 }) {
   const [locationLoaded, setLocationLoaded] = useState(false);
   const [userLocation, setUserLocation] = useState<any>({});
@@ -85,7 +101,7 @@ export default function Result({
               <View style={globalStyles.modal}>
                 <Text style={[globalStyles.title]}>
                   <Text>Box n°</Text>
-                  <Text>{data['DN #' as keyof typeof data]}</Text>
+                  <Text>{data}</Text>
                 </Text>
                 <Text>
                   <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
@@ -144,13 +160,23 @@ export default function Result({
                     style={[globalStyles.mainButton]}
                     onPress={() => {
                       setLocationLoaded(false);
-                      const dataToSend = {
-                        id: data['DN #' as keyof typeof data],
-                        location: userLocation,
-                        comment: comment,
-                      };
-                      setModalVisible(false);
-                      resetData();
+                      getString('user_number').then(user_id => {
+                        const dataToSend = {
+                          id: '',
+                          boxId: data,
+                          operatorId: user_id,
+                          time: timestamp,
+                          location: userLocation,
+                          comment: comment,
+                        };
+                        dataToSend.id = SparkMD5.hash(
+                          JSON.stringify(dataToSend),
+                        );
+                        setModalVisible(false);
+                        sendScan(JSON.stringify(dataToSend)).then(() => {
+                          resetData();
+                        });
+                      });
                     }}>
                     <Text
                       style={[
