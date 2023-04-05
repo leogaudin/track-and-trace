@@ -105,11 +105,11 @@
 		<tbody>
 			<tr>
 				<td>Communication entre le scanner et le serveur</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Communication entre le serveur et le tableau de bord</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
 				<td>Sécurité et authentification</td>
