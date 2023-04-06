@@ -5,4 +5,4 @@ xattr -w com.apple.xcode.CreatedByBuildSystem true /Users/leogaudin/Documents/Re
 cd ios
 xcodebuild clean
 cd ../
-npx react-native run-ios --device "iPhone"
+npx react-native run-ios --device "iPhone" --port 8888
