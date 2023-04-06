@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import BoxesOverview from '../components/BoxesOverview';
-import { getBoxes } from '../service';
+import { getBoxes, getScans } from '../service';
 
 export default function Home() {
 	const [boxes, setBoxes] = useState([]);
+	const [scans, setScans] = useState([]);
 
 	useEffect(() => {
 		getBoxes()
 			.then(setBoxes)
+		getScans()
+			.then(setScans)
 	}, [])
 
 	return (
@@ -19,16 +22,16 @@ export default function Home() {
 			alignItems='stretch'
 		>
 			<Grid item xs={4}>
-				<BoxesOverview boxes={boxes} />
+				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={8}>
-				<BoxesOverview boxes={boxes} />
+				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={8}>
-				<BoxesOverview boxes={boxes} />
+				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={4}>
-				<BoxesOverview boxes={boxes} />
+				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
 		</Grid>
 	);

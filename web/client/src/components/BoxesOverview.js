@@ -73,7 +73,7 @@ export default function BoxesOverview({ boxes, scans }) {
 						})}
 					</TableBody>
 				</Table>
-				<BoxSummary boxes={boxes} id={boxID} open={boxDialogOpen} setOpen={setBoxDialogOpen} />
+				<BoxSummary boxes={boxes} scans={scans} id={boxID} open={boxDialogOpen} setOpen={setBoxDialogOpen} />
 			</CardContent>
 		</Card>
 	);
