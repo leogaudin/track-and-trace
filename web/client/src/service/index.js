@@ -39,3 +39,11 @@ export function getAdmins() {
 			.catch(console.error);
 	});
 }
+
+export function getCity(latitude, longitude) {
+	return new Promise(resolve => {
+		axios.get('https://api-bdc.net/data/reverse-geocode?latitude=' + latitude + '&longitude=' + longitude + '&localityLanguage=en&key=' + 'bdc_e27b27abd76b4c5dba5671d1de24d039')
+			.then(res => res.data.city + ', ' + res.data.countryName)
+			.then(resolve)
+	})
+}

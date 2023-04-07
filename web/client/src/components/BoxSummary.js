@@ -3,6 +3,7 @@ import QRCode from "react-qr-code";
 import { getBox } from "../service";
 import { useEffect, useState } from "react";
 import { timeAgo } from "../service/timeAgo";
+import { feature as getCountryName } from '@rapideditor/country-coder';
 
 export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 
@@ -78,7 +79,7 @@ export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 										</TableRow>
 									</TableHead>
 									<TableBody>
-										{scanData.map((scan) => {
+										{scanData.map(scan => {
 											return (
 												<TableRow
 													id={scan?.id}
@@ -88,7 +89,7 @@ export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 														<Typography fontFamily={'Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New'} fontSize={'.8rem'}>{scan?.operatorId}</Typography>
 													</TableCell>
 													<TableCell>
-														{scan?.location.coords.latitude}
+														{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
 													</TableCell>
 													<TableCell>
 														<Tooltip title={new Date(scan?.time).toUTCString()}>
