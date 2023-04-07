@@ -5,7 +5,7 @@
 	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
 	<p><i>A lightweight JavaScript track-and-trace solution.</i></p>
 	<h2 id="tronc-de-l-application">Tronc de l&#39;application</h2>
-	<h3 id="scanner-de-qr-codes">Scanner de QR Codes</h3>
+	<h3 id="scanner-de-qr-codes">Scanner de QR Codes :white_check_mark:</h3>
 	<table>
 		<thead>
 			<tr>
@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>Envoi des données au serveur</td>
-				<td>:x:</td>
+				<td>:white_check_mark:</td>
 			</tr>
 		</tbody>
 	</table>
