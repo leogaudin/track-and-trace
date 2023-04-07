@@ -33,7 +33,7 @@ export function timeAgo(time) {
 		token = 'ago',
 		list_choice = 1;
 
-	if (seconds == 0) {
+	if (seconds === 0) {
 		return 'Just now'
 	}
 	if (seconds < 0) {

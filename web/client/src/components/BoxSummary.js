@@ -10,8 +10,8 @@ export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 		setOpen(false);
 	}
 
-	const boxData = boxes.filter(box => { return box.id == id })[0];
-	const scanData = scans.filter(scan => { return scan.boxId == id }).sort((a, b) => b.time - a.time);
+	const boxData = boxes.filter(box => { return box.id === id })[0];
+	const scanData = scans.filter(scan => { return scan.boxId === id }).sort((a, b) => b.time - a.time);
 
 	return (
 		<Dialog
