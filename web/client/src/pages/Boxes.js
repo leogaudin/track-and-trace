@@ -1,19 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import BoxesOverview from '../components/BoxesOverview';
 import { Box } from '@mui/material';
-import { getBoxes, getScans } from '../service';
 
-export default function Boxes() {
-	const [boxes, setBoxes] = useState([]);
-	const [scans, setScans] = useState([]);
-
-	useEffect(() => {
-		getBoxes()
-			.then(setBoxes)
-		getScans()
-			.then(setScans)
-	}, [])
-
+export default function Boxes({ boxes, scans }) {
 	return (
 		<Box
 			padding={3}
