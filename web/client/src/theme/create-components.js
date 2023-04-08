@@ -270,7 +270,8 @@ export function createComponents(config) {
           padding: '15px 16px',
           "&:hover:not(.Mui-disabled)": {
             cursor: "pointer"
-          }
+          },
+          textAlign: 'center'
         }
       }
     },
