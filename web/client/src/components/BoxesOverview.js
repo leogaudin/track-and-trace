@@ -1,10 +1,11 @@
-import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Box } from '@mui/material';
+import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Box, Tooltip } from '@mui/material';
 import { getBoxes, getScans } from '../service';
 import {
 	useState, useEffect
 } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
+import { timeAgo } from '../service/timeAgo'
 
 const statusMap = {
 	inprogress: 'warning',
@@ -15,6 +16,7 @@ const statusMap = {
 export default function BoxesOverview({ boxes, scans }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
+	const sortedBoxes = boxes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 	return (
 		<Card
@@ -37,7 +39,7 @@ export default function BoxesOverview({ boxes, scans }) {
 							<TableCell>
 								Recipient
 							</TableCell>
-							<TableCell sortDirection="desc">
+							<TableCell>
 								Created
 							</TableCell>
 							<TableCell>
@@ -46,8 +48,7 @@ export default function BoxesOverview({ boxes, scans }) {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{boxes.map((box) => {
-							const date = new Date(box?.createdAt);
+						{sortedBoxes.map((box) => {
 							return (
 								<TableRow id={box?.id} onClick={() => {
 									setBoxID(box?.id);
@@ -55,13 +56,17 @@ export default function BoxesOverview({ boxes, scans }) {
 								}}
 									hover={true}>
 									<TableCell>
-										<Typography fontFamily={'Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New'} fontSize={'.8rem'}>{box?.id}</Typography>
+										<Typography fontSize={'.8rem'}><code>{box?.id}</code></Typography>
 									</TableCell>
 									<TableCell>
 										{box?.school}
 									</TableCell>
 									<TableCell>
-										{date.getHours() + ":" + date.getMinutes() + ", " + date.toLocaleDateString()}
+										<Tooltip title={new Date(box?.createdAt).toUTCString()}>
+											<Typography fontSize={'.9rem'}>
+												{timeAgo(box?.createdAt)}
+											</Typography>
+										</Tooltip>
 									</TableCell>
 									<TableCell>
 										<SeverityPill color={statusMap['inprogress']}>
