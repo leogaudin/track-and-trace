@@ -1,6 +1,5 @@
 import { SvgIcon } from '@mui/material';
-import { Home as HomeIcon, Inventory as InventoryIcon } from '@mui/icons-material'
-
+import { Home as HomeIcon, Inventory as InventoryIcon, QrCodeScanner as QrCodeScannerIcon } from '@mui/icons-material'
 export const items = [
 	{
 		title: 'Home',
@@ -17,6 +16,15 @@ export const items = [
 		icon: (
 			<SvgIcon fontSize="small">
 				<InventoryIcon />
+			</SvgIcon>
+		)
+	},
+	{
+		title: 'Scans',
+		path: '/scans',
+		icon: (
+			<SvgIcon fontSize="small">
+				<QrCodeScannerIcon />
 			</SvgIcon>
 		)
 	},

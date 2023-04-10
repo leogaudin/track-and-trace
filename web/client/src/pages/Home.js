@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import BoxesOverview from '../components/BoxesOverview';
+import ScansOverview from '../components/ScansOverview';
 
 export default function Home({ boxes, scans }) {
 	return (
@@ -11,13 +12,13 @@ export default function Home({ boxes, scans }) {
 			alignItems='stretch'
 		>
 			<Grid item xs={4}>
-				<BoxesOverview boxes={boxes} scans={scans} />
+				<ScansOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={8}>
 				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={8}>
-				<BoxesOverview boxes={boxes} scans={scans} />
+				<ScansOverview boxes={boxes} scans={scans} />
 			</Grid>
 			<Grid item xs={4}>
 				<BoxesOverview boxes={boxes} scans={scans} />
