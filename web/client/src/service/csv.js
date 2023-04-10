@@ -40,8 +40,7 @@ export function handleCSV(files, incrementCounter, setLines) {
 		throw Error(isCSVValid(file));
 	file.text()
 		.then((data) => {
-			const lines = data.split("\n").length;
-			setLines(lines);
+			setLines(data.split("\n").length);
 			parseCSV(data, incrementCounter);
 		})
 }
