@@ -5,11 +5,12 @@ import { Avatar, Typography } from '@mui/material';
 import { Marker, MarkerLayer } from 'react-leaflet-marker';
 
 
-function Map({ scans }) {
+function Map({ scans, scansCount }) {
 	const [scansLoaded, setScansLoaded] = useState(false);
-
+	console.log(scans);
+	console.log(scansCount);
 	useEffect(() => {
-		if (scans.length > 0)
+		if (scans.length === scansCount)
 			setScansLoaded(true)
 	}, [scans])
 
@@ -21,7 +22,7 @@ function Map({ scans }) {
 		])
 	});
 
-	if (scansLoaded) {
+	if (scansLoaded && scansCount !== 0) {
 		return (
 			<MapContainer center={getLatLngCenter(coords)} zoom={20} scrollWheelZoom={true} style={{ minHeight: '20rem', minWidth: '30rem', borderRadius: 25 }}>
 				<TileLayer
@@ -38,9 +39,9 @@ function Map({ scans }) {
 										scan?.location.coords.longitude
 									]}
 									fill
-									fillColor={index + 1 === scans.length ? 'blue' : '#424242'}
+									fillColor={index + 1 === scans.length ? '#0B71E7' : 'white'}
 									fillOpacity={.7}
-									color={index + 1 === scans.length ? 'blue' : '#424242'}
+									color={index + 1 === scans.length ? '#0B71E7' : 'white'}
 									zIndexOffset={20}
 								>
 									<Popup>
@@ -53,10 +54,13 @@ function Map({ scans }) {
 						})
 					}
 				</LayerGroup>
-				<Polyline positions={coords} color='#424242' opacity={.7} />
+				<Polyline positions={coords} color='white' opacity={.7} />
 			</MapContainer >
 		);
-	} else {
+	} else if (scansCount === 0) {
+		return null;
+	}
+	else {
 		return (
 			// TODO: Implement cool loading
 			<Typography>Loading...</Typography>

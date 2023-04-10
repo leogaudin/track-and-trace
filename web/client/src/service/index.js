@@ -1,5 +1,19 @@
 import axios from 'axios';
 
+export function addBox(box) {
+	return new Promise(resolve => {
+		axios.post("http://localhost:3000/api/box", box, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => res.status === 201 && res.data)
+			.then(res => res.data)
+			.then(resolve)
+			.catch(console.error);
+	});
+}
+
 export function getBoxes() {
 	return new Promise(resolve => {
 		axios.get("http://localhost:3000/api/boxes")

@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BoxesOverview from '../components/BoxesOverview';
-import { Box } from '@mui/material';
+import { Box, ButtonBase, Card, CardContent, Grid, Typography } from '@mui/material';
+import Upload from '../components/Upload';
 
 export default function Boxes({ boxes, scans }) {
+	const [uploadOpen, setUploadOpen] = useState(false);
+
 	return (
-		<Box
+		<Grid
+			container
 			padding={3}
-			display={'flex'}
-			width={'100%'}
+			spacing={2}
+			alignItems='stretch'
 		>
-			<BoxesOverview boxes={boxes} scans={scans} />
-		</Box>
+			<Grid item xs={12}>
+				<Card>
+					<ButtonBase
+						style={{ width: '100%' }}
+						onClick={setUploadOpen}
+					>
+						<CardContent>
+							<Typography>
+								Upload boxes from a CSV
+							</Typography>
+						</CardContent>
+					</ButtonBase>
+				</Card>
+				<Upload open={uploadOpen} setOpen={setUploadOpen} />
+			</Grid>
+			<Grid item xs={12}>
+				<BoxesOverview boxes={boxes} scans={scans} />
+			</Grid>
+		</Grid>
 	);
 }

@@ -57,65 +57,66 @@ export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 								</CardContent>
 							</Card>
 						</Grid>
-						<Grid item xs={12}>
-							<Card>
-								<CardContent>
-									<Typography
-										color="text.secondary"
-										variant="overline"
-									>Scans</Typography>
-									<Table>
-										<TableHead>
-											<TableRow>
-												<TableCell>
-													Operator
-												</TableCell>
-												<TableCell>
-													Location
-												</TableCell>
-												<TableCell sortDirection={'asc'}>
-													Time
-												</TableCell>
-												<TableCell>
-													Comment
-												</TableCell>
-											</TableRow>
-										</TableHead>
-										<TableBody>
-											{scanData.map(scan => {
-												return (
-													<TableRow
-														id={scan?.id}
-														hover={true}
-													>
-														<TableCell>
-															<Typography><code>{scan?.operatorId}</code></Typography>
-														</TableCell>
-														<TableCell>
-															{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
-														</TableCell>
-														<TableCell>
-															<Tooltip title={new Date(scan?.time).toUTCString()}>
-																<Typography fontWeight={'bold'}>
-																	{timeAgo(scan?.time)}
+						{scanData.length > 0 ?
+							<Grid item xs={12}>
+								<Card>
+									<CardContent>
+										<Typography
+											color="text.secondary"
+											variant="overline"
+										>Scans</Typography>
+										<Table>
+											<TableHead>
+												<TableRow>
+													<TableCell>
+														Operator
+													</TableCell>
+													<TableCell>
+														Location
+													</TableCell>
+													<TableCell sortDirection={'asc'}>
+														Time
+													</TableCell>
+													<TableCell>
+														Comment
+													</TableCell>
+												</TableRow>
+											</TableHead>
+											<TableBody>
+												{scanData.map(scan => {
+													return (
+														<TableRow
+															id={scan?.id}
+															hover={true}
+														>
+															<TableCell>
+																<Typography><code>{scan?.operatorId}</code></Typography>
+															</TableCell>
+															<TableCell>
+																{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
+															</TableCell>
+															<TableCell>
+																<Tooltip title={new Date(scan?.time).toUTCString()}>
+																	<Typography fontWeight={'bold'}>
+																		{timeAgo(scan?.time)}
+																	</Typography>
+																</Tooltip>
+															</TableCell>
+															<TableCell>
+																<Typography fontSize={'smaller'} fontStyle={'italic'}>
+																	{scan?.comment}
 																</Typography>
-															</Tooltip>
-														</TableCell>
-														<TableCell>
-															<Typography fontSize={'smaller'} fontStyle={'italic'}>
-																{scan?.comment}
-															</Typography>
-														</TableCell>
-													</TableRow>
-												)
-											})}
-										</TableBody>
-									</Table>
-								</CardContent>
-							</Card>
-						</Grid>
+															</TableCell>
+														</TableRow>
+													)
+												})}
+											</TableBody>
+										</Table>
+									</CardContent>
+								</Card>
+							</Grid> : null}
 					</Grid>
-					<Map scans={scanData} />
+					<Map scans={scanData} scansCount={scanData.length} />
 				</Stack>
 			</DialogContent>
 		</Dialog >

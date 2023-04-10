@@ -16,7 +16,7 @@ const createBox = async (req, res) => {
     if (existentBox) {
         return res.status(409).json({
             success: false,
-            error: 'A box with this ID already exists',
+            error: 'A box with this ID already exists: box n°' + existentBox.id,
         })
     }
 
