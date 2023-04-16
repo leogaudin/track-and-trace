@@ -14,6 +14,19 @@ export function addBox(box) {
 	});
 }
 
+export function addBoxes(boxes) {
+	return new Promise(resolve => {
+		axios.post("http://localhost:3000/api/boxes", boxes, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => (res.status === 201 || res.status === 206) && res.data)
+			.then(resolve)
+			.catch(console.error);
+	});
+}
+
 export function getBoxes() {
 	return new Promise(resolve => {
 		axios.get("http://localhost:3000/api/boxes")

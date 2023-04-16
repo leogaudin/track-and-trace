@@ -43,6 +43,60 @@ const createBox = async (req, res) => {
         })
 }
 
+const createBoxes = async (req, res) => {
+    const boxes = req.body;
+
+    const validBoxesToCreate = [];
+    const invalidBoxes = [];
+
+    for (const box of boxes) {
+        box.createdAt = new Date().getTime();
+
+        if (!box.id) {
+            invalidBoxes.push({
+                box,
+                error: 'You must provide an id for the box',
+            });
+            continue;
+        }
+
+        const existentBox = await Box.findOne({ id: box.id });
+
+        if (existentBox) {
+            invalidBoxes.push({
+                box,
+                error: 'A box with this ID already exists: box n°' + existentBox.id,
+            });
+            continue;
+        }
+
+        validBoxesToCreate.push(new Box(box));
+    }
+
+    Box.insertMany(validBoxesToCreate)
+        .then(() => {
+            if (invalidBoxes.length > 0) {
+                return res.status(206).json({
+                    success: true,
+                    message: 'Some boxes were not created',
+                    invalidBoxes,
+                });
+            } else {
+                return res.status(201).json({
+                    success: true,
+                    message: 'Boxes created!',
+                });
+            }
+        })
+        .catch((error) => {
+            return res.status(400).json({
+                error,
+                message: 'Boxes not created!',
+            });
+        });
+};
+
+
 const getBoxById = async (req, res) => {
     try {
         const box = await Box.findOne({ id: req.params.id })
@@ -94,9 +148,9 @@ const deleteBox = async (req, res) => {
     }
 };
 
-
 module.exports = {
     createBox,
+    createBoxes,
     deleteBox,
     getBoxes,
     getBoxById,
