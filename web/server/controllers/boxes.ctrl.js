@@ -80,11 +80,13 @@ const createBoxes = async (req, res) => {
                     success: true,
                     message: 'Some boxes were not created',
                     invalidBoxes,
+                    validBoxesToCreate,
                 });
             } else {
                 return res.status(201).json({
                     success: true,
                     message: 'Boxes created!',
+                    validBoxesToCreate,
                 });
             }
         })
