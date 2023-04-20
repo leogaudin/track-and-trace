@@ -46,10 +46,10 @@ export default function ScansOverview({ boxes, scans }) {
 									hover={true}
 								>
 									<TableCell>
-										<Typography><code>{scan?.boxId}</code></Typography>
+										<Typography fontSize={'.8rem'}><code>{scan?.boxId}</code></Typography>
 									</TableCell>
 									<TableCell>
-										<Typography><code>{scan?.operatorId}</code></Typography>
+										<Typography fontSize={'.8rem'}><code>{scan?.operatorId}</code></Typography>
 									</TableCell>
 									<TableCell>
 										{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
