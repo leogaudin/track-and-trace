@@ -7,8 +7,6 @@ import { Marker, MarkerLayer } from 'react-leaflet-marker';
 
 function Map({ scans, scansCount }) {
 	const [scansLoaded, setScansLoaded] = useState(false);
-	console.log(scans);
-	console.log(scansCount);
 	useEffect(() => {
 		if (scans.length === scansCount)
 			setScansLoaded(true)
