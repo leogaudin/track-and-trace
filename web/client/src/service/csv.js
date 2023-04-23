@@ -33,10 +33,10 @@ function parseCSV(text, setUploadProgress, results, setResults) {
 }
 
 function uploadBoxes(boxes, setUploadProgress, setResults) {
-	const BOXES_LENGTH = boxes.length;
+	const BOXES_LENGTH = boxes.length - 1;
 	const BUFFER_SIZE = 21;
 	let uploaded = 0;
-	for (let i = 0; i < boxes.length; i += BUFFER_SIZE) {
+	for (let i = 1; i < boxes.length; i += BUFFER_SIZE) {
 		const chunk = boxes.slice(i, i + BUFFER_SIZE);
 		addBoxes(chunk)
 			.then((success) => {
