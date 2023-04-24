@@ -57,12 +57,14 @@ function createSummary(results) {
 		validBoxesToCreate: []
 	};
 	results.forEach((result) => {
-		result.invalidBoxes.forEach((box) => {
-			output.invalidBoxes.push(box);
-		})
-		result.validBoxesToCreate.forEach((box) => {
-			output.validBoxesToCreate.push(box);
-		})
+		if (result.hasOwnProperty('invalidBoxes'))
+			result.invalidBoxes.forEach((box) => {
+				output.invalidBoxes.push(box);
+			})
+		if (result.hasOwnProperty('validBoxesToCreate'))
+			result.validBoxesToCreate.forEach((box) => {
+				output.validBoxesToCreate.push(box);
+			})
 	})
 	return (output);
 }
