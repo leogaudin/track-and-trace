@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { handleCSV } from '../service/csv';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import UploadSummary from '../components/UploadSummary';
-import { Dialog, DialogContent } from "@mui/material";
+import { Dialog, DialogContent, Typography } from "@mui/material";
 
 export default function Upload({ open, setOpen }) {
 	const [hover, setHover] = useState(false);
@@ -38,7 +38,8 @@ export default function Upload({ open, setOpen }) {
 	};
 
 	function handleClose() {
-		setOpen(false);
+		if (!isLoading && !isComplete)
+			setOpen(false);
 	}
 
 	return (
@@ -55,7 +56,8 @@ export default function Upload({ open, setOpen }) {
 					style={{
 						minWidth: '25rem',
 						minHeight: '25rem',
-						backgroundColor: hover ? '#0B71E7' : 'white',
+						backgroundColor: hover ? '#10B981' : '#fff',
+						borderRadius: '1rem',
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
@@ -78,7 +80,7 @@ export default function Upload({ open, setOpen }) {
 					}
 					{
 						!isLoading && !isComplete
-							? <p>Drag files here to upload</p>
+							? <Typography variant='overline'>{hover ? "Drop!" : "Click or Drag files here to upload"}</Typography>
 							: null
 					}
 				</div>
