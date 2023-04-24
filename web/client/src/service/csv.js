@@ -8,7 +8,7 @@ function isCSVValid(file) {
 	return 1;
 }
 
-function parseCSV(text, setUploadProgress, results, setResults) {
+function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete) {
 	let boxes = [];
 	Papa.parse(text, {
 		worker: true,
@@ -27,12 +27,12 @@ function parseCSV(text, setUploadProgress, results, setResults) {
 			boxes.push(box);
 		},
 		complete: () => {
-			uploadBoxes(boxes, setUploadProgress, setResults);
+			uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete);
 		}
 	})
 }
 
-function uploadBoxes(boxes, setUploadProgress, setResults) {
+function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete) {
 	const BOXES_LENGTH = boxes.length - 1;
 	const BUFFER_SIZE = 21;
 	let uploaded = 0;
@@ -43,10 +43,11 @@ function uploadBoxes(boxes, setUploadProgress, setResults) {
 				uploaded += chunk.length;
 				setUploadProgress(uploaded / BOXES_LENGTH);
 				setResults(results => [...results, success]);
-				if (uploaded === BOXES_LENGTH)
-					setResults((results) => {
-						return (createSummary(results));
-					});
+				if (uploaded === BOXES_LENGTH) {
+					setResults(results => createSummary(results));
+					setIsLoading(false);
+					setComplete(true);
+				}
 			})
 	}
 }
@@ -69,7 +70,7 @@ function createSummary(results) {
 	return (output);
 }
 
-export function handleCSV(files, setUploadProgress, results, setResults) {
+export function handleCSV(files, setUploadProgress, setResults, setIsLoading, setComplete) {
 	const file = files[0];
 	// check if the file is a csv
 	if (isCSVValid(file) !== 1)
@@ -80,9 +81,10 @@ export function handleCSV(files, setUploadProgress, results, setResults) {
 			parseCSV(
 				data,
 				setUploadProgress,
-				results,
-				setResults
-			);
+				setResults,
+				setIsLoading,
+				setComplete
+			)
 		})
 		.catch((error) => {
 			console.log(error);
