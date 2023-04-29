@@ -67,48 +67,44 @@ export default function Upload({ open, setOpen }) {
 			maxWidth
 		>
 			<DialogContent>
-				<div
-					className={'drag-drop-zone'}
-					style={{
-						minWidth: '25rem',
-						minHeight: '25rem',
-						backgroundColor: hover ? '#10B981' : '#fff',
-						borderRadius: '1rem',
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						flexDirection: 'column'
-					}}
-					onDrop={e => handleDrop(e)}
-					onDragOver={e => handleDragOver(e)}
-					onDragEnter={e => handleDragEnter(e)}
-					onDragLeave={e => handleDragLeave(e)}
-					onClick={e => handleClick(e)}
-				>
-					<input
-						type='file'
-						id='file'
-						ref={inputFile}
-						onChange={onChangeFile}
-						style={{ display: 'none' }}
-						accept='.csv'
-					/>
-					{isLoading && !isComplete ?
-						(
-							<CircularProgressWithLabel color='success' value={uploadProgress * 100} />
-						) :
-						null
-					}
-					{!isLoading && isComplete ?
-						<UploadSummary results={results} open={open} setOpen={setOpen} />
-						: null
-					}
-					{
-						!isLoading && !isComplete
-							? <Typography variant='overline'>{hover ? "Drop!" : "Click or Drag files here to upload"}</Typography>
-							: null
-					}
-				</div>
+				{!isComplete ?
+					<div
+						className={'drag-drop-zone'}
+						style={{
+							minWidth: '25rem',
+							minHeight: '25rem',
+							backgroundColor: hover ? '#10B981' : '#fff',
+							borderRadius: '1rem',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							flexDirection: 'column'
+						}}
+						onDrop={e => handleDrop(e)}
+						onDragOver={e => handleDragOver(e)}
+						onDragEnter={e => handleDragEnter(e)}
+						onDragLeave={e => handleDragLeave(e)}
+						onClick={e => handleClick(e)}
+					>
+						<input
+							type='file'
+							id='file'
+							ref={inputFile}
+							onChange={onChangeFile}
+							style={{ display: 'none' }}
+							accept='.csv'
+						/>
+						{isLoading
+							? <CircularProgressWithLabel
+								color='success'
+								value={uploadProgress * 100}
+							/>
+							: <Typography
+								variant='overline'>
+								{hover ? "Drop!" : "Click or Drag files here to upload"}
+							</Typography>}
+					</div>
+					: <UploadSummary results={results} open={open} setOpen={setOpen} />}
 			</DialogContent>
 		</Dialog>
 	);
