@@ -1,12 +1,11 @@
 import { Dialog, DialogContent, Card, Stack, Typography, CardContent, Tooltip, Table, TableHead, TableCell, TableRow, TableBody, Grid } from "@mui/material";
 import QRCode from "react-qr-code";
-import { getBox } from "../service";
-import { useEffect, useState } from "react";
 import { timeAgo } from "../service/timeAgo";
 import { feature as getCountryName } from '@rapideditor/country-coder';
 import Map from "./Map";
+import ScansOverview from "./ScansOverview";
 
-export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
+export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 
 	function handleClose() {
 		setOpen(false);
@@ -57,64 +56,11 @@ export default function BoxSummary({ scans, boxes, id, open, setOpen }) {
 								</CardContent>
 							</Card>
 						</Grid>
-						{scanData.length > 0 ?
+						{scanData.length ?
 							<Grid item xs={12}>
-								<Card>
-									<CardContent>
-										<Typography
-											color="text.secondary"
-											variant="overline"
-										>Scans</Typography>
-										<Table>
-											<TableHead>
-												<TableRow>
-													<TableCell>
-														Operator
-													</TableCell>
-													<TableCell>
-														Location
-													</TableCell>
-													<TableCell sortDirection={'asc'}>
-														Time
-													</TableCell>
-													<TableCell>
-														Comment
-													</TableCell>
-												</TableRow>
-											</TableHead>
-											<TableBody>
-												{scanData.map(scan => {
-													return (
-														<TableRow
-															id={scan?.id}
-															hover={true}
-														>
-															<TableCell>
-																<Typography><code>{scan?.operatorId}</code></Typography>
-															</TableCell>
-															<TableCell>
-																{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
-															</TableCell>
-															<TableCell>
-																<Tooltip title={new Date(scan?.time).toUTCString()}>
-																	<Typography fontWeight={'bold'}>
-																		{timeAgo(scan?.time)}
-																	</Typography>
-																</Tooltip>
-															</TableCell>
-															<TableCell>
-																<Typography fontSize={'smaller'} fontStyle={'italic'}>
-																	{scan?.comment}
-																</Typography>
-															</TableCell>
-														</TableRow>
-													)
-												})}
-											</TableBody>
-										</Table>
-									</CardContent>
-								</Card>
-							</Grid> : null}
+								<ScansOverview boxes={boxes} scans={scanData} disableDialogs />
+							</Grid>
+							: null}
 					</Grid>
 					<Map scans={scanData} scansCount={scanData.length} />
 				</Stack>
