@@ -1,76 +1,50 @@
 import axios from 'axios';
 
-export function addBox(box) {
-	return new Promise(resolve => {
-		axios.post("http://localhost:3000/api/box", box, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => res.status === 201 && res.data)
-			.then(res => res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+const BASE_URL = 'http://localhost:3000/api';
+
+function sendRequest(method, endpoint, data = null) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: method,
+      url: `${BASE_URL}/${endpoint}`,
+      data: data,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status >= 200 && response.status < 300) {
+          resolve(response.data.data);
+        } else {
+          reject(new Error(`Request failed with status code ${response.status}`));
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
-export function addBoxes(boxes) {
-	return new Promise(resolve => {
-		axios.post("http://localhost:3000/api/boxes", boxes, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(res => (res.status === 201 || res.status === 206) && res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+export async function addBox(box) {
+  return await sendRequest('post', 'box', box);
 }
 
-export function getBoxes() {
-	return new Promise(resolve => {
-		axios.get("http://localhost:3000/api/boxes")
-			.then(res => res.status === 200 && res.data)
-			.then(res => res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+export async function addBoxes(boxes) {
+  return await sendRequest('post', 'boxes', boxes);
 }
 
-export function getBox(id) {
-	return new Promise(resolve => {
-		axios.get("http://localhost:3000/api/box/" + id)
-			.then(res => res.status === 200 && res.data)
-			.then(res => res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+export async function getBoxes() {
+  return await sendRequest('get', 'boxes');
 }
 
-export function getScans() {
-	return new Promise(resolve => {
-		axios.get("http://localhost:3000/api/scans")
-			.then(res => res.status === 200 && res.data)
-			.then(res => res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+export async function getBox(id) {
+  return await sendRequest('get', `box/${id}`);
 }
 
-export function getAdmins() {
-	return new Promise(resolve => {
-		axios.get("http://localhost:3000/api/admins")
-			.then(res => res.status === 200 && res.data)
-			.then(res => res.data)
-			.then(resolve)
-			.catch(console.error);
-	});
+export async function getScans() {
+  return await sendRequest('get', 'scans');
 }
 
-export function getCity(latitude, longitude) {
-	return new Promise(resolve => {
-		axios.get('https://api-bdc.net/data/reverse-geocode?latitude=' + latitude + '&longitude=' + longitude + '&localityLanguage=en&key=' + 'bdc_e27b27abd76b4c5dba5671d1de24d039')
-			.then(res => res.data.city + ', ' + res.data.countryName)
-			.then(resolve)
-	})
+export async function getAdmins() {
+  return await sendRequest('get', 'admins');
 }
