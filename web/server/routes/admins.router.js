@@ -3,7 +3,7 @@ const AdminCtrl = require('../controllers/admins.ctrl');
 
 const router = express.Router();
 
-router.post('/admin', AdminCtrl.addAdmin);
+router.post('/admin', AdminCtrl.createAdmin);
 router.delete('/admin/:id', AdminCtrl.deleteAdmin);
 router.get('/admin/:id', AdminCtrl.getAdminById);
 router.get('/admins', AdminCtrl.getAdmins);
