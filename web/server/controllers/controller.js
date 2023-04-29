@@ -86,9 +86,8 @@ const createMany = (Model) => async (req, res) => {
 const getById = (Model) => async (req, res) => {
     try {
         const instance = await Model.findOne({ id: req.params.id });
-        if (!instance) {
+        if (!instance)
             return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
-        }
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
@@ -99,9 +98,8 @@ const getById = (Model) => async (req, res) => {
 const getAll = (Model) => async (req, res) => {
     try {
         const instances = await Model.find({});
-        if (!instances.length) {
+        if (!instances.length)
             return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
-        }
         return res.status(200).json({ success: true, data: instances });
     } catch (error) {
         console.log(error);
@@ -114,9 +112,8 @@ const getAll = (Model) => async (req, res) => {
 const deleteOne = (Model) => async (req, res) => {
     try {
         const instance = await Model.findOneAndDelete({ id: req.params.id });
-        if (!instance) {
+        if (!instance)
             return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
-        }
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
