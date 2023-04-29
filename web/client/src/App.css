@@ -1,3 +1,7 @@
 .App {
   display: flex;
 }
+
+.drag-drop-zone:hover {
+  cursor: pointer;
+}

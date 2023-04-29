@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { handleCSV } from '../service/csv';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import UploadSummary from '../components/UploadSummary';
@@ -10,6 +10,7 @@ export default function Upload({ open, setOpen }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [results, setResults] = useState([]);
 	const [isComplete, setComplete] = useState(false);
+	const inputFile = useRef(null);
 
 	const handleDragEnter = e => {
 		e.preventDefault();
@@ -31,11 +32,26 @@ export default function Upload({ open, setOpen }) {
 
 	const handleDrop = e => {
 		e.preventDefault();
-		setIsLoading(true);
-		handleCSV(e.dataTransfer.files, setUploadProgress, setResults, setIsLoading, setComplete);
-		setHover(false);
+		onChangeFile(e);
 		e.stopPropagation();
 	};
+
+	const handleClick = e => {
+		inputFile.current.click();
+		e.stopPropagation();
+	}
+
+	const onChangeFile = e => {
+		let files = [];
+		e.preventDefault();
+		setIsLoading(true);
+		setHover(false);
+		if (e.dataTransfer && e.dataTransfer.files)
+			files = e.dataTransfer.files;
+		else if (e.target.files)
+			files = e.target.files;
+		handleCSV(files, setUploadProgress, setResults, setIsLoading, setComplete);
+	}
 
 	function handleClose() {
 		if (!isLoading && !isComplete)
@@ -67,7 +83,16 @@ export default function Upload({ open, setOpen }) {
 					onDragOver={e => handleDragOver(e)}
 					onDragEnter={e => handleDragEnter(e)}
 					onDragLeave={e => handleDragLeave(e)}
+					onClick={e => handleClick(e)}
 				>
+					<input
+						type='file'
+						id='file'
+						ref={inputFile}
+						onChange={onChangeFile}
+						style={{ display: 'none' }}
+						accept='.csv'
+					/>
 					{isLoading && !isComplete ?
 						(
 							<CircularProgressWithLabel color='success' value={uploadProgress * 100} />
