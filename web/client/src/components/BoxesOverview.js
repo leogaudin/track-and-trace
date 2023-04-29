@@ -6,6 +6,7 @@ import {
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'
+import SkeletonTable from './SkeletonTable';
 
 const statusMap = {
 	inprogress: 'warning',
@@ -80,18 +81,7 @@ export default function BoxesOverview({ boxes, scans, limit, pageSize = 10 }) {
 					)
 					:
 					(
-						<Stack direction={'column'} spacing={1}>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-							<Skeleton variant='rounded' height={50}/>
-						</Stack>
+						<SkeletonTable rows={10}/>
 					)
 				}
 				<BoxSummary
