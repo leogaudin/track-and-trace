@@ -287,7 +287,10 @@ export function createComponents(config) {
             fontWeight: 600,
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            "&:hover:not(.Mui-disabled)": {
+              cursor: "initial"
+            },
           },
           [`& .${tableCellClasses.paddingCheckbox}`]: {
             paddingTop: 4,
