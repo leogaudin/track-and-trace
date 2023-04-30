@@ -2,10 +2,7 @@ import Papa from 'papaparse';
 import { addBoxes } from './index';
 
 function isCSVValid(file) {
-	// check if the file is a csv
-	if (file.type !== 'text/csv')
-		return 'File is not CSV';
-	return 1;
+	return file.type === 'text/csv';
 }
 
 function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete) {
@@ -13,18 +10,18 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 	Papa.parse(text, {
 		worker: true,
 		step: (element) => {
-			const box = {
-				id: element.data[0],
-				division: element.data[1],
-				district: element.data[2],
-				zone: element.data[3],
-				school: element.data[4],
-				htName: element.data[5],
-				htPhone: element.data[6],
-				institutionType: element.data[7],
+			const [id, division, district, zone, school, htName, htPhone, institutionType] = element.data;
+			boxes.push({
+				id,
+				division,
+				district,
+				zone,
+				school,
+				htName,
+				htPhone,
+				institutionType,
 				adminId: 'lecuistot'
-			};
-			boxes.push(box);
+			});
 		},
 		complete: () => {
 			uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete);
@@ -53,40 +50,20 @@ function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComp
 }
 
 function createSummary(results) {
-	let output = {
-		invalidBoxes: [],
-		validBoxesToCreate: []
-	};
-	results.forEach((result) => {
-		if (result.hasOwnProperty('invalidBoxes'))
-			result.invalidBoxes.forEach((box) => {
-				output.invalidBoxes.push(box);
-			})
-		if (result.hasOwnProperty('validBoxesToCreate'))
-			result.validBoxesToCreate.forEach((box) => {
-				output.validBoxesToCreate.push(box);
-			})
-	})
-	return (output);
+	const invalid = results.flatMap((res) => res['invalidInstances'] || []);
+	const valid = results.flatMap((res) => res['validInstances'] || []);
+	return { invalid, valid };
 }
 
-export function handleCSV(files, setUploadProgress, setResults, setIsLoading, setComplete) {
+export async function handleCSV(files, setUploadProgress, setResults, setIsLoading, setComplete) {
 	const file = files[0];
-	// check if the file is a csv
-	if (isCSVValid(file) !== 1)
-		throw Error(isCSVValid(file));
-	// parse the csv file
-	file.text()
-		.then((data) => {
-			parseCSV(
-				data,
-				setUploadProgress,
-				setResults,
-				setIsLoading,
-				setComplete
-			)
-		})
-		.catch((error) => {
-			console.log(error);
-		})
+	if (!isCSVValid(file)) {
+		throw Error('File is not CSV');
+	}
+	try {
+		const data = await file.text();
+		parseCSV(data, setUploadProgress, setResults, setIsLoading, setComplete);
+	} catch (error) {
+		console.log(error);
+	}
 }

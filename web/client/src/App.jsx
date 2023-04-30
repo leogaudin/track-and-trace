@@ -17,9 +17,9 @@ function App() {
 
 	useEffect(() => {
 		getBoxes()
-			.then(setBoxes)
+			.then(res => setBoxes(res.data))
 		getScans()
-      .then(setScans)
+    .then(res => setScans(res.data))
 	}, [])
 
   return (

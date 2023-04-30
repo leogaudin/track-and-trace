@@ -14,7 +14,7 @@ function sendRequest(method, endpoint, data = null) {
     })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
-          resolve(response.data.data);
+          resolve(response.data);
         } else {
           reject(new Error(`Request failed with status code ${response.status}`));
         }

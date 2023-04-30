@@ -17,10 +17,10 @@ export default function UploadSummary({ results, open, setOpen }) {
 				<Typography textAlign={'center'} variant='overline'>Summary</Typography>
 				<Stack direction={'row'} spacing={2} alignItems={'stretch'}>
 					{
-						results.hasOwnProperty('validBoxesToCreate') && results.validBoxesToCreate.length > 0
+						results.hasOwnProperty('valid') && results.valid.length > 0
 							? (
 								<Stack direction={'column'} spacing={2}>
-									{results.validBoxesToCreate.map((box) => {
+									{results.valid.map((box) => {
 										return (
 											<Alert key={box.id} severity={'success'}>
 												Box n°{box.id} was successfully created.
@@ -31,12 +31,12 @@ export default function UploadSummary({ results, open, setOpen }) {
 							) : null
 					}
 					{
-						results.hasOwnProperty('invalidBoxes') && results.invalidBoxes.length > 0
+						results.hasOwnProperty('invalid') && results.invalid.length > 0
 							? (
 								<Stack direction={'column'} spacing={2}>
-									{results.invalidBoxes.map((box) => {
+									{results.invalid.map((box) => {
 										return (
-											<Alert key={box.box.id} severity={'error'}>
+											<Alert key={box.instance.id} severity={'error'}>
 												{box.error}
 											</Alert>
 										);
