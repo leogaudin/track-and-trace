@@ -10,6 +10,7 @@ const scansRouter = require('./routes/scans.router');
 const adminsRouter = require('./routes/admins.router');
 
 const app = express();
+app.disable('x-powered-by');
 const apiPort = 3000;
 
 dotenv.config();
