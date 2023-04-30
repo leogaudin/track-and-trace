@@ -37,7 +37,8 @@ export default function Upload({ open, setOpen }) {
 	};
 
 	const handleClick = e => {
-		inputFile.current.click();
+		if (!isLoading)
+			inputFile.current.click();
 		e.stopPropagation();
 	}
 
@@ -69,7 +70,7 @@ export default function Upload({ open, setOpen }) {
 			<DialogContent>
 				{!isComplete ?
 					<div
-						className={'drag-drop-zone'}
+						className={isLoading ? null : 'drag-drop-zone'}
 						style={{
 							minWidth: '25rem',
 							minHeight: '25rem',
@@ -78,7 +79,7 @@ export default function Upload({ open, setOpen }) {
 							display: 'flex',
 							justifyContent: 'center',
 							alignItems: 'center',
-							flexDirection: 'column'
+							flexDirection: 'column',
 						}}
 						onDrop={e => handleDrop(e)}
 						onDragOver={e => handleDragOver(e)}
