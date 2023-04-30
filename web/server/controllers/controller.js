@@ -1,7 +1,7 @@
 const createOne = (Model) => async (req, res) => {
     try {
         const body = req.body;
-		body.createdAt = new Date().getTime();
+        body.createdAt = new Date().getTime();
         if (!body) {
             return res.status(400).json({
                 success: false,
@@ -57,7 +57,7 @@ const createMany = (Model) => async (req, res) => {
                 });
                 continue;
             }
-			instance.createdAt = new Date().getTime();
+            instance.createdAt = new Date().getTime();
 
             validInstances.push(new Model(instance));
         }
@@ -122,9 +122,9 @@ const deleteOne = (Model) => async (req, res) => {
 };
 
 module.exports = {
-	createOne,
-	createMany,
-	getById,
-	getAll,
-	deleteOne,
+    createOne,
+    createMany,
+    getById,
+    getAll,
+    deleteOne,
 };
