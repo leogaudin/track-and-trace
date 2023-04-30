@@ -117,7 +117,7 @@ const deleteOne = (Model) => async (req, res) => {
     try {
         const instance = await Model.findOneAndDelete({ id: req.params.id });
         if (!instance)
-        return handle404Error(Model, res);
+            return handle404Error(Model, res);
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
