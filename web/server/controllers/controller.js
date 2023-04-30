@@ -1,3 +1,7 @@
+const handle404Error = (Model, res) => {
+    return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
+};
+
 const createOne = (Model) => async (req, res) => {
     try {
         const body = req.body;
@@ -87,7 +91,7 @@ const getById = (Model) => async (req, res) => {
     try {
         const instance = await Model.findOne({ id: req.params.id });
         if (!instance)
-            return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
+            return handle404Error(Model, res);
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
@@ -99,7 +103,7 @@ const getAll = (Model) => async (req, res) => {
     try {
         const instances = await Model.find({});
         if (!instances.length)
-            return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
+            return handle404Error(Model, res);
         return res.status(200).json({ success: true, data: instances });
     } catch (error) {
         console.log(error);
@@ -113,7 +117,7 @@ const deleteOne = (Model) => async (req, res) => {
     try {
         const instance = await Model.findOneAndDelete({ id: req.params.id });
         if (!instance)
-            return res.status(404).json({ success: false, error: `${Model.modelName} not found` });
+        return handle404Error(Model, res);
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
