@@ -12,6 +12,13 @@ export default function Scanner() {
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState('');
 
+  const handleRead = e => {
+    if (!modalVisible) {
+      setData(e.data);
+      setModalVisible(true);
+    }
+  };
+
   return (
     <View>
       <ResultModal
@@ -25,12 +32,7 @@ export default function Scanner() {
         reactivate={true}
         reactivateTimeout={3000}
         cameraStyle={[globalStyles.camera]}
-        onRead={e => {
-          if (!modalVisible) {
-            setData(e.data);
-            setModalVisible(true);
-          }
-        }}
+        onRead={handleRead}
         flashMode={
           flash
             ? RNCamera.Constants.FlashMode.torch
