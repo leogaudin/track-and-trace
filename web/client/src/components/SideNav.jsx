@@ -28,7 +28,6 @@ const getContent = (location, items) => {
   )
 }
 
-
 export const SideNav = () => {
   const location = useLocation();
   const content = getContent(location, items);
