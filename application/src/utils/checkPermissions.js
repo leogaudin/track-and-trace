@@ -13,7 +13,7 @@ Otherwise requests the permission, then checks again.
 @param permission The permission to check (e.g., PERMISSIONS.IOS.CAMERA or PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION).
 @returns true if the app has access to the permission, false otherwise.
 */
-export const handlePermission = async (permission: Permission) => {
+export const handlePermission = async (permission) => {
   const res = await check(permission);
   if (res === RESULTS.GRANTED) {
     return true;

@@ -19,7 +19,7 @@ import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
 import SparkMD5 from 'spark-md5';
 
-function sendScan(json: String) {
+function sendScan(json) {
   return new Promise(resolve => {
     axios
       .post('http://192.168.146.29:3000/api/scan', json, {
@@ -39,17 +39,9 @@ function sendScan(json: String) {
  * @param   data the JSON formatted content of the QR Code
  * @returns the modal view
  */
-export default function Result({
-  modalVisible,
-  setModalVisible,
-  data,
-}: {
-  modalVisible: boolean;
-  setModalVisible: any;
-  data: String;
-}) {
+export default function Result({modalVisible, setModalVisible, data}) {
   const [locationLoaded, setLocationLoaded] = useState(false);
-  const [userLocation, setUserLocation] = useState<any>({});
+  const [userLocation, setUserLocation] = useState({});
   const [componentMounted, setComponentMounted] = useState(false);
   const [comment, setComment] = useState('');
   const [timestamp, setTimestamp] = useState(Date.now());
@@ -85,9 +77,9 @@ export default function Result({
       <Modal
         style={[globalStyles.view, {backgroundColor: 'black'}]}
         visible={modalVisible}
-        transparent={true}
+        transparent
         animationType={'slide'}
-        hardwareAccelerated={true}
+        hardwareAccelerated
         onRequestClose={() => {
           setModalVisible(false);
         }}>

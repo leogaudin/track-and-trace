@@ -14,18 +14,12 @@ import globalStyles from '../../styles/GlobalStyles';
 import PhoneInput from 'react-native-phone-number-input';
 import {storeString} from '../../utils/asyncStorage';
 
-export default function Login({
-  modalVisible,
-  setModalVisible,
-}: {
-  modalVisible: boolean;
-  setModalVisible: any;
-}) {
+export default function Login({modalVisible, setModalVisible}) {
   const [componentMounted, setComponentMounted] = useState(false);
   const [number, setNumber] = useState('');
   const [formattedNumber, setFormattedNumber] = useState('');
   const [isNumberValid, setIsNumberValid] = useState(true);
-  const phoneInput = useRef<PhoneInput>(null);
+  const phoneInput = useRef(null);
 
   useEffect(() => {
     setComponentMounted(true);

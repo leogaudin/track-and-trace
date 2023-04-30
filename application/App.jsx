@@ -13,25 +13,13 @@ import RNRestart from 'react-native-restart';
 import Login from './src/components/organisms/Login';
 import {getString} from './src/utils/asyncStorage';
 
-/**
- * Entry point of the app.
- * First checks the permissions, and adapts the render depending on them.
- * @returns the appropriate view: if all permissions are good, the scanner, if not, the warning message.
- */
-function App(): JSX.Element {
+export default function App() {
   const [hasPermissions, setHasPermissions] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
-  /**
-   *
-   * @param arr an array of booleans to check.
-   * @returns   true if all the values are true, false otherwise.
-   */
-  let checker = (arr: Boolean[]) => arr.every(Boolean);
+
+  let checker = (arr) => arr.every(Boolean);
 
   useEffect(() => {
-    /**
-     * Checks the necessary permissions.
-     */
     if (Platform.OS === 'ios') {
       Promise.all([
         handleCameraPermissionIOS(),
@@ -47,9 +35,7 @@ function App(): JSX.Element {
         setHasPermissions(checker(permissions));
       });
     }
-    /**
-     * Checks if the user is already logged in.
-     */
+
     getString('user_number').then(e => {
       if (e == null) {
         setLoginVisible(true);
@@ -57,9 +43,6 @@ function App(): JSX.Element {
     });
   }, []);
 
-  /**
-   * If the user is not logged in, shows the login modal and nothing else.
-   */
   if (loginVisible) {
     return (
       <View>
@@ -67,9 +50,6 @@ function App(): JSX.Element {
       </View>
     );
   }
-  /**
-   * Renders a different view depending on the state of the permissions.
-   */
   if (hasPermissions) {
     return (
       <View>
@@ -103,5 +83,3 @@ function App(): JSX.Element {
     );
   }
 }
-
-export default App;
