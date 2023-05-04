@@ -5,7 +5,7 @@
 	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
 	<p><i>A lightweight JavaScript track-and-trace solution.</i></p>
 	<h2 id="core">Core</h2>
-	<h3 id="qr-codes-scanner">QR Codes Scanner :white_check_mark:</h3>
+	<h3 id="qr-code-scanner">QR Code Scanner :white_check_mark:</h3>
 	<table>
 		<thead>
 			<tr>
@@ -59,7 +59,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h3 id="dashboard-and-g-n-rator-of-qr-codes">Dashboard and QR Code Generator</h3>
+	<h3 id="dashboard">Dashboard and QR Code Generator</h3>
 	<table>
 		<thead>
 			<tr>
