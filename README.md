@@ -4,13 +4,13 @@
 	<img src="https://img.shields.io/static/v1?label=android&message=%3E%205%2E0&color=brightgreen" />
 	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
 	<p><i>A lightweight JavaScript track-and-trace solution.</i></p>
-	<h2 id="tronc-de-l-application">Tronc de l&#39;application</h2>
-	<h3 id="scanner-de-qr-codes">Scanner de QR Codes :white_check_mark:</h3>
+	<h2 id="core">Core</h2>
+	<h3 id="qr-codes-scanner">QR Codes Scanner :white_check_mark:</h3>
 	<table>
 		<thead>
 			<tr>
-				<th>Composant</th>
-				<th>Statut</th>
+				<th>Component</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,104 +19,104 @@
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Récupération des métadonnées</td>
+				<td>Metadata retrieval</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Formulaire d&#39;envoi</td>
+				<td>Submitting form</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Identification de l&#39;opérateur</td>
+				<td>Operator identification</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Envoi des données au serveur</td>
-				<td>:white_check_mark:</td>
-			</tr>
-		</tbody>
-	</table>
-	<h3 id="bases-de-donn-es">Bases de données :white_check_mark:</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Composant</th>
-				<th>Statut</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Base de données de distribution</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Base de données des administrateurs</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Base de données des scans</td>
+				<td>Sending the data to the server</td>
 				<td>:white_check_mark:</td>
 			</tr>
 		</tbody>
 	</table>
-	<h3 id="tableau-de-bord-et-g-n-rateur-de-qr-codes">Tableau de bord et Générateur de QR Codes</h3>
+	<h3 id="databases">Databases :white_check_mark:</h3>
 	<table>
 		<thead>
 			<tr>
-				<th>Composant</th>
-				<th>Statut</th>
+				<th>Component</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Génération basique</td>
+				<td>Distribution database</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Interface web</td>
+				<td>Administrator database</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Éditeur de base de données</td>
+				<td>Scans database</td>
+				<td>:white_check_mark:</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3 id="dashboard-and-g-n-rator-of-qr-codes">Dashboard and QR Code Generator</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Component</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Basic generation</td>
+				<td>:white_check_mark:</td>
+			</tr>
+			<tr>
+				<td>Web interface</td>
+				<td>:white_check_mark:</td>
+			</tr>
+			<tr>
+				<td>Database editor</td>
 				<td>:x:</td>
 			</tr>
 			<tr>
-				<td>Importation automatique à partir d&#39;un CSV</td>
+				<td>Automatic import from CSV</td>.
 				<td>:x:</td>
 			</tr>
 			<tr>
-				<td>Sommaire des cartons en circulation</td>
+				<td>Summary of the circulating boxes</td>
 				<td>:x:</td>
 			</tr>
 			<tr>
-				<td>Sommaire des anomalies</td>
+				<td>Summary of the issues</td>
 				<td>:x:</td>
 			</tr>
 		</tbody>
 	</table>
-	<h3 id="architecture-serveur">Architecture serveur</h3>
+	<h3 id="server-architecture">Server architecture</h3>
 	<table>
 		<thead>
 			<tr>
-				<th>Composant</th>
-				<th>Statut</th>
+				<th>Component</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Communication entre le scanner et le serveur</td>
+				<td>Communication between the scanner and the server</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Communication entre le serveur et le tableau de bord</td>
+				<td>Communication between the server and the dashboard</td>
 				<td>:white_check_mark:</td>
 			</tr>
 			<tr>
-				<td>Sécurité et authentification</td>
+				<td>Security and authentication</td>
 				<td>:x:</td>
 			</tr>
 			<tr>
-				<td>Implémentation de l&#39;écosystème</td>
+				<td>Ecosystem implementation</td>
 				<td>:x:</td>
 			</tr>
 		</tbody>
@@ -125,13 +125,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Composant</th>
-				<th>Statut</th>
+				<th>Component</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Scan hors ligne</td>
+				<td>Offline scan</td>
 				<td>:x:</td>
 			</tr>
 		</tbody>
