@@ -59,7 +59,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<h3 id="dashboard">Dashboard and QR Code Generator</h3>
+	<h3 id="dashboard">Dashboard</h3>
 	<table>
 		<thead>
 			<tr>
