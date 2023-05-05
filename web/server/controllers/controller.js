@@ -20,7 +20,7 @@ const createOne = (Model) => async (req, res) => {
                 status = 409;
                 json = {
                     success: false,
-                    error: `An item with this ID already exists: item n°${existent.id}`,
+                    error: `Item with ID ${existent.id} already exists`,
                 };
             } else {
                 const instance = new Model(body);
@@ -65,7 +65,7 @@ const createMany = (Model) => async (req, res) => {
             if (existent) {
                 invalidInstances.push({
                     instance,
-                    error: `An item with this ID already exists: item n°${existent.id}`,
+                    error: `Item with ID ${existent.id} already exists`,
                 });
                 continue;
             }
