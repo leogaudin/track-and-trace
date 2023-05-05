@@ -74,7 +74,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 												{getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn}
 											</TableCell>
 											<TableCell>
-												<Tooltip title={new Date(scan?.time).toUTCString()}>
+												<Tooltip title={new Date(scan?.time).toLocaleString()}>
 													<Typography fontWeight={'bold'} fontSize={'.9rem'}>
 														{timeAgo(scan?.time)}
 													</Typography>
