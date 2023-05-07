@@ -1,6 +1,7 @@
 <div align="center">
 	<h1>🗺️ track-and-trace</h1>
 	<img src="https://img.shields.io/github/license/leogaudin/track-and-trace" />
+	<img src="https://api.codeclimate.com/v1/badges/c05f7f6f5c29faaf085a/maintainability.png">
 	<img src="https://img.shields.io/static/v1?label=android&message=%3E%205%2E0&color=brightgreen" />
 	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
 	<p><i>A lightweight JavaScript track-and-trace solution.</i></p>
