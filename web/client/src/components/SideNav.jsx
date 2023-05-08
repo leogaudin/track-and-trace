@@ -33,7 +33,8 @@ export const SideNav = () => {
   const content = getContent(location, items);
 
   return (
-    <Drawer
+    location.pathname != '/login' && location.pathname != '/register'
+    ? <Drawer
       anchor="left"
       PaperProps={{
         sx: {
@@ -50,5 +51,5 @@ export const SideNav = () => {
     >
       {content}
     </Drawer>
-  );
+  : null);
 };

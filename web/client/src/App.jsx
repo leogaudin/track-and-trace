@@ -7,6 +7,8 @@ import { SideNav } from './components/SideNav';
 import Home from './pages/Home';
 import Boxes from './pages/Boxes';
 import Scans from './pages/Scans';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { getBoxes, getScans } from './service';
 
 const theme = createTheme();
@@ -31,6 +33,8 @@ function App() {
             <Route path='/' element={<Home boxes={boxes} scans={scans}/>} />
             <Route path='/boxes' element={<Boxes boxes={boxes} scans={scans}/>} />
             <Route path='/scans' element={<Scans boxes={boxes} scans={scans}/>} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
