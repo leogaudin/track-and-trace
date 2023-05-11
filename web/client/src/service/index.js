@@ -48,3 +48,11 @@ export async function getScans() {
 export async function getAdmins() {
   return await sendRequest('get', 'admins');
 }
+
+export async function login(user) {
+  return await sendRequest('post', 'login', user);
+}
+
+export async function register(user) {
+  return await sendRequest('post', 'register', user);
+}

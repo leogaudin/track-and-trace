@@ -8,6 +8,7 @@ const db = require('./db');
 const boxesRouter = require('./routes/boxes.router');
 const scansRouter = require('./routes/scans.router');
 const adminsRouter = require('./routes/admins.router');
+const authRouter = require('./routes/auth.router');
 
 const app = express();
 app.disable('x-powered-by');
@@ -38,5 +39,6 @@ app.get('/', (req, res) => {
 app.use('/api', boxesRouter);
 app.use('/api', scansRouter);
 app.use('/api', adminsRouter);
+app.use('/api', authRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
