@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Globe from 'react-globe.gl';
+import { login } from '../service';
 
 const Login = () => {
   const formik = useFormik({
@@ -30,7 +31,15 @@ const Login = () => {
         .required('Password is required')
     }),
     onSubmit: () => {
-      // TODO: Implement login submission
+      const user = {
+		email: formik.values.email,
+		password: formik.values.password
+	  };
+	  login(user).then((response) => {
+		console.log(response);
+	  }).catch((error) => {
+		console.log(error);
+		});
     }
   });
 

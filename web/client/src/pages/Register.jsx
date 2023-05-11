@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Globe from 'react-globe.gl';
+import { register } from '../service';
 
 const Register = () => {
   const formik = useFormik({
@@ -28,7 +29,17 @@ const Register = () => {
         .required('Password is required')
     }),
     onSubmit: () => {
-      // TODO: Implement register submission
+      const user = {
+		email: formik.values.email,
+		displayName: formik.values.name,
+		password: formik.values.password
+	  };
+	  console.log(user);
+	  register(user).then((response) => {
+		console.log(response);
+	  }).catch((error) => {
+		console.log(error);
+		});
     }
   });
 
