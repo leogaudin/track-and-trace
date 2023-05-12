@@ -10,6 +10,7 @@ import Scans from './pages/Scans';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { getBoxes, getScans } from './service';
+import RequireAuth from './components/RequireAuth';
 
 const theme = createTheme();
 
@@ -17,7 +18,7 @@ function App() {
   const [boxes, setBoxes] = useState([]);
 	const [scans, setScans] = useState([]);
 
-	useEffect(() => {
+  useEffect(() => {
 		getBoxes()
 			.then(res => setBoxes(res.data))
 		getScans()
@@ -30,11 +31,23 @@ function App() {
         <ThemeProvider theme={theme}>
           <SideNav />
           <Routes>
-            <Route path='/' element={<Home boxes={boxes} scans={scans}/>} />
-            <Route path='/boxes' element={<Boxes boxes={boxes} scans={scans}/>} />
-            <Route path='/scans' element={<Scans boxes={boxes} scans={scans}/>} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+            <Route exact path='/' element={
+              <RequireAuth>
+                <Home boxes={boxes} scans={scans}/>
+              </RequireAuth>
+            } />
+            <Route exact path='/boxes' element={
+              <RequireAuth>
+                <Boxes boxes={boxes} scans={scans}/>
+              </RequireAuth>
+            } />
+            <Route exact path='/scans' element={
+              <RequireAuth>
+                <Scans boxes={boxes} scans={scans}/>
+              </RequireAuth>
+            } />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/register' element={<Register />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

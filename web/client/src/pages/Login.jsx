@@ -8,11 +8,22 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from 'react-globe.gl';
 import { login } from '../service';
+import { useEffect, useState } from 'react';
 
-const Login = () => {
+function Login() {
+    const navigate = useNavigate();
+	const [isAuth, setIsAuth] = useState(false);
+
+	useEffect(() => {
+		const user = localStorage.getItem('user');
+		if (user)
+			setIsAuth(true);
+		if (isAuth)
+			navigate('/');
+	}, [isAuth]);
   const formik = useFormik({
     initialValues: {
       email: null,
@@ -36,9 +47,10 @@ const Login = () => {
 		password: formik.values.password
 	  };
 	  login(user).then((response) => {
-		console.log(response);
+		localStorage.setItem('user', JSON.stringify(response['user']));
+		setIsAuth(true);
 	  }).catch((error) => {
-		console.log(error);
+		// console.log(error);
 		});
     }
   });

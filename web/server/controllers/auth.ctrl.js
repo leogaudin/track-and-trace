@@ -23,7 +23,8 @@ const handleLogin = async (req, res) => {
 			return res.status(401).json({ message: 'Invalid password' });
 
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
-		return res.status(200).json({ token });
+		user.token = token;
+		return res.status(200).json({ user });
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json({ message: 'Internal server error' });
@@ -57,7 +58,8 @@ const handleRegister = async (req, res) => {
 		await instance.save();
 
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
-		return res.status(201).json({ token });
+		user.token = token;
+		return res.status(201).json({ user });
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json({ message: 'Internal server error' });

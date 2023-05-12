@@ -1,11 +1,22 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from 'react-globe.gl';
 import { register } from '../service';
+import { useEffect, useState } from 'react';
 
-const Register = () => {
+function Register() {
+    const navigate = useNavigate();
+	const [isAuth, setIsAuth] = useState(false);
+
+	useEffect(() => {
+		const user = localStorage.getItem('user');
+		if (user)
+			setIsAuth(true);
+		if (isAuth)
+			navigate('/');
+	}, [isAuth]);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,7 +47,8 @@ const Register = () => {
 	  };
 	  console.log(user);
 	  register(user).then((response) => {
-		console.log(response);
+		localStorage.setItem('user', JSON.stringify(response['user']));
+		setIsAuth(true);
 	  }).catch((error) => {
 		console.log(error);
 		});
