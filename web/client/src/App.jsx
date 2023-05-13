@@ -9,7 +9,7 @@ import Boxes from './pages/Boxes';
 import Scans from './pages/Scans';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { getBoxes, getScans } from './service';
+import { getBoxesByAdminId, getScansByBoxes } from './service';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
 
@@ -18,12 +18,28 @@ const theme = createTheme();
 function App() {
   const [boxes, setBoxes] = useState([]);
 	const [scans, setScans] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-		getBoxes()
-			.then(res => setBoxes(res.data))
-		getScans()
-    .then(res => setScans(res.data))
+    if (user) {
+      getBoxesByAdminId(user.id)
+        .then(res => {
+          getScansByBoxes(res.data.map(box => box.id))
+            .then(res => {
+              setScans(res.data);
+            })
+            .catch(err => {
+              if (err.response.status === 404)
+                setScans(null);
+            });
+          setBoxes(res.data);
+        })
+        .catch(err => {
+          if (err.response.status === 404)
+            setBoxes(null);
+        }
+      );
+    }
 	}, [])
 
   return (

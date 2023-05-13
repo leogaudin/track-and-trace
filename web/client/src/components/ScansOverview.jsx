@@ -1,4 +1,4 @@
-import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Tooltip } from '@mui/material';
+import { Alert, Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Tooltip } from '@mui/material';
 import { timeAgo } from '../service/timeAgo';
 import { feature as getCountryName } from '@rapideditor/country-coder';
 import { useState } from 'react';
@@ -6,10 +6,11 @@ import BoxSummary from './BoxSummary';
 import SkeletonTable from './SkeletonTable';
 
 export default function ScansOverview({ boxes, scans, disableDialogs = false }) {
-	const scanData = scans.sort((a, b) => b.time - a.time);
+	const scanData = scans ? scans.sort((a, b) => b.time - a.time) : null;
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 
+	if (scans !== null)
 	return (
 		<Card
 			style={{
@@ -23,7 +24,9 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 						<Typography
 							variant="overline"
 						>Scans</Typography>
-						<SkeletonTable rows={10} />
+						{
+							<SkeletonTable rows={10} />
+						}
 					</CardContent>
 				)
 				: (
@@ -99,7 +102,25 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 					</CardContent>
 				)
 			}
-
 		</Card>
 	);
+	else
+		return (
+			<Card
+				style={{
+					width: '100%',
+					height: '100%',
+					overflow: 'auto'
+				}}
+			>
+				<CardContent>
+					<Typography
+						variant="overline"
+					>Scans</Typography>
+					<Alert severity='info'>
+						You have no scans on your boxes yet.
+					</Alert>
+				</CardContent>
+			</Card>
+		);
 }

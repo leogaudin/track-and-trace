@@ -8,5 +8,6 @@ router.post('/boxes', BoxCtrl.createBoxes);
 router.delete('/box/:id', BoxCtrl.deleteBox);
 router.get('/box/:id', BoxCtrl.getBoxById);
 router.get('/boxes', BoxCtrl.getBoxes);
+router.get('/boxes/:adminId', BoxCtrl.getBoxesByAdminId);
 
 module.exports = router;

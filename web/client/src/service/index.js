@@ -37,12 +37,20 @@ export async function getBoxes() {
   return await sendRequest('get', 'boxes');
 }
 
+export async function getBoxesByAdminId(adminId) {
+  return await sendRequest('get', `boxes/${adminId}`);
+}
+
 export async function getBox(id) {
   return await sendRequest('get', `box/${id}`);
 }
 
 export async function getScans() {
   return await sendRequest('get', 'scans');
+}
+
+export async function getScansByBoxes(boxIds) {
+  return await sendRequest('post', 'scans', boxIds);
 }
 
 export async function getAdmins() {

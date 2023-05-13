@@ -9,8 +9,8 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 		setOpen(false);
 	}
 
-	const boxData = boxes.filter(box => { return box.id === id })[0];
-	const scanData = scans.filter(scan => { return scan.boxId === id }).sort((a, b) => b.time - a.time);
+	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
+	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }).sort((a, b) => b.time - a.time) : null;
 
 	return (
 		<Dialog
@@ -18,7 +18,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 			onClose={handleClose}
 			scroll='body'
 			keepMounted={false}
-			maxWidth
+			maxWidth='lg'
 		>
 			<DialogContent>
 				<Typography
@@ -60,7 +60,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 							</Grid>
 							: null}
 					</Grid>
-					<Map scans={scanData} scansCount={scanData.length} />
+					{scanData.length ? <Map scans={scanData} scansCount={scanData.length} /> : null}
 				</Stack>
 			</DialogContent>
 		</Dialog >

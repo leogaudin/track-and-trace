@@ -1,4 +1,4 @@
-import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Pagination, Stack } from '@mui/material';
+import { Alert, Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Pagination, Stack } from '@mui/material';
 import { useState } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
@@ -23,7 +23,7 @@ export default function BoxesOverview({ boxes, scans, limit, pageSize = 10 }) {
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
 	};
-
+	if (boxes !== null)
 	return (
 		<Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
 			<CardContent>
@@ -77,8 +77,9 @@ export default function BoxesOverview({ boxes, scans, limit, pageSize = 10 }) {
 						</Stack>
 					)
 					:
-					(
-						<SkeletonTable rows={10}/>
+					(boxes === null
+						? <Typography variant='body1'>You have no boxes</Typography>
+						: <SkeletonTable rows={10}/>
 					)
 				}
 				<BoxSummary
@@ -91,4 +92,25 @@ export default function BoxesOverview({ boxes, scans, limit, pageSize = 10 }) {
 			</CardContent>
 		</Card>
 	);
+	else
+		return (
+		<Card
+			style={{
+				width: '100%',
+				height: '100%',
+				overflow: 'auto'
+			}}
+		>
+			<CardContent>
+				<Typography
+					variant="overline"
+				>
+					Boxes
+				</Typography>
+				<Alert severity='info'>
+					You have no boxes yet.
+				</Alert>
+			</CardContent>
+		</Card>
+		);
 }
