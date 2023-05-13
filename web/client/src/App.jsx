@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { getBoxes, getScans } from './service';
 import RequireAuth from './components/RequireAuth';
+import Logout from './pages/Logout';
 
 const theme = createTheme();
 
@@ -31,23 +32,24 @@ function App() {
         <ThemeProvider theme={theme}>
           <SideNav />
           <Routes>
-            <Route exact path='/' element={
+            <Route path='/' element={
               <RequireAuth>
                 <Home boxes={boxes} scans={scans}/>
               </RequireAuth>
             } />
-            <Route exact path='/boxes' element={
+            <Route path='/boxes' element={
               <RequireAuth>
                 <Boxes boxes={boxes} scans={scans}/>
               </RequireAuth>
             } />
-            <Route exact path='/scans' element={
+            <Route path='/scans' element={
               <RequireAuth>
                 <Scans boxes={boxes} scans={scans}/>
               </RequireAuth>
             } />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/logout' element={<Logout />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
