@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMap, Popup, Polyline, LayerGroup, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, Popup, Polyline, LayerGroup, CircleMarker } from 'react-leaflet';
 import { getLatLngCenter } from '../service/mapUtils';
 import { Typography } from '@mui/material';
 
@@ -40,6 +40,7 @@ function Map({ scans, scansCount }) {
 									fillOpacity={.7}
 									color={index + 1 === scans.length ? '#0B71E7' : 'white'}
 									zIndexOffset={20}
+									key={scan?.id}
 								>
 									<Popup>
 										<code>{scan?.operatorId}</code><br />

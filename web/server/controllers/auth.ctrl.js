@@ -19,7 +19,7 @@ const handleLogin = async (req, res) => {
 			return res.status(404).json({ message: 'A user with this email does not exist' });
 
 		const providedPassword = await sha512(password);
-		if (!(providedPassword === user.password))
+		if (providedPassword !== user.password)
 			return res.status(401).json({ message: 'Invalid password' });
 
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
