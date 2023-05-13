@@ -1,8 +1,5 @@
-import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Box, Tooltip, Pagination, Stack, Skeleton } from '@mui/material';
-import { getBoxes, getScans } from '../service';
-import {
-	useState, useEffect
-} from 'react';
+import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Pagination, Stack } from '@mui/material';
+import { useState } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'

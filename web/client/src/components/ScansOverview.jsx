@@ -1,4 +1,4 @@
-import { CircularProgress, Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Tooltip } from '@mui/material';
+import { Table, Card, TableHead, TableCell, TableRow, TableBody, Typography, CardContent, Tooltip } from '@mui/material';
 import { timeAgo } from '../service/timeAgo';
 import { feature as getCountryName } from '@rapideditor/country-coder';
 import { useState } from 'react';

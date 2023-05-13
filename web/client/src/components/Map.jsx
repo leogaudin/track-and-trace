@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMap, Popup, Polyline, LayerGroup, Circle, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, Popup, Polyline, LayerGroup, CircleMarker } from 'react-leaflet';
 import { getLatLngCenter } from '../service/mapUtils';
-import { Avatar, Typography } from '@mui/material';
-import { Marker, MarkerLayer } from 'react-leaflet-marker';
+import { Typography } from '@mui/material';
 
 
 function Map({ scans, scansCount }) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BoxesOverview from '../components/BoxesOverview';
-import { Box, ButtonBase, Card, CardContent, Grid, Typography } from '@mui/material';
+import { ButtonBase, Card, CardContent, Grid, Typography } from '@mui/material';
 import Upload from '../components/Upload';
 
 export default function Boxes({ boxes, scans }) {

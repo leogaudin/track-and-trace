@@ -1,7 +1,5 @@
-import { Dialog, DialogContent, Card, Stack, Typography, CardContent, Tooltip, Table, TableHead, TableCell, TableRow, TableBody, Grid } from "@mui/material";
+import { Dialog, DialogContent, Card, Stack, Typography, CardContent, Grid } from "@mui/material";
 import QRCode from "react-qr-code";
-import { timeAgo } from "../service/timeAgo";
-import { feature as getCountryName } from '@rapideditor/country-coder';
 import Map from "./Map";
 import ScansOverview from "./ScansOverview";
 
