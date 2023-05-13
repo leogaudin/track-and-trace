@@ -15,7 +15,6 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 			style={{
 				width: '100%',
 				height: '100%',
-				maxHeight: '25rem',
 				overflow: 'auto'
 			}}>
 			{!boxes.length || !scans.length

@@ -11,10 +11,10 @@ export default function Home({ boxes, scans }) {
 			spacing={2}
 			alignItems='stretch'
 		>
-			<Grid item xs={12}>
+			<Grid item xs={6}>
 				<BoxesOverview boxes={boxes} scans={scans} />
 			</Grid>
-			<Grid item xs={12}>
+			<Grid item xs={6}>
 				<ScansOverview boxes={boxes} scans={scans} />
 			</Grid>
 		</Grid>
