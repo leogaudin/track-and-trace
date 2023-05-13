@@ -50,7 +50,10 @@ function Login() {
 		localStorage.setItem('user', JSON.stringify(response['user']));
 		setIsAuth(true);
 	  }).catch((error) => {
-		// console.log(error);
+			setIsAuth(false);
+			formik.setErrors({
+			submit: 'Invalid email or password'
+			});
 		});
     }
   });
@@ -133,6 +136,7 @@ function Login() {
                     color="error"
                     sx={{ mt: 3 }}
                     variant="body2"
+					fontWeight={700}
                   >
                     {formik.errors.submit}
                   </Typography>
