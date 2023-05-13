@@ -73,8 +73,7 @@ function Login() {
           sx={{
             width: 550,
             px: 5,
-            py: '100px',
-            width: '100%'
+            py: '100px'
           }}
         >
           <div>
