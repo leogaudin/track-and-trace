@@ -47,10 +47,11 @@ function Register() {
 	  };
 	  console.log(user);
 	  register(user).then((response) => {
-		localStorage.setItem('user', JSON.stringify(response['user']));
-		setIsAuth(true);
+      localStorage.setItem('user', JSON.stringify(response['user']));
+      setIsAuth(true);
+      window.location.reload();
 	  }).catch((error) => {
-		console.log(error);
+		  console.log(error);
 		});
     }
   });

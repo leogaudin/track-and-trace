@@ -7,6 +7,7 @@ function isCSVValid(file) {
 
 function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete) {
 	let boxes = [];
+	const user = JSON.parse(localStorage.getItem('user'));
 	Papa.parse(text, {
 		worker: true,
 		step: (element) => {
@@ -20,7 +21,7 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 				htName,
 				htPhone,
 				institutionType,
-				adminId: 'lecuistot'
+				adminId: user.id
 			});
 		},
 		complete: () => {

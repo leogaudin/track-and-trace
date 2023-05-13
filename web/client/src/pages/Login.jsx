@@ -47,8 +47,9 @@ function Login() {
 		password: formik.values.password
 	  };
 	  login(user).then((response) => {
-		localStorage.setItem('user', JSON.stringify(response['user']));
-		setIsAuth(true);
+      localStorage.setItem('user', JSON.stringify(response['user']));
+      setIsAuth(true);
+      window.location.reload();
 	  }).catch((error) => {
 			setIsAuth(false);
 			formik.setErrors({
