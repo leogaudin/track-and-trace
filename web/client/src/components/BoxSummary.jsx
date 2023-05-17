@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, Card, Stack, Typography, CardContent, Grid } from "@mui/material";
-import QRCode from "react-qr-code";
 import Map from "./Map";
 import ScansOverview from "./ScansOverview";
+import {QRCodeSVG} from 'qrcode.react';
 
 export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 
@@ -47,7 +47,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 											}</b></Typography>
 										</Stack>
 										<Stack direction={'column'} spacing={1} alignItems={'center'}>
-											<QRCode value={id} size={150} />
+											<QRCodeSVG value={id} size={150} />
 											<Typography fontFamily={'Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New'} fontSize={'.7rem'}>{id}</Typography>
 										</Stack>
 									</Stack>
