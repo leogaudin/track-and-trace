@@ -3,6 +3,7 @@ import { SideNavItem } from './SideNavItem';
 import { useLocation } from 'react-router-dom';
 import { items } from './NavItems';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const SIDE_NAV_WIDTH = 200;
 
@@ -35,7 +36,7 @@ export const SideNav = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
-    location.pathname != '/login' && location.pathname != '/register'
+    location.pathname !== '/login' && location.pathname !== '/register'
     ? <Drawer
       anchor="left"
       PaperProps={{
@@ -51,28 +52,49 @@ export const SideNav = () => {
       }}
       variant="permanent"
     >
+    <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
+    {user ?
+          <Stack
+            direction={'column'}
+            component="li"
+            spacing={0.5}
+            alignItems={'center'}
+            sx={{
+              listStyle: 'none',
+              p: '16px'
+            }}
+            >
+            <SvgIcon style={{marginRight: 7}}><AccountCircleIcon /></SvgIcon>
+            <Stack maxWidth={'100%'}>
+              <Typography
+                variant='overline'
+                fontSize={'.7rem'}
+                textAlign={'center'}
+                style={{ wordWrap: "break-all"}}
+                >
+                  Logged in as <b>{user.displayName}</b>
+              </Typography>
+            </Stack>
+          </Stack>
+          : null}
+      </Stack>
       {content}
       {user
-        ?<Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
+        ? <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
         <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
-          <Typography></Typography>
           <SideNavItem
               icon={<SvgIcon><LogoutIcon /></SvgIcon>}
               key={'logout'}
               path={'/logout'}
+              disabled
               title={
-                <Stack>
-                  <Typography variant='overline'>{user.displayName}</Typography>
-                  <Typography variant='overline' fontSize={'.9rem'}>Logout</Typography>
-                </Stack>
+                <Typography variant='overline' fontSize={'.9rem'}>Logout</Typography>
               }
             />
         </Stack>
       </Box>
       : null
       }
-
-
     </Drawer>
   : null);
 };
