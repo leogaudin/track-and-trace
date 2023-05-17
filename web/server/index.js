@@ -16,6 +16,7 @@ app.disable('x-powered-by');
 const apiPort = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.options('*',cors());
 app.use(cors());
 app.use(bodyParser.json());
 
