@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const Admin = require('../models/admins.model');
+const crypto = require('crypto');
 
 function generateApiKey() {
   const apiKeyLength = 32;
