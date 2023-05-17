@@ -3,13 +3,16 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3000/api';
 
 function sendRequest(method, endpoint, data = null) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const authorization = user ? user['apiKey'] : null;
   return new Promise((resolve, reject) => {
     axios({
       method: method,
       url: `${BASE_URL}/${endpoint}`,
       data: data,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Authorization': authorization
       }
     })
       .then(response => {

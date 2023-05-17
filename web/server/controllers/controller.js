@@ -1,8 +1,14 @@
+const Admin = require('../models/admins.model');
+
 const handle404Error = (res) => {
     return res.status(404).json({ success: false, error: `Item not found` });
 };
 
-const createOne = (Model) => async (req, res) => {
+const handle401Error = (res, error) => {
+    return res.status(401).json({ success: false, error });
+};
+
+const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
     try {
         const body = req.body;
         body.createdAt = new Date().getTime();
@@ -14,7 +20,26 @@ const createOne = (Model) => async (req, res) => {
                 success: false,
                 error: `You must provide an item`,
             };
-        } else {
+        } else if (apiKeyNeeded && !req.headers['x-authorization']) {
+            status = 401;
+            json = {
+                success: false,
+                error: 'API key required',
+            };
+        } else if (apiKeyNeeded) {
+            const apiKey = req.headers['x-authorization'];
+            const admin = await Admin.findOne({ apiKey });
+
+            if (!admin) {
+                status = 401;
+                json = {
+                    success: false,
+                    error: 'Invalid API key',
+                };
+            }
+        }
+
+        if (!status) {
             const existent = await Model.findOne({ id: body.id });
             if (existent) {
                 status = 409;
@@ -45,8 +70,7 @@ const createOne = (Model) => async (req, res) => {
     }
 };
 
-
-const createMany = (Model) => async (req, res) => {
+const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     try {
         const instances = req.body;
         const validInstances = [];
@@ -61,6 +85,27 @@ const createMany = (Model) => async (req, res) => {
                 continue;
             }
 
+            if (apiKeyNeeded && !req.headers['x-authorization']) {
+                invalidInstances.push({
+                    instance,
+                    error: 'API key required',
+                });
+                continue;
+            }
+
+            if (apiKeyNeeded) {
+                const apiKey = req.headers['x-authorization'];
+                const admin = await Admin.findOne({ apiKey });
+
+                if (!admin) {
+                    invalidInstances.push({
+                        instance,
+                        error: 'Invalid API key',
+                    });
+                    continue;
+                }
+            }
+
             const existent = await Model.findOne({ id: instance.id });
             if (existent) {
                 invalidInstances.push({
@@ -69,8 +114,8 @@ const createMany = (Model) => async (req, res) => {
                 });
                 continue;
             }
-            instance.createdAt = new Date().getTime();
 
+            instance.createdAt = new Date().getTime();
             validInstances.push(new Model(instance));
         }
 
@@ -95,11 +140,25 @@ const createMany = (Model) => async (req, res) => {
     }
 };
 
-const getById = (Model) => async (req, res) => {
+const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
     try {
+        if (apiKeyNeeded && !req.headers['x-authorization']) {
+            return handle401Error(res, 'API key required');
+        }
+
+        if (apiKeyNeeded) {
+            const apiKey = req.headers['x-authorization'];
+            const admin = await Admin.findOne({ apiKey });
+
+            if (!admin) {
+                return handle401Error(res, 'Invalid API key');
+            }
+        }
+
         const instance = await Model.findOne({ id: req.params.id });
-        if (!instance)
+        if (!instance) {
             return handle404Error(res);
+        }
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);
@@ -107,25 +166,51 @@ const getById = (Model) => async (req, res) => {
     }
 };
 
-const getAll = (Model) => async (req, res) => {
+const getAll = (Model, apiKeyNeeded = true) => async (req, res) => {
     try {
+        if (apiKeyNeeded && !req.headers['x-authorization']) {
+            return handle401Error(res, 'API key required');
+        }
+
+        if (apiKeyNeeded) {
+            const apiKey = req.headers['x-authorization'];
+            const admin = await Admin.findOne({ apiKey });
+
+            if (!admin) {
+                return handle401Error(res, 'Invalid API key');
+            }
+        }
+
         const instances = await Model.find({});
-        if (!instances.length)
+        if (!instances.length) {
             return handle404Error(res);
+        }
         return res.status(200).json({ success: true, data: instances });
     } catch (error) {
         console.log(error);
-        return res.status
-            .status(400)
-            .json({ success: false, error: error });
+        return res.status(400).json({ success: false, error: error });
     }
-}
+};
 
-const deleteOne = (Model) => async (req, res) => {
+const deleteOne = (Model, apiKeyNeeded = true) => async (req, res) => {
     try {
+        if (apiKeyNeeded && !req.headers['x-authorization']) {
+            return handle401Error(res, 'API key required');
+        }
+
+        if (apiKeyNeeded) {
+            const apiKey = req.headers['x-authorization'];
+            const admin = await Admin.findOne({ apiKey });
+
+            if (!admin) {
+                return handle401Error(res, 'Invalid API key');
+            }
+        }
+
         const instance = await Model.findOneAndDelete({ id: req.params.id });
-        if (!instance)
+        if (!instance) {
             return handle404Error(res);
+        }
         return res.status(200).json({ success: true, data: instance });
     } catch (error) {
         console.log(error);

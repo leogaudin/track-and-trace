@@ -2,6 +2,13 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const Admin = require('../models/admins.model');
 
+function generateApiKey() {
+  const apiKeyLength = 32;
+  const randomBytes = crypto.randomBytes(apiKeyLength);
+  const apiKey = randomBytes.toString('hex');
+  return apiKey;
+}
+
 async function sha512(str) {
 	const buf = await crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str));
 	return Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
@@ -20,7 +27,7 @@ const handleLogin = async (req, res) => {
 
 		const providedPassword = await sha512(password);
 		if (providedPassword !== user.password)
-			return res.status(401).json({ message: 'Invalid password' });
+			return res.status(401).json({ message: 'Invalid password' }, providedPassword, user.password);
 
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 		user.token = token;
@@ -52,7 +59,8 @@ const handleRegister = async (req, res) => {
 			});
 
 		const hashedPassword = await sha512(password);
-		const user = { id, email, password: hashedPassword, displayName, createdAt };
+		const apiKey = generateApiKey();
+		const user = { id, email, password: hashedPassword, apiKey, displayName, createdAt };
 
 		const instance = new Admin(user);
 		await instance.save();
