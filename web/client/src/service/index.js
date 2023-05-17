@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'https://track-and-trace-api.vercel.app/api';
 
 function sendRequest(method, endpoint, data = null) {
   const user = JSON.parse(localStorage.getItem('user'));
