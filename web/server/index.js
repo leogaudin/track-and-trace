@@ -1,30 +1,27 @@
 import express from 'express';
 import dotenv from 'dotenv';
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
-const db = require('./db');
-const boxesRouter = require('./routes/boxes.router');
-const scansRouter = require('./routes/scans.router');
-const adminsRouter = require('./routes/admins.router');
-const authRouter = require('./routes/auth.router');
+import db from './db';
+import boxesRouter from './routes/boxes.router';
+import scansRouter from './routes/scans.router';
+import adminsRouter from './routes/admins.router';
+import authRouter from './routes/auth.router';
+
+dotenv.config();
 
 const app = express();
 app.disable('x-powered-by');
 const apiPort = 3000;
 
-dotenv.config();
-
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-    origin: '*'
-}));
-app.use(bodyParser.json());
+app.use(cors());
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send('Hello World!');
 });
 
 app.use('/api', boxesRouter);
