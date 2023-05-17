@@ -54,13 +54,13 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 								</CardContent>
 							</Card>
 						</Grid>
-						{scanData.length ?
+						{scanData && scanData.length ?
 							<Grid item xs={12}>
 								<ScansOverview boxes={boxes} scans={scanData} disableDialogs />
 							</Grid>
 							: null}
 					</Grid>
-					{scanData.length ? <Map scans={scanData} scansCount={scanData.length} /> : null}
+					{scanData && scanData.length ? <Map scans={scanData} scansCount={scanData.length} /> : null}
 				</Stack>
 			</DialogContent>
 		</Dialog >
