@@ -15,16 +15,16 @@ const app = express();
 app.disable('x-powered-by');
 const apiPort = 3000;
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET,POST,PUT,DELETE, PATCH",
+        credentials: true,
+        maxAge: 3600,
+    })
+);
 app.use(bodyParser.json());
-
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.get('/', (req, res) => {
