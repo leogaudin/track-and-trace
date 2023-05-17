@@ -17,8 +17,10 @@ export default function BoxesOverview({ boxes, scans, limit, pageSize = 10 }) {
 	const [page, setPage] = useState(1);
 
 	const sortedBoxes = boxes
+	? boxes
 		.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-		.slice((page - 1) * pageSize, page * pageSize);
+		.slice((page - 1) * pageSize, page * pageSize)
+	: null;
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);

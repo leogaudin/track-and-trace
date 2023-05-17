@@ -10,7 +10,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 
-	if (scans !== null)
+	if (scans !== null && boxes !== null)
 	return (
 		<Card
 			style={{
