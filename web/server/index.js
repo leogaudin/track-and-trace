@@ -37,3 +37,5 @@ app.use('/api', adminsRouter);
 app.use('/api', authRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+
+module.exports = app;
