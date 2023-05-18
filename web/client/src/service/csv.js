@@ -32,7 +32,7 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 
 function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete) {
 	const BOXES_LENGTH = boxes.length - 1;
-	const BUFFER_SIZE = 7;
+	const BUFFER_SIZE = 3;
 	let uploaded = 0;
 	for (let i = 1; i < boxes.length; i += BUFFER_SIZE) {
 		const chunk = boxes.slice(i, i + BUFFER_SIZE);
