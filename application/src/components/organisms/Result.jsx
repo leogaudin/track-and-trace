@@ -22,7 +22,7 @@ import SparkMD5 from 'spark-md5';
 function sendScan(json) {
   return new Promise(resolve => {
     axios
-      .post('http://192.168.146.29:3000/api/scan', json, {
+      .post('https://track-and-trace-api.vercel.app/api/scan', json, {
         headers: {'Content-Type': 'application/json'},
       })
       .then(res => res.status === 201 && res.data)
