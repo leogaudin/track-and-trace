@@ -157,7 +157,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
                           id: '',
                           boxId: data,
                           operatorId: user_id,
-                          time: timestamp,
+                          time: Date.now(),
                           location: userLocation,
                           comment: comment,
                         };
