@@ -44,7 +44,6 @@ export default function Result({modalVisible, setModalVisible, data}) {
   const [userLocation, setUserLocation] = useState({});
   const [componentMounted, setComponentMounted] = useState(false);
   const [comment, setComment] = useState('');
-  const [timestamp, setTimestamp] = useState(Date.now());
 
   useEffect(() => {
     setComponentMounted(true);
