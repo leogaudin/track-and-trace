@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, Link, Stack, TextField, Typography } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Globe from 'react-globe.gl';
+import Globe from '../components/Globe';
 import { register } from '../service';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -65,19 +65,20 @@ function Register() {
       </Helmet>
       <Box
         sx={{
-          backgroundColor: 'background.paper',
+          backgroundColor: 'black',
+          height: '100vh',
           flex: '1 1 auto',
           alignItems: 'center',
           display: 'flex',
           justifyContent: 'space-between'
         }}
       >
-        <Box
+        <Card
           sx={{
             width: 550,
             px: 5,
             py: '100px',
-            width: '100%'
+            mx: 'auto'
           }}
         >
           <div>
@@ -165,12 +166,8 @@ function Register() {
               </Button>
             </form>
           </div>
-        </Box>
-		<Globe
-		globeImageUrl={'https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg'}
-		backgroundImageUrl={'https://cdn.jsdelivr.net/npm/three-globe/example/img/night-sky.png'}
-		width={750}
-		/>
+        </Card>
+		    <Globe/>
       </Box>
     </>
   );
