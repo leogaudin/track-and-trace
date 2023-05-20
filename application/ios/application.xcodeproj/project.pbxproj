@@ -491,7 +491,7 @@
 				DEVELOPMENT_TEAM = R32B9PWM4R;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = application/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BlueTrace;
+				INFOPLIST_KEY_CFBundleDisplayName = tnt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -520,7 +520,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R32B9PWM4R;
 				INFOPLIST_FILE = application/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BlueTrace;
+				INFOPLIST_KEY_CFBundleDisplayName = tnt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
