@@ -5,6 +5,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from 'react-globe.gl';
 import { register } from '../service';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 function Register() {
     const navigate = useNavigate();
@@ -58,6 +59,10 @@ function Register() {
 
   return (
     <>
+      <Helmet>
+        <title>Register - Track-and-Trace</title>
+        <meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+      </Helmet>
       <Box
         sx={{
           backgroundColor: 'background.paper',

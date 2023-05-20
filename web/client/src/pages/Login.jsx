@@ -12,6 +12,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from 'react-globe.gl';
 import { login } from '../service';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 function Login() {
     const navigate = useNavigate();
@@ -61,6 +62,10 @@ function Login() {
 
   return (
     <>
+      <Helmet>
+        <title>Login - Track-and-Trace</title>
+        <meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+      </Helmet>
       <Box
         sx={{
           backgroundColor: 'background.paper',

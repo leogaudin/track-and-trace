@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import { getBoxesByAdminId, getScansByBoxes } from './service';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
+import {Helmet} from 'react-helmet';
 
 const theme = createTheme();
 
@@ -46,6 +47,10 @@ function App() {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>Track-and-Trace</title>
+        <meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+      </Helmet>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <SideNav />
