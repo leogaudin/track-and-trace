@@ -35,7 +35,7 @@ export default function App() {
 
     const checkLogin = async () => {
       const userNumber = await getString('user_number');
-      setLoginVisible(userNumber === null);
+      setLoginVisible(!userNumber);
     };
 
     requestPermissions();
