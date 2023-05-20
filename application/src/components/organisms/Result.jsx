@@ -94,14 +94,6 @@ export default function Result({modalVisible, setModalVisible, data}) {
                   <Text>Box n°</Text>
                   <Text>{data}</Text>
                 </Text>
-                <Text>
-                  <Text style={{fontWeight: 'bold'}}>Scan time : </Text>
-                  <Text>
-                    {locationLoaded
-                      ? Date().toLocaleString()
-                      : 'Determining current time...'}
-                  </Text>
-                </Text>
                 {locationLoaded && componentMounted ? (
                   <View
                     style={{
