@@ -76,24 +76,26 @@ export const SideNav = () => {
               </Typography>
             </Stack>
           </Stack>
-          : null}
+          : null
+        }
       </Stack>
       {content}
       {user
-        ? <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
-        <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
-          <SideNavItem
-              icon={<SvgIcon><LogoutIcon /></SvgIcon>}
-              key={'logout'}
-              path={'/logout'}
-              disabled
-              title={
-                <Typography variant='overline' fontSize={'.9rem'}>Logout</Typography>
-              }
-            />
-        </Stack>
-      </Box>
-      : null
+        ?
+        <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
+          <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
+            <SideNavItem
+                icon={<SvgIcon><LogoutIcon /></SvgIcon>}
+                key={'logout'}
+                path={'/logout'}
+                disabled
+                title={
+                  <Typography variant='overline' fontSize={'.9rem'}>Logout</Typography>
+                }
+              />
+          </Stack>
+        </Box>
+        : null
       }
     </Drawer>
   : null);
