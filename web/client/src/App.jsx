@@ -29,13 +29,15 @@ function App() {
               setScans(res.data);
             })
             .catch(err => {
-              if (err.response.status === 404)
+              console.log(err);
+              if (err.response.status >= 400)
                 setScans(null);
             });
           setBoxes(res.data);
         })
         .catch(err => {
-          if (err.response.status === 404)
+          console.log(err);
+          if (err.response.status >= 400)
             setBoxes(null);
         }
       );
