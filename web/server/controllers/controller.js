@@ -1,227 +1,255 @@
 const Admin = require('../models/admins.model');
 
 const handle404Error = (res) => {
-    return res.status(404).json({ success: false, error: `Item not found` });
+  return res.status(404).json({ success: false, error: `Item not found` });
 };
 
 const handle401Error = (res, error) => {
-    return res.status(401).json({ success: false, error });
+  return res.status(401).json({ success: false, error });
+};
+
+const handle400Error = (res, error) => {
+  return res.status(400).json({ success: false, error });
+};
+
+const handle201Success = (res, data) => {
+  return res.status(201).json({ success: true, data });
+};
+
+const handle206Success = (res, message, invalidInstances, validInstances) => {
+  return res.status(206).json({
+    success: true,
+    message,
+    invalidInstances,
+    validInstances,
+  });
+};
+
+const handle200Success = (res, data) => {
+  return res.status(200).json({ success: true, data });
+};
+
+const requireApiKey = async (req, res, next) => {
+  if (!req.headers['x-authorization']) {
+    return handle401Error(res, 'API key required');
+  }
+
+  const apiKey = req.headers['x-authorization'];
+  const admin = await Admin.findOne({ apiKey });
+
+  if (!admin) {
+    return handle401Error(res, 'Invalid API key');
+  }
+
+  next();
 };
 
 const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
-    try {
-        const body = req.body;
-        body.createdAt = new Date().getTime();
+  try {
+    const body = req.body;
+    body.createdAt = new Date().getTime();
 
-        let status, json;
-        if (!body) {
-            status = 400;
-            json = {
-                success: false,
-                error: `You must provide an item`,
-            };
-        } else if (apiKeyNeeded && !req.headers['x-authorization']) {
-            status = 401;
-            json = {
-                success: false,
-                error: 'API key required',
-            };
-        } else if (apiKeyNeeded) {
-            const apiKey = req.headers['x-authorization'];
-            const admin = await Admin.findOne({ apiKey });
-
-            if (!admin) {
-                status = 401;
-                json = {
-                    success: false,
-                    error: 'Invalid API key',
-                };
-            }
-        }
-
-        if (!status) {
-            const existent = await Model.findOne({ id: body.id });
-            if (existent) {
-                status = 409;
-                json = {
-                    success: false,
-                    error: `Item with ID ${existent.id} already exists`,
-                };
-            } else {
-                const instance = new Model(body);
-                if (!instance) {
-                    status = 400;
-                    json = { success: false, error: err };
-                } else {
-                    await instance.save();
-                    status = 201;
-                    json = {
-                        success: true,
-                        id: instance.id,
-                        message: `Item created!`,
-                    };
-                }
-            }
-        }
-        return res.status(status).json(json);
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false, error: error });
+    if (!body) {
+      return handle400Error(res, 'You must provide an item');
     }
+
+    if (apiKeyNeeded) {
+      return requireApiKey(req, res, async () => {
+        const existent = await Model.findOne({ id: body.id });
+
+        if (existent) {
+          return handle409Error(res, `Item with ID ${existent.id} already exists`);
+        }
+
+        const instance = new Model(body);
+
+        if (!instance) {
+          return handle400Error(res, err);
+        }
+
+        await instance.save();
+        return handle201Success(res, {
+          id: instance.id,
+          message: `Item created!`,
+        });
+      });
+    }
+
+    const existent = await Model.findOne({ id: body.id });
+
+    if (existent) {
+      return handle409Error(res, `Item with ID ${existent.id} already exists`);
+    }
+
+    const instance = new Model(body);
+
+    if (!instance) {
+      return handle400Error(res, err);
+    }
+
+    await instance.save();
+    return handle201Success(res, {
+      id: instance.id,
+      message: `Item created!`,
+    });
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
 };
 
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
-    try {
-        const instances = req.body;
-        const validInstances = [];
-        const invalidInstances = [];
+  try {
+    const instances = req.body;
+    const validInstances = [];
+    const invalidInstances = [];
 
-        for (const instance of instances) {
-            if (!instance.id) {
-                invalidInstances.push({
-                    instance,
-                    error: `You must provide an id for the item`,
-                });
-                continue;
-            }
+    for (const instance of instances) {
+      if (!instance.id) {
+        invalidInstances.push({
+          instance,
+          error: `You must provide an id for the item`,
+        });
+        continue;
+      }
 
-            if (apiKeyNeeded && !req.headers['x-authorization']) {
-                invalidInstances.push({
-                    instance,
-                    error: 'API key required',
-                });
-                continue;
-            }
+      if (apiKeyNeeded) {
+        await requireApiKey(req, res, async () => {
+          const existent = await Model.findOne({ id: instance.id });
 
-            if (apiKeyNeeded) {
-                const apiKey = req.headers['x-authorization'];
-                const admin = await Admin.findOne({ apiKey });
+          if (existent) {
+            invalidInstances.push({
+              instance,
+              error: `Item with ID ${existent.id} already exists`,
+            });
+            return;
+          }
 
-                if (!admin) {
-                    invalidInstances.push({
-                        instance,
-                        error: 'Invalid API key',
-                    });
-                    continue;
-                }
-            }
+          instance.createdAt = new Date().getTime();
+          validInstances.push(new Model(instance));
+        });
+      } else {
+        const existent = await Model.findOne({ id: instance.id });
 
-            const existent = await Model.findOne({ id: instance.id });
-            if (existent) {
-                invalidInstances.push({
-                    instance,
-                    error: `Item with ID ${existent.id} already exists`,
-                });
-                continue;
-            }
-
-            instance.createdAt = new Date().getTime();
-            validInstances.push(new Model(instance));
+        if (existent) {
+          invalidInstances.push({
+            instance,
+            error: `Item with ID ${existent.id} already exists`,
+          });
+          continue;
         }
 
-        await Model.insertMany(validInstances);
-        if (invalidInstances.length > 0) {
-            return res.status(206).json({
-                success: true,
-                message: `Some items were not created`,
-                invalidInstances,
-                validInstances,
-            });
-        } else {
-            return res.status(201).json({
-                success: true,
-                message: `Items created!`,
-                validInstances,
-            });
-        }
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false, error: error });
+        instance.createdAt = new Date().getTime();
+        validInstances.push(new Model(instance));
+      }
     }
+
+    await Model.insertMany(validInstances);
+
+    if (invalidInstances.length > 0) {
+      return handle206Success(
+        res,
+        `Some items were not created`,
+        invalidInstances,
+        validInstances
+      );
+    } else {
+      return handle201Success(res, {
+        message: `Items created!`,
+        validInstances,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
 };
 
 const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
-    try {
-        if (apiKeyNeeded && !req.headers['x-authorization']) {
-            return handle401Error(res, 'API key required');
-        }
-
-        if (apiKeyNeeded) {
-            const apiKey = req.headers['x-authorization'];
-            const admin = await Admin.findOne({ apiKey });
-
-            if (!admin) {
-                return handle401Error(res, 'Invalid API key');
-            }
-        }
-
+  try {
+    if (apiKeyNeeded) {
+      return requireApiKey(req, res, async () => {
         const instance = await Model.findOne({ id: req.params.id });
+
         if (!instance) {
-            return handle404Error(res);
+          return handle404Error(res);
         }
-        return res.status(200).json({ success: true, data: instance });
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false, error: error });
+
+        return handle200Success(res, instance);
+      });
     }
+
+    const instance = await Model.findOne({ id: req.params.id });
+
+    if (!instance) {
+      return handle404Error(res);
+    }
+
+    return handle200Success(res, instance);
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
 };
 
 const getAll = (Model, apiKeyNeeded = true) => async (req, res) => {
-    try {
-        if (apiKeyNeeded && !req.headers['x-authorization']) {
-            return handle401Error(res, 'API key required');
-        }
-
-        if (apiKeyNeeded) {
-            const apiKey = req.headers['x-authorization'];
-            const admin = await Admin.findOne({ apiKey });
-
-            if (!admin) {
-                return handle401Error(res, 'Invalid API key');
-            }
-        }
-
+  try {
+    if (apiKeyNeeded) {
+      return requireApiKey(req, res, async () => {
         const instances = await Model.find({});
+
         if (!instances.length) {
-            return handle404Error(res);
+          return handle404Error(res);
         }
-        return res.status(200).json({ success: true, data: instances });
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false, error: error });
+
+        return handle200Success(res, instances);
+      });
     }
+
+    const instances = await Model.find({});
+
+    if (!instances.length) {
+      return handle404Error(res);
+    }
+
+    return handle200Success(res, instances);
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
 };
 
 const deleteOne = (Model, apiKeyNeeded = true) => async (req, res) => {
-    try {
-        if (apiKeyNeeded && !req.headers['x-authorization']) {
-            return handle401Error(res, 'API key required');
-        }
-
-        if (apiKeyNeeded) {
-            const apiKey = req.headers['x-authorization'];
-            const admin = await Admin.findOne({ apiKey });
-
-            if (!admin) {
-                return handle401Error(res, 'Invalid API key');
-            }
-        }
-
+  try {
+    if (apiKeyNeeded) {
+      return requireApiKey(req, res, async () => {
         const instance = await Model.findOneAndDelete({ id: req.params.id });
+
         if (!instance) {
-            return handle404Error(res);
+          return handle404Error(res);
         }
-        return res.status(200).json({ success: true, data: instance });
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({ success: false, error: error });
+
+        return handle200Success(res, instance);
+      });
     }
+
+    const instance = await Model.findOneAndDelete({ id: req.params.id });
+
+    if (!instance) {
+      return handle404Error(res);
+    }
+
+    return handle200Success(res, instance);
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
 };
 
 module.exports = {
-    createOne,
-    createMany,
-    getById,
-    getAll,
-    deleteOne,
+  createOne,
+  createMany,
+  getById,
+  getAll,
+  deleteOne,
 };
