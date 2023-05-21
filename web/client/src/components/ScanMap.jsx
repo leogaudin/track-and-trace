@@ -4,12 +4,12 @@ import { getLatLngCenter } from '../service/mapUtils';
 import { Typography } from '@mui/material';
 
 
-function Map({ scans, scansCount }) {
+function ScanMap({ scans, scansCount }) {
 	const [scansLoaded, setScansLoaded] = useState(false);
 	useEffect(() => {
 		if (scans.length === scansCount)
 			setScansLoaded(true)
-	}, [scans])
+	}, [scans, scansCount])
 
 	let coords = [];
 	scans.forEach(scan => {
@@ -66,4 +66,4 @@ function Map({ scans, scansCount }) {
 	}
 }
 
-export default React.memo(Map);
+export default React.memo(ScanMap);

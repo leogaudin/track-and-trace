@@ -7,7 +7,7 @@ export default function Logout() {
 	useEffect(() => {
 	  	localStorage.removeItem('user');
 		navigate("/", { replace: true });
-	}, []);
+	}, [navigate]);
 
 	return null;
   };

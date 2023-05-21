@@ -78,7 +78,7 @@ export default function TableCard({
         ) : (
           <React.Fragment>
             {rows === null ? (
-              <Typography variant="body1">You have no {contentName}</Typography>
+              <Alert severity='info'>You have no {contentName}</Alert>
             ) : (
               <SkeletonTable rows={pageSize} />
             )}

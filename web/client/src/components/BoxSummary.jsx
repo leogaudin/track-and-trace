@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, Card, Stack, Typography, CardContent, Grid } from "@mui/material";
-import Map from "./Map";
+import Map from "./ScanMap";
 import ScansOverview from "./ScansOverview";
 import {QRCodeSVG} from 'qrcode.react';
 

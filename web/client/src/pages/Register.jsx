@@ -45,7 +45,7 @@ function Register() {
     const user = localStorage.getItem('user');
     if (user) setIsAuth(true);
     if (isAuth) navigate('/');
-  }, [isAuth]);
+  }, [isAuth, navigate]);
 
   const formik = useFormik({
     initialValues: {

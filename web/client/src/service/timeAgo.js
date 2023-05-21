@@ -12,7 +12,7 @@ export function timeAgo(time) {
 		default:
 			time = +new Date();
 	}
-	var time_formats = [
+	let time_formats = [
 		[60, 'seconds', 1],
 		[120, '1 minute ago', '1 minute from now'],
 		[3600, 'minutes', 60],
@@ -27,7 +27,7 @@ export function timeAgo(time) {
 		[58060800, 'Last year', 'Next year'],
 		[2903040000, 'years', 29030400]
 	];
-	var seconds = (+new Date() - time) / 1000,
+	let seconds = (+new Date() - time) / 1000,
 		token = 'ago',
 		list_choice = 1;
 
@@ -39,9 +39,9 @@ export function timeAgo(time) {
 		token = 'from now';
 		list_choice = 2;
 	}
-	var i = 0,
+	let i = 0,
 		format;
-	while (format = time_formats[i++])
+	while ((format = time_formats[i++]))
 		if (seconds < format[0]) {
 			if (typeof format[2] == 'string')
 				return format[list_choice];
