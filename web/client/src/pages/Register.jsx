@@ -6,7 +6,6 @@ import {
   Card,
   Link,
   Stack,
-  TextField,
   Typography
 } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -14,28 +13,7 @@ import Globe from '../components/Globe';
 import { register } from '../service';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-
-const FormTextField = ({
-  field,
-  formik,
-  label,
-  type = 'text',
-  ...props
-}) => (
-  <TextField
-    error={!!(formik.touched[field] && formik.errors[field])}
-    fullWidth
-    helperText={formik.touched[field] && formik.errors[field]}
-    label={label}
-    name={field}
-    onBlur={formik.handleBlur}
-    onChange={formik.handleChange}
-    type={type}
-    value={formik.values[field]}
-    variant="standard"
-    {...props}
-  />
-);
+import { FormTextField } from '../components/FormTextField';
 
 function Register() {
   const navigate = useNavigate();
