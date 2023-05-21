@@ -12,6 +12,10 @@ const handle400Error = (res, error) => {
   return res.status(400).json({ success: false, error });
 };
 
+const handle409Error = (res, error) => {
+  return res.status(409).json({ success: false, error });
+};
+
 const handle201Success = (res, data) => {
   return res.status(201).json({ success: true, data });
 };
