@@ -29,10 +29,12 @@
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "source-map-explorer": "^2.5.3",
     "web-vitals": "^3.3.1",
     "yup": "^1.1.1"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
