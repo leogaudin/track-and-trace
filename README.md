@@ -4,7 +4,8 @@
 	<img src="https://api.codeclimate.com/v1/badges/c05f7f6f5c29faaf085a/maintainability.png">
 	<img src="https://img.shields.io/static/v1?label=android&message=%3E%205%2E0&color=brightgreen" />
 	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
-	<p><i>A lightweight JavaScript track-and-trace solution.</i></p>
+	<img src="https://img.shields.io/badge/web%2Fclient%20size-333.84%20KB%20(gzip)-success">
+	<p><i>A lightweight <b>(> 0.5 MB)</b> JavaScript track-and-trace solution.</i></p>
 	<h2 id="core">Core</h2>
 	<h3 id="qr-code-scanner">QR Code Scanner :white_check_mark:</h3>
 	<table>
