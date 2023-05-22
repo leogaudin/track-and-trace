@@ -8,6 +8,7 @@ import boxesRouter from './routes/boxes.router';
 import scansRouter from './routes/scans.router';
 import adminsRouter from './routes/admins.router';
 import authRouter from './routes/auth.router';
+import countryRouter from './routes/country.router';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use('/api', boxesRouter);
 app.use('/api', scansRouter);
 app.use('/api', adminsRouter);
 app.use('/api', authRouter);
+app.use('/api', countryRouter);
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
 
