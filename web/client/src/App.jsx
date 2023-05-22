@@ -13,6 +13,7 @@ import { getBoxesByAdminId, getScansByBoxes } from './service';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
 import {Helmet} from 'react-helmet';
+import { getCountryName } from './service';
 
 const theme = createTheme();
 
@@ -22,28 +23,43 @@ function App() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    if (user) {
-      getBoxesByAdminId(user.id)
-        .then(res => {
-          getScansByBoxes(res.data.map(box => box.id))
-            .then(res => {
-              setScans(res.data);
-            })
-            .catch(err => {
-              console.log(err);
-              if (err.response.status >= 400)
-                setScans(null);
-            });
-          setBoxes(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-          if (err.response.status >= 400)
-            setBoxes(null);
+    if (!user) return;
+
+    const fetchData = async () => {
+      try {
+        const boxesResponse = await getBoxesByAdminId(user.id);
+        setBoxes(boxesResponse.data);
+      } catch (err) {
+        console.log(err);
+        if (err.response && err.response.status >= 400)
+          setBoxes(null);
+      }
+
+      try {
+        const boxesResponse = await getBoxesByAdminId(user.id);
+        const boxIds = boxesResponse.data.map(box => box.id);
+        const scansResponse = await getScansByBoxes(boxIds);
+        const scans = scansResponse.data;
+
+        const updatedScans = [];
+        for (const scan of scans) {
+          const { latitude, longitude } = scan.location.coords;
+          const name = await getCountryName({latitude, longitude});
+          const updatedScan = { ...scan, countryName: name['country'] };
+          updatedScans.push(updatedScan);
         }
-      );
-    }
-	}, [user])
+
+        setScans(updatedScans);
+      } catch (err) {
+        console.log(err);
+        if (err.response && err.response.status >= 400)
+          setScans(null);
+      }
+    };
+
+    fetchData();
+    console.log('Salut')
+  }, []);
 
   return (
     <div className="App">

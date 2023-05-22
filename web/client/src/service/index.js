@@ -60,6 +60,10 @@ export async function getAdmins() {
   return await sendRequest('get', 'admins');
 }
 
+export async function getCountryName(coordinates) {
+  return await sendRequest('post', 'country', coordinates);
+}
+
 export async function login(user) {
   return await sendRequest('post', 'login', user);
 }

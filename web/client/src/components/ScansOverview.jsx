@@ -1,5 +1,4 @@
 import { timeAgo } from '../service/timeAgo';
-import { feature as getCountryName } from '@rapideditor/country-coder';
 import { useState } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './TableCard';
@@ -15,7 +14,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 			rows={scans ? scans.map(scan => {
 				return [
 					scan.boxId,
-					getCountryName([scan?.location.coords.longitude, scan?.location.coords.latitude], { level: 'territory' }).properties.nameEn,
+					scan.countryName,
 					timeAgo(scan.time),
 					scan.comment
 				]
