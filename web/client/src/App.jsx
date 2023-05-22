@@ -58,7 +58,6 @@ function App() {
     };
 
     fetchData();
-    console.log('Salut')
   }, []);
 
   return (
