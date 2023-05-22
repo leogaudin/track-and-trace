@@ -1,4 +1,4 @@
-import borders from '../assets/borders.json';
+import borders from '../assets/borders';
 
 function reverseGeocode(longitude, latitude, countriesJSON) {
 	for (const country of countriesJSON.features) {
