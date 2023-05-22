@@ -4,7 +4,7 @@ const borders = JSON.parse(fs.readFileSync('../assets/borders.json', 'utf8'));
 
 function reverseGeocode(longitude, latitude, countriesJSON) {
 	for (const country of countriesJSON.features) {
-		if (country.geometry.type === "MultiPolygon") {
+		if (country.geometry && country.geometry.type === "MultiPolygon") {
 			for (const polygon of country.geometry.coordinates) {
 				if (isPointInsidePolygon(longitude, latitude, polygon)) {
 					return country.properties;
