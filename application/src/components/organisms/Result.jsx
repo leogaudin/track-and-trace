@@ -62,7 +62,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
             break;
         }
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 120000},
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 360000},
     );
   }
 
@@ -140,6 +140,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
                     <Text style={{textAlign: 'center'}}>Cancel</Text>
                   </Pressable>
                   <Pressable
+                    disabled={!locationLoaded || !userLocation}
                     style={[globalStyles.mainButton]}
                     onPress={() => {
                       setLocationLoaded(false);
