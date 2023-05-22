@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-const borders = JSON.parse(fs.readFileSync('../assets/borders.json', 'utf8'));
+import borders from '../assets/borders.json';
 
 function reverseGeocode(longitude, latitude, countriesJSON) {
 	for (const country of countriesJSON.features) {
