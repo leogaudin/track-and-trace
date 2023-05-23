@@ -1,141 +1,74 @@
-<div align="center">
-	<h1>🗺️ track-and-trace</h1>
-	<img src="https://img.shields.io/github/license/leogaudin/track-and-trace" />
-	<img src="https://api.codeclimate.com/v1/badges/c05f7f6f5c29faaf085a/maintainability.png">
-	<img src="https://img.shields.io/static/v1?label=android&message=%3E%205%2E0&color=brightgreen" />
-	<img src="https://img.shields.io/static/v1?label=ios&message=%3E%2012%2E4&color=blueviolet" />
-	<img src="https://img.shields.io/badge/web%2Fclient%20size-333.84%20KB%20(gzip)-success">
-	<p><i>A lightweight <b>(> 0.5 MB)</b> JavaScript track-and-trace solution.</i></p>
-	<h2 id="core">Core</h2>
-	<h3 id="qr-code-scanner">QR Code Scanner :white_check_mark:</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Component</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Scan</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Metadata retrieval</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Submitting form</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Operator identification</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Sending the data to the server</td>
-				<td>:white_check_mark:</td>
-			</tr>
-		</tbody>
-	</table>
-	<h3 id="databases">Databases :white_check_mark:</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Component</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Distribution database</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Administrator database</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Scans database</td>
-				<td>:white_check_mark:</td>
-			</tr>
-		</tbody>
-	</table>
-	<h3 id="dashboard">Dashboard</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Component</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Basic generation</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Web interface</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Database editor</td>
-				<td>:x:</td>
-			</tr>
-			<tr>
-				<td>Automatic import from CSV</td>.
-				<td>:x:</td>
-			</tr>
-			<tr>
-				<td>Summary of the circulating boxes</td>
-				<td>:x:</td>
-			</tr>
-			<tr>
-				<td>Summary of the issues</td>
-				<td>:x:</td>
-			</tr>
-		</tbody>
-	</table>
-	<h3 id="server-architecture">Server architecture</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Component</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Communication between the scanner and the server</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Communication between the server and the dashboard</td>
-				<td>:white_check_mark:</td>
-			</tr>
-			<tr>
-				<td>Security and authentication</td>
-				<td>:x:</td>
-			</tr>
-			<tr>
-				<td>Ecosystem implementation</td>
-				<td>:x:</td>
-			</tr>
-		</tbody>
-	</table>
-	<h2 id="extensions">Extensions</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Component</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Offline scan</td>
-				<td>:x:</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+# 🌍 A lightweight (< 0.5 MB) JavaScript track-and-trace solution.
+
+[![License](https://img.shields.io/github/license/leogaudin/track-and-trace)](LICENSE)
+
+🚀 This repository contains the source code for the track and trace system developed for the World Bank's Read@Home program. The system enables the tracking and tracing of boxes of educational books.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Compatibility](#compatibility)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+The track and trace system consists of two main components:
+
+1. `application`: 📱 A React Native mobile app for scanning QR codes on the boxes.
+2. `web`: 🌐 A MERN stack web app for creating and managing the boxes and their QR codes.
+
+The system is built using JavaScript, making it lightweight, fast and compatible.
+
+## Features
+
+The track and trace system offers the following features:
+
+- 📷 Scan QR codes on boxes using the React Native mobile app.
+- 📦 Register boxes.
+- 🏷️ Generate QR codes for each box to enable tracking.
+- 🔍 Track the movement of educational books.
+- 🌐 Manage boxes and their QR codes through the web app.
+- 🚀 Lightweight and efficient, with a client bundle size of only **333.84 KB** when gzipped.
+
+## Compatibility
+
+The system is compatible with the following minimum versions:
+
+### 📱 Mobile Application (React Native)
+
+- iOS: Minimum version iOS 11
+- Android: Minimum version Android 6.0 (Marshmallow)
+
+### 🌐 Web Application (React)
+
+- Browser Compatibility:
+  - Chrome
+  - Firefox
+  - Safari
+  - Edge
+
+The web app is developed using React v18.2.0, while the mobile app uses React Native v0.71.8.
+
+## Folder Structure
+
+The repository has the following folder structure:
+
+- `application`: 📱 Contains the source code for the React Native mobile app.
+- `web`: 🌐 Contains the source code for the MERN stack web app.
+
+## Contributing
+
+🙌 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request. For major changes, please discuss them with the project maintainers first.
+
+⚠️ Please note that this project is licensed under the **GPLv3 License**.
+
+Any forks or modifications **must also be open source** and adhere to the GPLv3 license terms.
+
+**Private use is not permitted**.
+
+## License
+
+This project is licensed under the **GPLv3 License**. See the [LICENSE](LICENSE) file for details.
