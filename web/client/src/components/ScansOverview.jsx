@@ -23,6 +23,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 			pageSize={10}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
+			searchEnabled={false}
 		>
 			{disableDialogs
 			? null

@@ -13,6 +13,30 @@ import {
   Stack
 } from '@mui/material';
 import SkeletonTable from './SkeletonTable';
+import { SearchBar } from './SearchBar';
+
+const filterData = (query, data) => {
+  return data.filter((item) => {
+    for (let key in item) {
+      if (
+        typeof item[key] === 'string' &&
+        item[key].toLowerCase().includes(query.toLowerCase())
+      ) {
+        return true;
+      } else if (typeof item[key] === 'object') {
+        for (let subKey in item[key]) {
+          if (
+            typeof item[key][subKey] === 'string' &&
+            item[key][subKey].toLowerCase().includes(query.toLowerCase())
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  });
+};
 
 export default function TableCard({
   contentName = 'items',
@@ -22,15 +46,12 @@ export default function TableCard({
   pageSize = 10,
   setDialogOpen,
   setSelectedItem,
+  searchEnabled = true,
   children
 }) {
   const [page, setPage] = useState(1);
-
-  const sortedRows = rows
-    ? rows
-        .sort((a, b) => b[sortBy] - a[sortBy])
-        .slice((page - 1) * pageSize, page * pageSize)
-    : null;
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredRows = filterData(searchQuery, rows).slice((page - 1) * pageSize, page * pageSize);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
