@@ -19,7 +19,6 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 					scan.comment
 				]
 			}) : null}
-			sortBy='time'
 			pageSize={10}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}

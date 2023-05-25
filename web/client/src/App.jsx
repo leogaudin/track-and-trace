@@ -28,6 +28,7 @@ function App() {
     const fetchData = async () => {
       try {
         const boxesResponse = await getBoxesByAdminId(user.id);
+        boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setBoxes(boxesResponse.data);
       } catch (err) {
         console.log(err);
@@ -48,7 +49,7 @@ function App() {
           const updatedScan = { ...scan, countryName: name['country'] };
           updatedScans.push(updatedScan);
         }
-
+        updatedScans.sort((a, b) => new Date(b.time) - new Date(a.time));
         setScans(updatedScans);
       } catch (err) {
         console.log(err);

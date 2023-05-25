@@ -42,7 +42,6 @@ export default function TableCard({
   contentName = 'items',
   columns,
   rows,
-  sortBy,
   pageSize = 10,
   setDialogOpen,
   setSelectedItem,
