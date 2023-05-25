@@ -210,7 +210,7 @@ const getAll = (Model, apiKeyNeeded = true) => async (req, res) => {
       });
     }
 
-    const instances = await Model.find({}).sort({ _id: -1 });
+    const instances = await Model.find({});
 
     if (!instances.length) {
       return handle404Error(res);
