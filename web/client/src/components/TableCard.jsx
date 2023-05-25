@@ -50,7 +50,9 @@ export default function TableCard({
 }) {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredRows = filterData(searchQuery, rows).slice((page - 1) * pageSize, page * pageSize);
+  const filteredRows = rows
+  ? filterData(searchQuery, rows).slice((page - 1) * pageSize, page * pageSize)
+  : null;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
