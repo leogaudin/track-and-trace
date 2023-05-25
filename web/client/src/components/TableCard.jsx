@@ -60,24 +60,25 @@ export default function TableCard({
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
       <CardContent>
         <Typography variant="overline">Your {contentName}</Typography>
-        {rows && rows.length ? (
+        {rows?.length ? (
           <Stack direction="column" spacing={3} alignItems="center">
+            {searchEnabled ? <SearchBar setSearchQuery={setSearchQuery} /> : false}
             <Table>
               <TableHead>
                 <TableRow>
                   {columns.map((column, index) => (
-                    <TableCell key={index}>{column}</TableCell>
+                    <TableCell key={column + index}>{column}</TableCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sortedRows.map((row, index) => (
-                  <TableRow key={index} onClick={() => {
+                {filteredRows.map((row, index) => (
+                  <TableRow key={row[0] + index} onClick={() => {
                       setSelectedItem(row[0]);
                       setDialogOpen(true);
                     }} hover>
                     {Object.values(row).map((value, index) => (
-                      <TableCell key={index}>{index === 0 ? <b>{value}</b> : value}</TableCell>
+                      <TableCell key={row[0] + index}>{index === 0 ? <b>{value}</b> : value}</TableCell>
                     ))}
                   </TableRow>
                 ))}
