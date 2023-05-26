@@ -3,7 +3,6 @@ import { Card, CardContent, Typography, Stack } from '@mui/material';
 import {QRCodeSVG} from 'qrcode.react';
 
 const BoxInfo = ({ boxData, width = null, height = null }) => {
-	console.log(width, height)
   return (
     <Card sx={{width: width ? width : '100%', height: height ? height : '100%'}} >
       <CardContent>
