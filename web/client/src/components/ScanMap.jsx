@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Popup, Polyline, LayerGroup, CircleMarker } from 'react-leaflet';
-import { getLatLngCenter } from '../service/mapUtils';
+import { getLatLngCenter, getZoomLevel } from '../service/mapUtils';
 import { Typography } from '@mui/material';
 
 
@@ -21,7 +21,7 @@ function ScanMap({ scans, scansCount }) {
 
 	if (scansLoaded && scansCount !== 0) {
 		return (
-			<MapContainer center={getLatLngCenter(coords)} zoom={20} scrollWheelZoom={true} style={{ minHeight: '20rem', minWidth: '30rem', borderRadius: 25 }}>
+			<MapContainer center={getLatLngCenter(coords)} zoom={getZoomLevel(coords)} scrollWheelZoom={true} style={{ minHeight: '20rem', minWidth: '30rem', borderRadius: 25 }}>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

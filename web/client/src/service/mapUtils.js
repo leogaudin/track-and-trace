@@ -36,3 +36,20 @@ export function getLatLngCenter(latLngInDegr) {
 
 	return ([rad2degr(lat), rad2degr(lng)]);
 }
+
+export function getZoomLevel(markerCoords) {
+    const bounds = markerCoords.reduce(
+      (acc, coord) => {
+        return [
+          [Math.min(acc[0][0], coord[0]), Math.min(acc[0][1], coord[1])],
+          [Math.max(acc[1][0], coord[0]), Math.max(acc[1][1], coord[1])],
+        ];
+      },
+      [[Infinity, Infinity], [-Infinity, -Infinity]]
+    );
+    const distance = Math.sqrt(
+      Math.pow(bounds[1][0] - bounds[0][0], 2) + Math.pow(bounds[1][1] - bounds[0][1], 2)
+    );
+    const zoomLevel = Math.log2(156543.03392 * 360 / distance / 100000);
+    return Math.round(zoomLevel);
+  };
