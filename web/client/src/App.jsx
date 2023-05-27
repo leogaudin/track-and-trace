@@ -9,6 +9,7 @@ import Boxes from './pages/Boxes';
 import Scans from './pages/Scans';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Export from './pages/Export';
 import { getBoxesByAdminId, getScansByBoxes } from './service';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
@@ -84,6 +85,11 @@ function App() {
             <Route path='/scans' element={
               <RequireAuth>
                 <Scans boxes={boxes} scans={scans}/>
+              </RequireAuth>
+            } />
+            <Route path='/export' element={
+              <RequireAuth>
+                <Export boxes={boxes}/>
               </RequireAuth>
             } />
             <Route path='/login' element={<Login />} />
