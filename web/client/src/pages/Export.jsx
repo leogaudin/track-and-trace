@@ -54,7 +54,7 @@ export default function Export({ boxes }) {
   };
 
   return (
-    <Box paddingX={75} paddingY={25} width={'100%'}>
+    <Box paddingX={'25vw'} paddingY={'10vh'} width={'100%'}>
       <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
         <CardContent>
           <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'} margin={'auto'}>
