@@ -487,17 +487,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R32B9PWM4R;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Léo Gaudin (R32B9PWM4R)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R32B9PWM4R;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = application/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = tnt;
+				INFOPLIST_KEY_CFBundleDisplayName = "Track-and-Trace Companion";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -505,6 +508,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.leogaudin.tnt;
 				PRODUCT_NAME = application;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Distribution TnT";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -517,16 +522,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R32B9PWM4R;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Léo Gaudin (R32B9PWM4R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Léo Gaudin (R32B9PWM4R)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = R32B9PWM4R;
 				INFOPLIST_FILE = application/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = tnt;
+				INFOPLIST_KEY_CFBundleDisplayName = "Track-and-Trace Companion";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -534,6 +543,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.leogaudin.tnt;
 				PRODUCT_NAME = application;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Distribution TnT";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
