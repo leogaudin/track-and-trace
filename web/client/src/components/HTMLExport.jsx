@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 
 const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) => {
   const generateHTML = (object) => {
-    const { school, division, district, zone, institutionType, htName, htPhone, createdAt, id } = object;
+    const { school, label, division, district, zone, institutionType, htName, htPhone, createdAt, id } = object;
     const qrCode = new QRCode({
       content: id,
       width: 150,
@@ -93,6 +93,10 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
                 <div class="info-row">
                   <span class="info-label">Recipient:</span>
                   <span class="info-value">${school}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Label:</span>
+                  <span class="info-value">${label}</span>
                 </div>
                 <div class="info-row">
                   <span class="info-label">Division:</span>

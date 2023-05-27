@@ -11,9 +11,10 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 	Papa.parse(text, {
 		worker: true,
 		step: (element) => {
-			const [id, division, district, zone, school, htName, htPhone, institutionType] = element.data;
+			const [id, label, division, district, zone, school, htName, htPhone, institutionType] = element.data;
 			boxes.push({
 				id,
+				label,
 				division,
 				district,
 				zone,

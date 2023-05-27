@@ -17,10 +17,11 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 	return (
 		<TableCard
 			contentName='boxes'
-			columns={['ID', 'Recipient', 'Created', 'Status']}
+			columns={['ID', 'Label', 'Recipient', 'Created', 'Status']}
 			rows={boxes ? boxes.map((box) => {
 				return [
 					box.id,
+					box.label,
 					box.school,
 					timeAgo(box.createdAt),
 					<SeverityPill color={statusMap['inprogress']}>{'In Progress'}</SeverityPill>

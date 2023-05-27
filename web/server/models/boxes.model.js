@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const Box = new Schema(
 	{
 		id: { type: String, required: true },
+		label: { type: String, required: true },
 		division: { type: String, required: false },
 		district: { type: String, required: false },
 		zone: { type: String, required: false },
