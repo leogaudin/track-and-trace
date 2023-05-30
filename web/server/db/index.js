@@ -10,7 +10,7 @@ mongoose
             server: {
                 socketOptions: {
                     keepAlive: 100,
-                    connectTimeoutMS: 30000
+                    connectTimeoutMS: 60000
                 }
             }
         }
