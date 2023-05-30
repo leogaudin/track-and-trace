@@ -17,7 +17,7 @@ const BoxInfo = ({ boxData, width = null, height = null }) => {
         >
           <Stack direction={'column'} spacing={0.5}>
             <Typography>
-              Label: <b>{boxData?.label}</b>
+              Project: <b>{boxData?.project}</b>
             </Typography>
             <Typography>
               Recipient: <b>{boxData?.school}</b>
