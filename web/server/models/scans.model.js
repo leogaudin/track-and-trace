@@ -8,6 +8,7 @@ const Scan = new Schema(
 		operatorId: { type: String, required: true },
 		time: { type: Number, required: true },
 		location: { type: Object, required: true },
+		finalDestination: { type: Boolean, required: true },
 		comment: { type: String, required: false }
 	}
 )

@@ -10,13 +10,14 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 	return (
 		<TableCard
 			contentName='scans'
-			columns={['Box', 'Location', 'Time', 'Comment']}
+			columns={['Box', 'Location', 'Time', 'Comment', 'Final']}
 			rows={scans ? scans.map(scan => {
 				return [
 					scan.boxId,
 					scan.countryName,
 					timeAgo(scan.time),
-					scan.comment
+					scan.comment,
+					scan.finalDestination ? '✅' : ''
 				]
 			}) : null}
 			pageSize={10}

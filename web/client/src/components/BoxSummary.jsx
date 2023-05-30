@@ -1,7 +1,9 @@
-import { Dialog, DialogContent, Stack, Typography, Grid } from "@mui/material";
+import { Dialog, DialogContent, Stack, Typography, Grid, Alert } from "@mui/material";
 import Map from "./ScanMap";
 import ScansOverview from "./ScansOverview";
 import BoxInfo from './BoxInfo';
+import { getProgress } from "../service/progress";
+import { colorsMap, textsMap } from "./constants";
 
 export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 
@@ -10,7 +12,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 	}
 
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
-	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }).sort((a, b) => b.time - a.time) : null;
+	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
 
 	return (
 		<Dialog
@@ -29,6 +31,17 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 						<Grid item xs={12}>
 							<BoxInfo boxData={boxData} />
 						</Grid>
+						{getProgress(scanData) !== 'noscans'
+						? <Grid item xs={12}>
+							<Alert
+								variant="filled"
+								severity={colorsMap[getProgress(scanData)]}
+								sx={{color: 'white'}}
+							>
+								<b>{textsMap[getProgress(scanData)]}</b>
+							</Alert>
+						</Grid>
+						: false}
 						{scanData && scanData.length ?
 							<Grid item xs={12}>
 								<ScansOverview boxes={boxes} scans={scanData} disableDialogs />

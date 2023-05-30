@@ -1,5 +1,5 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import CheckBox from '@react-native-community/checkbox';
 import {
   Alert,
   Keyboard,
@@ -44,6 +44,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
   const [userLocation, setUserLocation] = useState({});
   const [componentMounted, setComponentMounted] = useState(false);
   const [comment, setComment] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   useEffect(() => {
     setComponentMounted(true);
@@ -130,6 +131,13 @@ export default function Result({modalVisible, setModalVisible, data}) {
                   placeholder="Add a comment..."
                   style={[globalStyles.input, {height: 100}]}
                 />
+                    <View style={{ flexDirection: 'row' }}>
+                      <CheckBox
+                        value={toggleCheckBox}
+                        onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                      />
+                      <Text>Final destination</Text>
+                    </View>
                 <View style={globalStyles.horizontal}>
                   <Pressable
                     style={globalStyles.button}
@@ -151,6 +159,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
                           operatorId: user_id,
                           time: Date.now(),
                           location: userLocation,
+                          finalDestination: toggleCheckBox,
                           comment: comment,
                         };
                         dataToSend.id = SparkMD5.hash(

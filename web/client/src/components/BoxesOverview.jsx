@@ -3,12 +3,8 @@ import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'
 import TableCard from './TableCard';
-
-const statusMap = {
-	inprogress: 'warning',
-	delivered: 'success',
-	problem: 'error'
-};
+import { getProgress } from '../service/progress';
+import { colorsMap, textsMap } from './constants';
 
 export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
@@ -17,14 +13,16 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 	return (
 		<TableCard
 			contentName='boxes'
-			columns={['ID', 'Label', 'Recipient', 'Created', 'Status']}
+			columns={['ID', 'Project', 'Recipient', 'Created', 'Status']}
 			rows={boxes ? boxes.map((box) => {
+				const boxScans = scans ? scans.filter(scan => { return scan.boxId === box.id }) : null;
+				const progress = getProgress(boxScans);
 				return [
 					box.id,
-					box.label,
+					box.project,
 					box.school,
 					timeAgo(box.createdAt),
-					<SeverityPill color={statusMap['inprogress']}>{'In Progress'}</SeverityPill>
+					<SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>
 				]
 			}) : null}
 			pageSize={pageSize}
