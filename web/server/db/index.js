@@ -4,12 +4,7 @@ const connectionString = process.env.STRING_URI || "";
 
 const client = new MongoClient(connectionString);
 
-let conn;
-try {
-  conn = await client.connect();
-} catch(e) {
-  console.error(e);
-}
+let conn = await client.connect();
 
 let db = conn.db("tnt");
 
