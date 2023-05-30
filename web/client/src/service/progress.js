@@ -1,9 +1,9 @@
 export function getProgress(scans) {
-	if (scans.length === 0) {
+	if (scans?.length === 0) {
 		return "noscans";
 	}
 
-	const finalScans = scans.filter(scan => scan.finalDestination === true);
+	const finalScans = scans?.filter(scan => scan.finalDestination === true);
 
 	if (finalScans.length > 1) {
 		return "confusing";
