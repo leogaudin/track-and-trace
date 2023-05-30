@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+mongoose.set('debug', true);
 mongoose
     .connect(process.env.STRING_URI,
         {
