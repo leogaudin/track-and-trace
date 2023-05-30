@@ -3,14 +3,16 @@ export function getProgress(scans) {
 		return "noscans";
 	}
 
-	const finalScans = scans?.filter(scan => scan.finalDestination === true);
+	const finalScans = scans ? scans.filter(scan => scan.finalDestination === true) : null;
 
-	if (finalScans.length > 1) {
-		return "confusing";
-	} else if (finalScans.length === 1) {
-		return "delivered";
-	} else {
-		return "inprogress";
+	if (finalScans) {
+		if (finalScans.length > 1) {
+			return "confusing";
+		} else if (finalScans.length === 1) {
+			return "delivered";
+		} else {
+			return "inprogress";
+		}
 	}
 }
 
