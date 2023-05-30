@@ -9,8 +9,22 @@ import scansRouter from './routes/scans.router';
 import adminsRouter from './routes/admins.router';
 import authRouter from './routes/auth.router';
 import countryRouter from './routes/country.router';
+const mongoose = require('mongoose');
 
 dotenv.config();
+
+const mongoString = process.env.STRING_URI;
+
+mongoose.connect(mongoString);
+const database = mongoose.connection;
+
+database.on('error', (error) => {
+    console.log(error)
+})
+
+database.once('connected', () => {
+    console.log('Database Connected');
+})
 
 const app = express();
 app.disable('x-powered-by');
@@ -26,7 +40,6 @@ app.use(
     })
 );
 app.use(bodyParser.json());
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');

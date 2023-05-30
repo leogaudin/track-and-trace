@@ -1,11 +1,24 @@
-import { MongoClient } from "mongodb";
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const connectionString = process.env.STRING_URI || "";
+dotenv.config();
 
-const client = new MongoClient(connectionString);
+mongoose.set('debug', true);
+mongoose
+    .connect(process.env.STRING_URI,
+        {
+            useNewUrlParser: true,
+            server: {
+                socketOptions: {
+                    keepAlive: 100,
+                    connectTimeoutMS: 60000
+                }
+            }
+        }
+    ).catch(e => {
+        console.error('Connection error', e.message)
+    })
 
-let conn = await client.connect();
+const db = mongoose.connection;
 
-let db = conn.db("tnt");
-
-export default db;
+module.exports = db;
