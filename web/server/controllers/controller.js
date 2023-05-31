@@ -130,7 +130,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
           }
 
           instance.createdAt = new Date().getTime();
-          validInstances.push(new Model(instance));
+          validInstances.push(instance);
         });
       } else {
         const existent = await Model.findOne({ id: instance.id });
@@ -144,7 +144,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
         }
 
         instance.createdAt = new Date().getTime();
-        validInstances.push(new Model(instance));
+        validInstances.push(instance);
       }
     }
 
