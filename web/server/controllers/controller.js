@@ -16,11 +16,11 @@ const handle409Error = (res, error) => {
   return res.status(409).json({ success: false, error });
 };
 
-const handle201Success = (res, message, validInstances) => {
+const handle201Success = (res, message, invalidInstances, validInstances) => {
   return res.status(201).json({
     success: true,
     message,
-    invalidInstances: [],
+    invalidInstances,
     validInstances,
   });
 };
@@ -167,6 +167,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
       return handle201Success(
         res,
         `Items created!`,
+        [],
         validInstances,
       );
     }
