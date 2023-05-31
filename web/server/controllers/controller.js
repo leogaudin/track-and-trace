@@ -148,6 +148,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
       }
     }
 
+    console.log(validInstances);
     await Model.insertMany(validInstances);
 
     if (invalidInstances.length > 0) {
