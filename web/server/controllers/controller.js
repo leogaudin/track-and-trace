@@ -109,66 +109,64 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
 
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
-    const instances = req.body;
+    const items = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return handle400Error(res, 'You must provide an array of items');
+    }
+
     const validInstances = [];
     const invalidInstances = [];
 
-    for (const instance of instances) {
-      if (!instance.id) {
-        invalidInstances.push({
-          instance,
-          error: `You must provide an id for the item`,
-        });
-        continue;
-      }
+    const existingIds = new Set();
 
-      if (apiKeyNeeded) {
-        await requireApiKey(req, res, async () => {
-          const existent = await Model.findOne({ id: instance.id });
-
-          if (existent) {
-            invalidInstances.push({
-              instance,
-              error: `Item with ID ${existent.id} already exists`,
-            });
-            return;
-          }
-
-          instance.createdAt = new Date().getTime();
-          validInstances.push(instance);
-        });
-      } else {
-        const existent = await Model.findOne({ id: instance.id });
-
-        if (existent) {
-          invalidInstances.push({
-            instance,
-            error: `Item with ID ${existent.id} already exists`,
-          });
-          continue;
-        }
-
-        instance.createdAt = new Date().getTime();
-        validInstances.push(instance);
-      }
+    if (apiKeyNeeded) {
+      await requireApiKey(req, res);
     }
 
-    console.log('Valid instances', validInstances);
-    console.log('Invalid instances', invalidInstances);
-    await Model.insertMany(validInstances);
+    const existingItems = await Model.find({ id: { $in: items.map((item) => item.id) } });
+    existingItems.forEach((item) => existingIds.add(item.id));
+
+    const bulkInsertData = items.filter((item) => !existingIds.has(item.id)).map((item) => ({
+      insertOne: {
+        document: {
+          ...item,
+          createdAt: new Date().getTime(),
+        },
+      },
+    }));
+
+    if (bulkInsertData.length > 0) {
+      await Model.bulkWrite(bulkInsertData);
+      validInstances.push(...bulkInsertData.map((data) => data.insertOne.document));
+    }
+
+    items.forEach((item) => {
+      if (existingIds.has(item.id)) {
+        invalidInstances.push({
+          id: item.id,
+          error: `Item with ID ${item.id} already exists`,
+        });
+      } else if (!validInstances.some((instance) => instance.id === item.id)) {
+        invalidInstances.push({
+          id: item.id,
+          error: 'Invalid item',
+        });
+      }
+    });
 
     if (invalidInstances.length > 0) {
       return handle206Success(
         res,
-        `Some items were not created`,
+        'Some items could not be created',
         invalidInstances,
-        validInstances
+        validInstances,
       );
     } else {
       return handle201Success(
         res,
-        `Items created!`,
-        [],
+        'Items created!',
+        invalidInstances,
         validInstances,
       );
     }
@@ -177,6 +175,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     return handle400Error(res, error);
   }
 };
+
 
 const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
