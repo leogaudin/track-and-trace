@@ -164,10 +164,11 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
         validInstances
       );
     } else {
-      return handle201Success(res, {
-        message: `Items created!`,
+      return handle201Success(
+        res,
+        `Items created!`,
         validInstances,
-      });
+      );
     }
   } catch (error) {
     console.log(error);
