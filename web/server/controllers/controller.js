@@ -16,8 +16,13 @@ const handle409Error = (res, error) => {
   return res.status(409).json({ success: false, error });
 };
 
-const handle201Success = (res, data) => {
-  return res.status(201).json({ success: true, data });
+const handle201Success = (res, message, validInstances) => {
+  return res.status(201).json({
+    success: true,
+    message,
+    invalidInstances: [],
+    validInstances,
+  });
 };
 
 const handle206Success = (res, message, invalidInstances, validInstances) => {
