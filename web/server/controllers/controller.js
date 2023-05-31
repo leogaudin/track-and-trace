@@ -144,7 +144,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
               createdItems.push({ id: instance.id, message: `Item created!` });
             }
           }
-        });
+        })();
       } else {
         const existent = await Model.findOne({ id: item.id });
 
@@ -179,6 +179,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     return handle400Error(res, error);
   }
 };
+
 
 const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
