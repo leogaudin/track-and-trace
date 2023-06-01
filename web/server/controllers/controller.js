@@ -110,76 +110,71 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
     const items = req.body;
+    const createdAt = new Date().getTime();
 
-    if (!Array.isArray(items) || items.length === 0) {
+    if (!Array.isArray(items)) {
       return handle400Error(res, 'You must provide an array of items');
     }
 
-    const operations = [];
-    const createdItems = [];
-    const existingItems = [];
-    const invalidItems = [];
+    const validInstances = [];
+    const invalidInstances = [];
 
     for (const item of items) {
-      if (!item) {
-        invalidItems.push({ item, error: 'Invalid item' });
-        continue;
-      }
-
-      item.createdAt = new Date().getTime();
+      item.createdAt = createdAt;
 
       if (apiKeyNeeded) {
         await requireApiKey(req, res, async () => {
           const existent = await Model.findOne({ id: item.id });
 
           if (existent) {
-            existingItems.push({ item, error: `Item with ID ${existent.id} already exists` });
+            invalidInstances.push({
+              id: item.id,
+              message: `Item with ID ${existent.id} already exists`,
+            });
           } else {
-            const instance = new Model(item);
-
-            if (!instance) {
-              invalidItems.push({ item, error: 'Invalid item' });
-            } else {
-              operations.push({ insertOne: { document: item } });
-              createdItems.push({ id: instance.id, message: `Item created!` });
-            }
+            validInstances.push(item);
           }
         });
       } else {
         const existent = await Model.findOne({ id: item.id });
 
         if (existent) {
-          existingItems.push({ item, error: `Item with ID ${existent.id} already exists` });
+          invalidInstances.push({
+            id: item.id,
+            message: `Item with ID ${existent.id} already exists`,
+          });
         } else {
-          const instance = new Model(item);
-
-          if (!instance) {
-            invalidItems.push({ item, error: 'Invalid item' });
-          } else {
-            operations.push({ insertOne: { document: item } });
-            createdItems.push({ id: instance.id, message: `Item created!` });
-          }
+          validInstances.push(item);
         }
       }
     }
 
-    if (operations.length > 0) {
-      await Model.bulkWrite(operations);
+    if (validInstances.length === 0) {
+      return handle409Error(res, 'All items already exist');
     }
 
-    const statusCode = createdItems.length === items.length ? 201 : 206;
+    const result = await Model.insertMany(validInstances);
 
-    return res.status(statusCode).json({
-      created: createdItems,
-      existing: existingItems,
-      invalid: invalidItems,
-    });
+    if (result.insertedCount === validInstances.length) {
+      return handle201Success(
+        res,
+        'All items created!',
+        invalidInstances,
+        validInstances,
+      );
+    } else {
+      return handle206Success(
+        res,
+        'Some items were not created',
+        invalidInstances,
+        validInstances,
+      );
+    }
   } catch (error) {
     console.log(error);
     return handle400Error(res, error);
   }
 };
-
 
 const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
