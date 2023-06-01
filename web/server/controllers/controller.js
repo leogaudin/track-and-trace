@@ -149,10 +149,6 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
       }
     }
 
-    if (validInstances.length === 0) {
-      return handle409Error(res, 'All items already exist');
-    }
-
     const result = await Model.insertMany(validInstances);
 
     if (result.insertedCount === validInstances.length) {
