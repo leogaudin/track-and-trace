@@ -113,20 +113,18 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     let instances;
 
     if (req.headers['content-encoding'] === 'gzip') {
-      const gunzip = zlib.createGunzip();
-      const buffer = [];
+      const compressedPayload = req.body;
+      zlib.gunzip(compressedPayload, (err, uncompressedPayload) => {
+        if (err) {
+          console.error('Failed to decompress payload:', err);
+          return handle400Error(res, err);
+        }
 
-      req.pipe(gunzip)
-        .on('data', (data) => buffer.push(data))
-        .on('end', () => {
-          const decompressedData = Buffer.concat(buffer).toString();
-          instances = JSON.parse(decompressedData);
-          processInstances(instances);
-        })
-        .on('error', (error) => {
-          console.error('Error occurred during decompression:', error);
-          return handle400Error(res, error);
-        });
+        const payload = uncompressedPayload.toString();
+        console.log(payload);
+
+        instances = JSON.parse(payload);
+      });
     } else {
       instances = req.body;
       processInstances(instances);
