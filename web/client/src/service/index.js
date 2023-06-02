@@ -2,18 +2,21 @@ import axios from 'axios';
 
 const BASE_URL = 'https://track-and-trace-api.vercel.app/api';
 
-function sendRequest(method, endpoint, data = null) {
+function sendRequest(method, endpoint, data = null, headers = {}) {
   const user = JSON.parse(localStorage.getItem('user'));
   const authorization = user ? user['apiKey'] : null;
+  const requestHeaders = {
+    'Content-Type': 'application/json',
+    'X-Authorization': authorization,
+    ...headers,
+  };
+
   return new Promise((resolve, reject) => {
     axios({
       method: method,
       url: `${BASE_URL}/${endpoint}`,
       data: data,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Authorization': authorization
-      }
+      headers: requestHeaders
     })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
@@ -33,7 +36,7 @@ export async function addBox(box) {
 }
 
 export async function addBoxes(boxes) {
-  return await sendRequest('post', 'boxes', boxes);
+  return await sendRequest('post', 'boxes', boxes, { 'Content-Encoding': 'gzip' });
 }
 
 export async function getBoxes() {

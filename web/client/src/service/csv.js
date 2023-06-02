@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 import { addBoxes } from './index';
+const pako = require('pako');
 
 function isCSVValid(file) {
 	return file.type === 'text/csv';
@@ -32,26 +33,17 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 }
 
 function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete) {
-	const BOXES_LENGTH = boxes.length - 1;
-	const BUFFER_SIZE = 21;
-	let uploaded = 0;
-	for (let i = 1; i < boxes.length; i += BUFFER_SIZE) {
-		const chunk = boxes.slice(i, i + BUFFER_SIZE);
-		addBoxes(chunk)
-			.then((success) => {
-				uploaded += chunk.length;
-				setUploadProgress(uploaded / BOXES_LENGTH);
-				setResults(results => [...results, success]);
-				if (uploaded === BOXES_LENGTH) {
-					setResults(results => createSummary(results));
-					setIsLoading(false);
-					setComplete(true);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
+	const payload = pako.gzip(JSON.stringify(boxes));
+	addBoxes(payload)
+		.then((res) => {
+			setResults(res => createSummary(res));
+			setIsLoading(false);
+			setComplete(true);
+		})
+		.catch((err) => {
+			console.log(err);
+		}
+	);
 }
 
 function createSummary(results) {

@@ -1,4 +1,5 @@
 const Admin = require('../models/admins.model');
+const zlib = require('zlib');
 
 const handle404Error = (res) => {
   return res.status(404).json({ success: false, error: `Item not found` });
@@ -107,67 +108,109 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
   }
 };
 
+const zlib = require('zlib');
+
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
-    const items = req.body;
-    const createdAt = new Date().getTime();
+    let instances;
 
-    if (!Array.isArray(items)) {
-      return handle400Error(res, 'You must provide an array of items');
+    if (req.headers['content-encoding'] === 'gzip') {
+      const gunzip = zlib.createGunzip();
+      const buffer = [];
+
+      req.pipe(gunzip)
+        .on('data', (data) => buffer.push(data))
+        .on('end', () => {
+          const decompressedData = Buffer.concat(buffer).toString();
+          instances = JSON.parse(decompressedData);
+          processInstances(instances);
+        })
+        .on('error', (error) => {
+          console.error('Error occurred during decompression:', error);
+          return handle400Error(res, error);
+        });
+    } else {
+      instances = req.body;
+      processInstances(instances);
     }
 
-    const validInstances = [];
-    const invalidInstances = [];
+    async function processInstances(instances) {
+      const validInstances = [];
+      const invalidInstances = [];
 
-    for (const item of items) {
-      item.createdAt = createdAt;
-
-      if (apiKeyNeeded) {
-        await requireApiKey(req, res, async () => {
-          const existent = await Model.findOne({ id: item.id });
-
-          if (existent) {
-            invalidInstances.push({
-              id: item.id,
-              message: `Item with ID ${existent.id} already exists`,
-            });
-          } else {
-            validInstances.push(item);
-          }
-        });
-      } else {
-        const existent = await Model.findOne({ id: item.id });
-
-        if (existent) {
+      for (const instance of instances) {
+        if (!instance.id) {
           invalidInstances.push({
-            id: item.id,
-            message: `Item with ID ${existent.id} already exists`,
+            instance,
+            error: `You must provide an id for the item`,
           });
+          continue;
+        }
+
+        if (apiKeyNeeded) {
+          try {
+            await requireApiKey(req, res, async () => {
+              const existent = await Model.findOne({ id: instance.id });
+
+              if (existent) {
+                invalidInstances.push({
+                  instance,
+                  error: `Item with ID ${existent.id} already exists`,
+                });
+              } else {
+                instance.createdAt = new Date().getTime();
+                validInstances.push(new Model(instance));
+              }
+            });
+          } catch (error) {
+            console.error('Error occurred during API key check:', error);
+            return handle400Error(res, error);
+          }
         } else {
-          validInstances.push(item);
+          try {
+            const existent = await Model.findOne({ id: instance.id });
+
+            if (existent) {
+              invalidInstances.push({
+                instance,
+                error: `Item with ID ${existent.id} already exists`,
+              });
+            } else {
+              instance.createdAt = new Date().getTime();
+              validInstances.push(new Model(instance));
+            }
+          } catch (error) {
+            console.error('Error occurred during existing item check:', error);
+            return handle400Error(res, error);
+          }
         }
       }
-    }
 
-    const result = await Model.insertMany(validInstances);
+      try {
+        await Model.insertMany(validInstances);
 
-    if (result.insertedCount === validInstances.length) {
-      return handle201Success(
-        res,
-        'All items created!',
-        invalidInstances,
-        validInstances,
-      );
-    } else {
-      return handle206Success(
-        res,
-        'Some items were not created',
-        invalidInstances,
-        validInstances,
-      );
+        if (invalidInstances.length > 0) {
+          return handle206Success(
+            res,
+            `Some items were not created`,
+            invalidInstances,
+            validInstances
+          );
+        } else {
+          return handle201Success(
+            res,
+            `Items created!`,
+            invalidInstances,
+            validInstances,
+          );
+        }
+      } catch (error) {
+        console.error('Error occurred during database insertion:', error);
+        return handle400Error(res, error);
+      }
     }
   } catch (error) {
-    console.log(error);
+    console.error('Error occurred during createMany:', error);
     return handle400Error(res, error);
   }
 };

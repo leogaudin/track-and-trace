@@ -22,7 +22,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.2",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
