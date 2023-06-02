@@ -1,5 +1,5 @@
 const Admin = require('../models/admins.model');
-const zlib = require('zlib');
+const pako = require('pako');
 
 const handle404Error = (res) => {
   return res.status(404).json({ success: false, error: `Item not found` });
@@ -114,18 +114,9 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
 
     if (req.headers['content-encoding'] === 'gzip') {
       const compressedPayload = req.body;
-      const compressedBuffer = Buffer.from(compressedPayload);
-      zlib.gunzip(compressedBuffer, (err, uncompressedPayload) => {
-        if (err) {
-          console.error('Failed to decompress payload:', err);
-          return handle400Error(res, err);
-        }
-
-        const payload = uncompressedPayload.toString();
-        console.log(payload);
-
-        instances = JSON.parse(payload);
-      });
+      const uncompressedPayload = pako.ungzip(compressedPayload, { to: 'string' });
+      instances = JSON.parse(uncompressedPayload);
+      processInstances(instances);
     } else {
       instances = req.body;
       processInstances(instances);
