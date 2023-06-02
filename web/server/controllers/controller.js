@@ -115,8 +115,8 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     if (req.headers['content-encoding'] === 'gzip') {
       const compressedPayload = req.body;
       const uncompressedPayload = pako.ungzip(compressedPayload, { to: 'string' });
+      return handle201Success(res, `Uncompressed payload`, [], uncompressedPayload);
       instances = JSON.parse(uncompressedPayload);
-      return handle201Success(res, `Items created!`, [], instances);
       processInstances(instances);
     } else {
       instances = req.body;
