@@ -39,6 +39,7 @@ app.use(
         maxAge: 3600,
     })
 );
+app.use(bodyParser.raw({ type: 'application/octet-stream' }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
