@@ -113,7 +113,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
     let instances;
 
-    if (req.headers['content-encoding'] === 'gzip') {
+    if (req.headers['content-type'] === 'text/plain') {
       const compressedPayload = req.body;
       const decodedPayload = Base64.decode(compressedPayload);
       const inflatedPayload = pako.inflate(decodedPayload, { to: 'string' });
