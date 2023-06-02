@@ -114,7 +114,8 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
 
     if (req.headers['content-encoding'] === 'gzip') {
       const compressedPayload = req.body;
-      zlib.gunzip(compressedPayload, (err, uncompressedPayload) => {
+      const compressedBuffer = Buffer.from(compressedPayload);
+      zlib.gunzip(compressedBuffer, (err, uncompressedPayload) => {
         if (err) {
           console.error('Failed to decompress payload:', err);
           return handle400Error(res, err);
