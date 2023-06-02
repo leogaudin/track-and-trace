@@ -116,6 +116,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
       const compressedPayload = req.body;
       const uncompressedPayload = pako.ungzip(compressedPayload, { to: 'string' });
       instances = JSON.parse(uncompressedPayload);
+      return handle201Success(res, `Items created!`, [], instances);
       processInstances(instances);
     } else {
       instances = req.body;
