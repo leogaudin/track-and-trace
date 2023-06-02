@@ -108,8 +108,6 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
   }
 };
 
-const zlib = require('zlib');
-
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
     let instances;
