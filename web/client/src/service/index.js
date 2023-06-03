@@ -51,6 +51,13 @@ export async function getBox(id) {
   return await sendRequest('get', `box/${id}`);
 }
 
+export async function deleteBoxes(boxes) {
+  const idsToDelete = boxes.map(box =>  box.id);
+  const deleteConditions = { id: { $in: idsToDelete } };
+  const requestBody = { deleteConditions };
+  return await sendRequest('delete', `boxes`, requestBody);
+}
+
 export async function getScans() {
   return await sendRequest('get', 'scans');
 }
