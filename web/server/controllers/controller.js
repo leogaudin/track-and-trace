@@ -297,7 +297,7 @@ const deleteMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     }
 
     if (apiKeyNeeded && apiKeyChecked || !apiKeyNeeded) {
-      const deleteConditions = req.body;
+      const {deleteConditions} = req.body;
 
       if (!deleteConditions) {
         return handle400Error(res, 'No delete conditions provided');
