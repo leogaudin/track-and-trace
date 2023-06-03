@@ -1,5 +1,5 @@
 export function getProgress(scans) {
-	if (scans?.length === 0) {
+	if (!scans || scans.length === 0) {
 		return "noscans";
 	}
 
