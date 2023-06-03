@@ -1,6 +1,4 @@
 const Admin = require('../models/admins.model');
-const pako = require('pako');
-const Base64 = require('base-64');
 const lzstring = require('lz-string');
 
 const handle404Error = (res) => {
