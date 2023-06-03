@@ -36,7 +36,7 @@ export async function addBox(box) {
 }
 
 export async function addBoxes(boxes) {
-  return await sendRequest('post', 'boxes', boxes, { 'Content-Encoding': 'gzip' });
+  return await sendRequest('post', 'boxes', boxes);
 }
 
 export async function getBoxes() {

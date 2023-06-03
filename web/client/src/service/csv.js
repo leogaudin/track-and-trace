@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import { addBoxes } from './index';
-const pako = require('pako');
+const lzstring = require('lz-string');
 
 function isCSVValid(file) {
 	return file.type === 'text/csv';
@@ -23,32 +23,58 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 				htName,
 				htPhone,
 				institutionType,
-				adminId: user.id
+				adminId: user.id,
+				createdAt: new Date().getTime()
 			});
 		},
 		complete: () => {
+			boxes.shift();
 			uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete);
 		}
 	})
 }
 
 function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete) {
-	const payload = pako.gzip(JSON.stringify(boxes));
-	addBoxes(payload)
-		.then((res) => {
-			setResults(res => createSummary(res));
-			setIsLoading(false);
-			setComplete(true);
-		})
-		.catch((err) => {
-			console.log(err);
-		}
-	);
+	const BUFFER_LENGTH = 21;
+	const numBoxes = boxes.length;
+	let bufferStartIndex = 0;
+	const responses = [];
+
+	const processBuffer = (buffer) => {
+		const payload = JSON.stringify(buffer);
+		const compressedPayload = {
+			data: lzstring.compressToEncodedURIComponent(payload)
+		};
+
+		addBoxes(compressedPayload)
+			.then((res) => {
+				responses.push(res);
+
+				setUploadProgress((bufferStartIndex + buffer.length) / numBoxes);
+
+				if (bufferStartIndex + buffer.length < numBoxes) {
+					bufferStartIndex += buffer.length;
+					const nextBuffer = boxes.slice(bufferStartIndex, bufferStartIndex + BUFFER_LENGTH);
+					processBuffer(nextBuffer);
+				} else {
+					const summary = createSummary(responses);
+					setResults(summary);
+					setIsLoading(false);
+					setComplete(true);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	const initialBuffer = boxes.slice(0, BUFFER_LENGTH);
+	processBuffer(initialBuffer);
 }
 
 function createSummary(results) {
-	const invalid = results.flatMap((res) => res['invalidInstances'] || []);
-	const valid = results.flatMap((res) => res['validInstances'] || []);
+	const invalid = results.flatMap((res) => res.invalidInstances);
+	const valid = results.flatMap((res) => res.validInstances);
 	return { invalid, valid };
 }
 
