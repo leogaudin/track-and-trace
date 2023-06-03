@@ -113,7 +113,7 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
     const { data } = req.body;
-    const payload = lzstring.decompressFromUTF16(data);
+    const payload = lzstring.decompressFromEncodedURIComponent(data);
     const instances = JSON.parse(payload);
     console.log(payload)
     processInstances(instances);
