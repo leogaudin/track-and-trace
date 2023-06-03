@@ -71,7 +71,7 @@ export default function Export({ boxes }) {
               <Stack direction={'column'} spacing={1} alignItems={'center'}>
                 <Typography variant="overline">Select {selectedOption}</Typography>
                 <Select
-                  value={selectedField}
+                  value=''
                   onChange={handleFieldChange}
                   placeholder={`Select ${selectedOption}`}
                   sx={{ marginBottom: '1rem' }}

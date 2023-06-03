@@ -76,11 +76,11 @@ export default function Upload({ open, setOpen }) {
 
   return (
     <Dialog
-      open={open}
+      open={Boolean(open)}
       onClose={handleClose}
       scroll='paper'
       keepMounted={false}
-      maxWidth
+      maxWidth='md'
     >
       <DialogContent>
         {!isComplete ? (
