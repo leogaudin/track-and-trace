@@ -111,18 +111,11 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
 
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
-    let instances;
-
-    if (req.headers['content-type'] === 'text/plain') {
-      const compressedPayload = req.body;
-      const decodedPayload = Base64.decode(compressedPayload);
-      const inflatedPayload = pako.inflate(decodedPayload, { to: 'string' });
-      instances = JSON.parse(inflatedPayload);
-      processInstances(instances);
-    } else {
-      instances = req.body;
-      processInstances(instances);
-    }
+    const {base64String} = req.body;
+    const decodedPayload = Base64.decode(base64String);
+    const inflatedPayload = pako.inflate(decodedPayload, { to: 'string' });
+    const instances = JSON.parse(inflatedPayload);
+    processInstances(instances);
 
     async function processInstances(instances) {
       const validInstances = [];
