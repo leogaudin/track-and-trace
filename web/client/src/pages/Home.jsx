@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import BoxesOverview from '../components/BoxesOverview';
-import ScansOverview from '../components/ScansOverview';
 import { Helmet } from 'react-helmet';
 
 export default function Home({ boxes, scans }) {
