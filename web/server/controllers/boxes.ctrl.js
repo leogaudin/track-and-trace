@@ -1,12 +1,13 @@
 const Box = require('../models/boxes.model');
 const Admin = require('../models/admins.model');
-const { createOne, createMany, getById, getAll, deleteOne } = require('./controller');
+const { createOne, createMany, getById, getAll, deleteOne, deleteMany } = require('./controller');
 
 const createBox = createOne(Box);
 const createBoxes = createMany(Box);
 const getBoxById = getById(Box);
 const getBoxes = getAll(Box);
 const deleteBox = deleteOne(Box);
+const deleteBoxes = deleteMany(Box);
 const getBoxesByAdminId = async (req, res) => {
     try {
         if (!req.headers['x-authorization']) {
@@ -32,6 +33,7 @@ module.exports = {
     createBox,
     createBoxes,
     deleteBox,
+    deleteBoxes,
     getBoxes,
     getBoxById,
     getBoxesByAdminId,

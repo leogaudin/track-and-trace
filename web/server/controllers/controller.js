@@ -195,6 +195,7 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
     return handle400Error(res, error);
   }
 };
+
 const getById = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
     if (apiKeyNeeded) {
@@ -251,25 +252,67 @@ const getAll = (Model, apiKeyNeeded = true) => async (req, res) => {
 
 const deleteOne = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
+    let apiKeyChecked = false;
     if (apiKeyNeeded) {
-      return requireApiKey(req, res, async () => {
-        const instance = await Model.findOneAndDelete({ id: req.params.id });
-
-        if (!instance) {
-          return handle404Error(res);
-        }
-
-        return handle200Success(res, instance);
-      });
+      try {
+        await requireApiKey(req, res, async () => {
+          apiKeyChecked = true;
+        });
+      } catch (error) {
+        console.error('Error occurred during API key check:', error);
+        return handle400Error(res, error);
+      }
     }
 
-    const instance = await Model.findOneAndDelete({ id: req.params.id });
+    if (apiKeyNeeded && apiKeyChecked || !apiKeyNeeded) {
+      const instance = await Model.findOneAndDelete({ id: req.params.id });
 
-    if (!instance) {
-      return handle404Error(res);
+      if (!instance) {
+        return handle404Error(res);
+      }
+
+      return handle200Success(res, instance);
+    }
+    else if (apiKeyNeeded && !apiKeyChecked) {
+      return handle400Error(res, 'API key check failed');
+    }
+  } catch (error) {
+    console.log(error);
+    return handle400Error(res, error);
+  }
+};
+
+const deleteMany = (Model, apiKeyNeeded = true) => async (req, res) => {
+  try {
+    let apiKeyChecked = false;
+    if (apiKeyNeeded) {
+      try {
+        await requireApiKey(req, res, async () => {
+          apiKeyChecked = true;
+        });
+      } catch (error) {
+        console.error('Error occurred during API key check:', error);
+        return handle400Error(res, error);
+      }
     }
 
-    return handle200Success(res, instance);
+    if (apiKeyNeeded && apiKeyChecked || !apiKeyNeeded) {
+      const deleteConditions = req.body;
+
+      if (!deleteConditions) {
+        return handle400Error(res, 'No delete conditions provided');
+      }
+
+      const instances = await Model.deleteMany(deleteConditions);
+
+      if (instances.deletedCount === 0) {
+        return handle404Error(res);
+      }
+
+      return handle200Success(res, instances);
+    } else if (apiKeyNeeded && !apiKeyChecked) {
+      return handle400Error(res, 'API key check failed');
+    }
   } catch (error) {
     console.log(error);
     return handle400Error(res, error);
@@ -282,4 +325,5 @@ module.exports = {
   getById,
   getAll,
   deleteOne,
+  deleteMany,
 };
