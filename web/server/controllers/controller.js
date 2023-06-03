@@ -1,6 +1,7 @@
 const Admin = require('../models/admins.model');
 const pako = require('pako');
 const Base64 = require('base-64');
+const lzstring = require('lz-string');
 
 const handle404Error = (res) => {
   return res.status(404).json({ success: false, error: `Item not found` });
@@ -111,10 +112,9 @@ const createOne = (Model, apiKeyNeeded = true) => async (req, res) => {
 
 const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
   try {
-    const {base64String} = req.body;
-    const decodedPayload = Base64.decode(base64String);
-    const inflatedPayload = pako.inflate(decodedPayload, { to: 'string' });
-    const instances = JSON.parse(inflatedPayload);
+    const {data} = req.body;
+    const payload = lzstring.decompressFromUTF16(data);
+    const instances = JSON.parse(payload);
     processInstances(instances);
 
     async function processInstances(instances) {
