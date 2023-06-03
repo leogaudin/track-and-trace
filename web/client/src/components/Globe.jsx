@@ -1,9 +1,30 @@
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
+import { blue } from "../theme/colors";
+
+function hexToRGBArray(colorCode) {
+	// Remove the '#' symbol if present
+	const sanitizedColorCode = colorCode.replace('#', '');
+
+	// Convert the hexadecimal color code to decimal values
+	const red = parseInt(sanitizedColorCode.substr(0, 2), 16);
+	const green = parseInt(sanitizedColorCode.substr(2, 2), 16);
+	const blue = parseInt(sanitizedColorCode.substr(4, 2), 16);
+
+	// Normalize the RGB values to the range of 0 to 1
+	const normalizedRed = red / 255;
+	const normalizedGreen = green / 255;
+	const normalizedBlue = blue / 255;
+
+	// Return the RGB values as an array
+	return [normalizedRed, normalizedGreen, normalizedBlue];
+  }
+
 
 export default function Globe() {
   const canvasRef = useRef();
   const SIZE = 700;
+  const color = blue.main;
 
   useEffect(() => {
     let phi = 0;
@@ -18,9 +39,9 @@ export default function Globe() {
       diffuse: 1.5,
       mapSamples: 14000,
       mapBrightness: 5,
-      baseColor: [0.16, 0.12, 0.69],
-      markerColor: [0.76, 0.72, 1],
-      glowColor: [0.16, 0.12, 0.69],
+      baseColor: hexToRGBArray(blue.main),
+      markerColor: hexToRGBArray(blue.light),
+      glowColor: hexToRGBArray(blue.main),
       markers: [
 		{ location: [40.516314385683806, -3.664187832967221], size: 0.02 },
 		{ location: [43.380121722925956, -2.960302583012931], size: 0.02 },
