@@ -30,13 +30,22 @@ export function calculateDeliveryPercentage(boxes, scans) {
 
 	for (const project in groupedBoxes) {
 	  const boxesInGroup = groupedBoxes[project];
-	  const scansInGroup = scans.filter(scan => boxesInGroup.some(box => box.id === scan.boxId));
+	  const uniqueBoxIds = [...new Set(boxesInGroup.map(box => box.id))];
 
-	  const deliveredBoxes = scansInGroup.filter(scan => scan.finalDestination === true).length;
+	  const deliveredBoxes = uniqueBoxIds.reduce((count, boxId) => {
+		const finalDestinationScan = scans.find(scan => scan.boxId === boxId && scan.finalDestination === true);
+		if (finalDestinationScan) {
+		  count++;
+		}
+		return count;
+	  }, 0);
+
 	  const deliveryPercentage = (deliveredBoxes / boxesInGroup.length) * 100;
 
 	  results.push({
 		project,
+		delivered: deliveredBoxes,
+		total: boxesInGroup.length,
 		deliveryPercentage: deliveryPercentage.toFixed(2),
 	  });
 	}
