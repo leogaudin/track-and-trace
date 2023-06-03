@@ -1,7 +1,7 @@
 import { Box, Drawer, Stack, SvgIcon, Typography } from '@mui/material';
 import { SideNavItem } from './SideNavItem';
 import { useLocation } from 'react-router-dom';
-import { items } from './NavItems';
+import { items } from './constants';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -18,7 +18,7 @@ const getContent = (location, items) => {
               active={active}
               disabled={item.disabled}
               external={item.external}
-              icon={item.icon}
+              icon={<SvgIcon fontSize='small'>{item.icon}</SvgIcon>}
               key={item.title}
               path={item.path}
               title={item.title}
