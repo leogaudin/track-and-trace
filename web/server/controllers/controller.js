@@ -141,7 +141,6 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
                   error: `Item with ID ${existent.id} already exists`,
                 });
               } else {
-                instance.createdAt = new Date().getTime();
                 validInstances.push(new Model(instance));
               }
             });
@@ -159,7 +158,6 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
                 error: `Item with ID ${existent.id} already exists`,
               });
             } else {
-              instance.createdAt = new Date().getTime();
               validInstances.push(new Model(instance));
             }
           } catch (error) {
