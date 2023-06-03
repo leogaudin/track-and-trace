@@ -1,10 +1,13 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Card, CardContent, Typography, SvgIcon } from '@mui/material';
+import { Link } from 'react-router-dom';
 import BoxesOverview from '../components/BoxesOverview';
 import { Helmet } from 'react-helmet';
 import ProgressOverview from '../components/ProgressOverview'
+import { items } from '../components/constants';
 
 export default function Home({ boxes, scans }) {
+	const cards = items.slice(1);
 	return (
 		<>
 			<Helmet>
@@ -20,9 +23,39 @@ export default function Home({ boxes, scans }) {
 				<Grid item xs={12}>
 					<ProgressOverview boxes={boxes} scans={scans} />
 				</Grid>
-				<Grid item xs={12}>
-					<BoxesOverview boxes={boxes} scans={scans} />
-				</Grid>
+				{cards.map((card) => (
+					<Grid item xs={12} sm={6} md={4} key={card.id}>
+					<Card>
+						<Link
+							to={card.path}
+							style={{
+								textDecoration: 'none',
+								height: '100%',
+							}}
+						>
+						<CardContent
+							sx={{
+								borderRadius: '1rem',
+								backgroundColor: 'white',
+								overflow: 'hidden',
+								textAlign: 'center',
+								color: 'primary.dark',
+								'&:hover': {
+									backgroundColor: 'neutral.100',
+								},
+							}}
+						>
+							<SvgIcon sx={{ fontSize: '5rem' }}>
+								{card.icon}
+							</SvgIcon>
+							<Typography variant="subtitle1">
+								{card.title}
+							</Typography>
+						</CardContent>
+						</Link>
+					</Card>
+					</Grid>
+				))}
 			</Grid>
 		</>
 	);
