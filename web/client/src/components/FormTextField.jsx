@@ -17,7 +17,7 @@ export const FormTextField = ({
 	  onChange={formik.handleChange}
 	  type={type}
 	  value={formik.values[field]}
-	  variant="standard"
+	  variant="filled"
 	  {...props}
 	/>
   );

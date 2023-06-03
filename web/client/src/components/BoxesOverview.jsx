@@ -5,6 +5,7 @@ import { timeAgo } from '../service/timeAgo'
 import TableCard from './TableCard';
 import { getProgress } from '../service/progress';
 import { colorsMap, textsMap } from './constants';
+import { Skeleton } from '@mui/material';
 
 export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
@@ -22,7 +23,11 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 					box.project,
 					box.school,
 					timeAgo(box.createdAt),
-					<SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>
+					scans?.length
+					? <SeverityPill color={colorsMap[progress]}>
+						{textsMap[progress]}
+					  </SeverityPill>
+					: <Skeleton variant='text' />
 				]
 			}) : null}
 			pageSize={pageSize}
