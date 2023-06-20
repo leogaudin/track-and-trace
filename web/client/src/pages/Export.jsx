@@ -54,10 +54,10 @@ export default function Export({ boxes }) {
   };
 
   return (
-    <Box paddingX={'25vw'} paddingY={'10vh'} width={'100%'}>
+    <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
       <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
         <CardContent>
-          <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'} margin={'auto'}>
+          <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'}>
             <Stack direction={'column'} spacing={1} alignItems={'flex-start'} width={'50%'}>
               <Typography variant="overline">Export options</Typography>
               <RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange}>
@@ -71,7 +71,6 @@ export default function Export({ boxes }) {
               <Stack direction={'column'} spacing={1} alignItems={'center'}>
                 <Typography variant="overline">Select {selectedOption}</Typography>
                 <Select
-                  value=''
                   onChange={handleFieldChange}
                   placeholder={`Select ${selectedOption}`}
                   sx={{ marginBottom: '1rem' }}

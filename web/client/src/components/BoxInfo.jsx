@@ -1,8 +1,11 @@
 import React from 'react';
 import { Card, CardContent, Typography, Stack } from '@mui/material';
 import {QRCodeSVG} from 'qrcode.react';
+import { useMediaQuery } from '@mui/material';
 
 const BoxInfo = ({ boxData, width = null, height = null }) => {
+	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+
   return (
     <Card sx={{width: width ? width : '100%', height: height ? height : '100%'}} >
       <CardContent>
@@ -45,7 +48,9 @@ const BoxInfo = ({ boxData, width = null, height = null }) => {
               <b>{new Date(boxData?.createdAt).toLocaleString()}</b>
             </Typography>
           </Stack>
-          <Stack direction={'column'} spacing={1} alignItems={'center'}>
+          {isMobile
+            ? null
+            : <Stack direction={'column'} spacing={1} alignItems={'center'}>
             <QRCodeSVG value={boxData?.id} size={150} />
             <Typography
               fontFamily={
@@ -55,7 +60,7 @@ const BoxInfo = ({ boxData, width = null, height = null }) => {
             >
               {boxData?.id}
             </Typography>
-          </Stack>
+          </Stack>}
         </Stack>
       </CardContent>
     </Card>

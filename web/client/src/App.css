@@ -5,3 +5,12 @@
 .drag-drop-zone:hover {
   cursor: pointer;
 }
+
+.top-menu-container {
+  padding-top: 50px; /* Adjust the value as needed */
+}
+
+.content-container {
+  height: calc(100vh - 50px); /* Adjust the value to account for the height of the top menu */
+  overflow-y: auto; /* Add scrollbars if the content exceeds the available height */
+}

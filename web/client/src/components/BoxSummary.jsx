@@ -7,11 +7,13 @@ import { getProgress } from "../service/progress";
 import { colorsMap, textsMap } from "./constants";
 import ConfirmDialog from "./ConfirmDialog";
 import { deleteBoxes } from "../service";
+import { useMediaQuery } from "@mui/material";
 
 export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
 	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
+	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 
 	function handleClose() {
 		setOpen(false);
@@ -33,7 +35,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 				<Typography
 					variant='overline'
 				>Box summary</Typography>
-				<Stack direction={'row'} spacing={2}>
+				<Stack direction={isMobile ? 'column' : 'row'} spacing={2}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<BoxInfo boxData={boxData} />
@@ -65,7 +67,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 							</Grid>
 							: null}
 					</Grid>
-					{scanData?.length ? <Map scans={scanData} scansCount={scanData.length} /> : null}
+					{scanData?.length && !isMobile ? <Map scans={scanData} scansCount={scanData.length} /> : null}
 				</Stack>
 				<ConfirmDialog
 					open={openDeleteDialog}

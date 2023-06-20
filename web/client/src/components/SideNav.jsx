@@ -30,7 +30,7 @@ const getContent = (location, items) => {
   )
 }
 
-export const SideNav = () => {
+export const SideNav = ({isMobile, open, onClose}) => {
   const location = useLocation();
   const content = getContent(location, items);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -38,20 +38,22 @@ export const SideNav = () => {
   return (
     location.pathname !== '/login' && location.pathname !== '/register'
     ? <Drawer
-      anchor="left"
-      PaperProps={{
-        sx: {
-          backgroundColor: 'neutral.800',
-          color: 'common.white',
+        anchor="left"
+        open={open}
+        onClose={onClose}
+        PaperProps={{
+          sx: {
+            backgroundColor: 'neutral.800',
+            color: 'common.white',
+            width: SIDE_NAV_WIDTH
+          }
+        }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.appBar + 100,
           width: SIDE_NAV_WIDTH
-        }
-      }}
-      sx={{
-        zIndex: (theme) => theme.zIndex.appBar + 100,
-        width: SIDE_NAV_WIDTH
-      }}
-      variant="permanent"
-    >
+        }}
+        variant={isMobile ? "temporary" : "permanent"}
+      >
     <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
     {user ?
           <Stack

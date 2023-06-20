@@ -15,6 +15,8 @@ import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
 import {Helmet} from 'react-helmet';
 import { getCountryName } from './service';
+import { useMediaQuery } from '@mui/material';
+import TopMenu from './components/TopMenu';
 
 const theme = createTheme();
 
@@ -22,8 +24,11 @@ function App() {
   const [boxes, setBoxes] = useState([]);
 	const [scans, setScans] = useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
+  const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
+    setNavOpen(!isMobile);
     if (!user) return;
 
     const fetchData = async () => {
@@ -60,7 +65,7 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="App">
@@ -70,7 +75,8 @@ function App() {
       </Helmet>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <SideNav />
+          <TopMenu visible={user ? isMobile : false} setNav={setNavOpen}/>
+          <SideNav isMobile={isMobile} open={navOpen} onClose={() => setNavOpen(false)}/>
           <Routes>
             <Route path='/' element={
               <RequireAuth>

@@ -14,10 +14,12 @@ import { login } from '../service';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
+import { useMediaQuery } from '@mui/material';
 
 function Login() {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
+	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -79,7 +81,7 @@ function Login() {
       >
         <Card
           sx={{
-            width: 550,
+            width: isMobile ? 225 : 550,
             px: 5,
             py: '100px',
             mx: 'auto'
@@ -137,7 +139,7 @@ function Login() {
             </form>
           </div>
         </Card>
-        <Globe />
+        { isMobile ? null : <Globe />}
       </Box>
     </>
   );
