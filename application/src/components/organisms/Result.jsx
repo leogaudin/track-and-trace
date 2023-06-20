@@ -13,22 +13,41 @@ import {
   View,
 } from 'react-native';
 import axios from 'axios';
-import {getString} from '../../utils/asyncStorage';
+import {getString, storeOfflineData} from '../../utils/asyncStorage';
 import Geolocation from '@react-native-community/geolocation';
 import MapView from 'react-native-maps';
 import globalStyles from '../../styles/GlobalStyles';
 import SparkMD5 from 'spark-md5';
+import NetInfo from '@react-native-community/netinfo';
+import Toast from 'react-native-toast-message';
 
-function sendScan(json) {
+export function sendScan(data) {
   return new Promise(resolve => {
     axios
-      .post('https://track-and-trace-api.vercel.app/api/scan', json, {
+      .post('https://track-and-trace-api.vercel.app/api/scan', data, {
         headers: {'Content-Type': 'application/json'},
       })
-      .then(res => res.status === 201 && res.data)
-      .then(res => res.data)
-      .then(resolve)
-      .catch(console.error);
+      .then(response => {
+        if (response.status >= 200 && response.status < 300) {
+          resolve(response.data);
+        } else {
+          reject(
+            new Error(`Request failed with status code ${response.status}`),
+          );
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function showToast(type, text1, text2) {
+  Toast.show({
+    type: type,
+    text1: text1,
+    text2: text2,
+    topOffset: 60,
   });
 }
 
@@ -131,13 +150,19 @@ export default function Result({modalVisible, setModalVisible, data}) {
                   placeholder="Add a comment..."
                   style={[globalStyles.input, {height: 100}]}
                 />
-                    <View style={{ flexDirection: 'row' }}>
-                      <CheckBox
-                        value={toggleCheckBox}
-                        onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                      />
-                      <Text>Final destination</Text>
-                    </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <CheckBox
+                    value={toggleCheckBox}
+                    onValueChange={newValue => setToggleCheckBox(newValue)}
+                    style={{marginRight: 10}}
+                  />
+                  <Text>Final destination</Text>
+                </View>
                 <View style={globalStyles.horizontal}>
                   <Pressable
                     style={globalStyles.button}
@@ -166,8 +191,38 @@ export default function Result({modalVisible, setModalVisible, data}) {
                           JSON.stringify(dataToSend),
                         );
                         setModalVisible(false);
-                        sendScan(JSON.stringify(dataToSend)).then(() => {
-                          resetData();
+                        resetData();
+                        NetInfo.fetch().then(state => {
+                          if (state.isConnected) {
+                            sendScan(dataToSend)
+                              .then(res => {
+                                if (res) {
+                                  if (res.success)
+                                    showToast(
+                                      'success',
+                                      'Success!',
+                                      'Scan sent successfully',
+                                    );
+                                  else
+                                    showToast(
+                                      'error',
+                                      'Error!',
+                                      'Scan could not be sent',
+                                    );
+                                }
+                              })
+                              .catch(err => {
+                                console.error('Error sending scan:', err);
+                                storeOfflineData(dataToSend);
+                              });
+                          } else {
+                            storeOfflineData(dataToSend);
+                            showToast(
+                              'info',
+                              'No internet connection',
+                              'Scan will be sent when connection is restored',
+                            );
+                          }
                         });
                       });
                     }}>
