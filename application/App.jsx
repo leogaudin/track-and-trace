@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {Platform, Pressable, Text, View} from 'react-native';
-import Scanner from './src/components/views/QR';
-import Login from './src/components/organisms/Login';
-import globalStyles from './src/styles/GlobalStyles';
+import {Platform} from 'react-native';
+import Scanner from './src/components/views/Scanner';
+import Login from './src/components/views/Login';
 import {
   handleCameraPermissionAndroid,
   handleCameraPermissionIOS,
   handleLocationPermissionAndroid,
   handleLocationPermissionIOS,
 } from './src/utils/checkPermissions';
-import RNRestart from 'react-native-restart';
 import {getString} from './src/utils/asyncStorage';
+import AskPermissions from './src/components/views/AskPermissions';
+
+
 
 export default function App() {
   const [hasPermissions, setHasPermissions] = useState(false);
@@ -42,31 +43,10 @@ export default function App() {
     checkLogin();
   }, []);
 
-  if (loginVisible) {
+  if (loginVisible)
     return <Login modalVisible={loginVisible} setModalVisible={setLoginVisible} />;
-  } else if (hasPermissions) {
+  else if (hasPermissions)
     return <Scanner />;
-  } else {
-    return (
-      <View
-        style={[
-          globalStyles.view,
-          {backgroundColor: 'whitesmoke', padding: 30},
-        ]}>
-        <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>
-          This application needs access to the{' '}
-          <Text style={{fontWeight: 'bold'}}>camera</Text> and{' '}
-          <Text style={{fontWeight: 'bold'}}>location</Text> to launch. Please
-          allow access to both and restart.
-        </Text>
-        <Pressable
-          style={globalStyles.button}
-          onPress={() => RNRestart.restart()}>
-          <Text style={{textAlign: 'center'}}>
-            I have updated the permissions, check again.
-          </Text>
-        </Pressable>
-      </View>
-    );
-  }
+  else
+    return <AskPermissions />;
 }

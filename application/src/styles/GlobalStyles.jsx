@@ -17,6 +17,11 @@ export default EStyleSheet.create({
     fontSize: '25rem',
     marginVertical: '20rem',
   },
+  smallTitle: {
+    fontWeight: 'bold',
+    fontSize: '20rem',
+    marginVertical: '7rem',
+  },
   big: {
     fontSize: '35rem',
   },
