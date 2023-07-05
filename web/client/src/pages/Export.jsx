@@ -53,6 +53,17 @@ export default function Export({ boxes }) {
 
   };
 
+  if (!boxes)
+    return (
+      <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
+        <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
+          <CardContent>
+            <Typography variant="overline">No boxes found</Typography>
+          </CardContent>
+        </Card>
+      </Box>
+    );
+
   return (
     <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
       <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>

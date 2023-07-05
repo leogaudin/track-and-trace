@@ -93,11 +93,11 @@ function App() {
                 <Scans boxes={boxes} scans={scans}/>
               </RequireAuth>
             } />
-            <Route path='/export' element={
+            {boxes ? <Route path='/export' element={
               <RequireAuth>
                 <Export boxes={boxes}/>
               </RequireAuth>
-            } />
+            } /> : false}
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/logout' element={<Logout />} />
