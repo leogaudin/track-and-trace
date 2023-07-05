@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { handleCSV } from '../service/csv';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import UploadSummary from '../components/UploadSummary';
-import { Dialog, DialogContent, Typography } from "@mui/material";
+import { Alert, Dialog, DialogContent, Typography } from "@mui/material";
 
 export default function Upload({ open, setOpen }) {
   const [hover, setHover] = useState(false);
@@ -60,12 +60,11 @@ export default function Upload({ open, setOpen }) {
   }
 
   const dragDropZoneStyles = {
-    minWidth: '25rem',
     minHeight: '25rem',
     backgroundColor: hover ? '#10B981' : '#fff',
     borderRadius: '1rem',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
   };
@@ -86,7 +85,6 @@ export default function Upload({ open, setOpen }) {
         {!isComplete ? (
           <div
             className={isLoading ? null : 'drag-drop-zone'}
-            style={dragDropZoneStyles}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragEnter={handleDragEnter}
@@ -107,9 +105,26 @@ export default function Upload({ open, setOpen }) {
                 value={uploadProgress * 100}
               />
             ) : (
-              <Typography variant='overline'>
-                {hover ? "Drop!" : "Click or Drag files here to upload"}
-              </Typography>
+              <div style={dragDropZoneStyles}>
+                <div></div>
+                <Typography variant='overline'>
+                  {hover ? "Drop!" : "Click or Drag files here to upload"}
+                </Typography>
+                <div style={{paddingTop: 0, width: '100%'}}>
+                <Alert severity='info' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center'}}>
+                    <Typography variant='body1'>
+                      <b>Supported file types:</b> .csv
+                      <br />
+                      A CSV file can be obtained from any spreadsheet software such as Microsoft Excel, Google Sheets, or Apple Numbers. You can choose this format in your export options.
+                    </Typography>
+                  </Alert>
+                  <Alert severity='warning' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center'}}>
+                    <Typography variant='body1'>
+                      <b>Upload can be long for large files (500+ items), please be patient.</b>
+                    </Typography>
+                  </Alert>
+                </div>
+              </div>
             )}
           </div>
         ) : (

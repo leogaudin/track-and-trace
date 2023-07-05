@@ -29,7 +29,7 @@ export default function Boxes({ boxes, scans }) {
 						size='large'
 						startIcon={<CloudUploadIcon />}
 					>
-						Upload boxes from a CSV
+						Upload boxes from a distribution list
 					</Button>
 				</Grid>
 				<Grid item xs={12}>
