@@ -1,31 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { sendScan } from '../components/organisms/Result';
+import { sendScan, showToast } from '../components/organisms/Result';
+import NetInfo from '@react-native-community/netinfo';
 
 const offlineKey = 'offline_scans';
 export let offlineData = [];
-
-AsyncStorage.getItem(offlineKey)
-  .then((data) => {
-    if (data) {
-      offlineData = JSON.parse(data);
-      sendOfflineData();
-    }
-  })
-  .catch((error) => {
-    console.error('Error retrieving offline data:', error);
-  });
 
 export const updateOfflineData = () => {
   AsyncStorage.getItem(offlineKey)
     .then((data) => {
       if (data) {
         offlineData = JSON.parse(data);
+        NetInfo.fetch().then(state => {
+          if (state.isConnected)
+            sendOfflineData();
+        });
       }
     })
     .catch((error) => {
       console.error('Error retrieving offline data:', error);
     });
 };
+
+updateOfflineData();
 
 export const storeString = async (key, value) => {
   try {
@@ -71,22 +67,38 @@ export const storeOfflineData = (dataToSend) => {
     });
 };
 
-export const sendOfflineData = () => {
+export const sendOfflineData = (failedData = []) => {
   if (offlineData.length > 0) {
     const dataToSend = offlineData[0];
     sendScan(JSON.stringify(dataToSend))
       .then(() => {
+        //
+      })
+      .catch((error) => {
+        console.error('Error sending offline data:', error)
+        if (!error.message.includes('409'))
+          failedData?.push(dataToSend);
+      })
+      .finally(() => {
         offlineData.shift();
         AsyncStorage.setItem(offlineKey, JSON.stringify(offlineData))
           .then(() => {
-            sendOfflineData();
+            sendOfflineData(failedData);
           })
           .catch((error) => {
             console.error('Error updating offline data:', error);
           });
       })
-      .catch((error) => {
-        console.error('Error sending offline data:', error);
-      });
+  }
+  else if (failedData?.length > 0) {
+    showToast(
+      'error',
+      'Error!',
+      'Offline scan(s) could not be sent. Try again later'
+    );
+    failedData.forEach((data) => {
+      storeOfflineData(data);
+    });
+    updateOfflineData();
   }
 };

@@ -22,13 +22,18 @@ import NetInfo from '@react-native-community/netinfo';
 import Toast from 'react-native-toast-message';
 
 export function sendScan(data) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     axios
       .post('https://track-and-trace-api.vercel.app/api/scan', data, {
         headers: {'Content-Type': 'application/json'},
       })
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
+          showToast(
+            'success',
+            'Success!',
+            'Scan sent successfully',
+          );
           resolve(response.data);
         } else {
           reject(
@@ -37,12 +42,17 @@ export function sendScan(data) {
         }
       })
       .catch(error => {
+        showToast(
+          'error',
+          'Error!',
+          'Scan could not be sent',
+        );
         reject(error);
       });
   });
 }
 
-function showToast(type, text1, text2) {
+export function showToast(type, text1, text2) {
   Toast.show({
     type: type,
     text1: text1,
@@ -195,24 +205,7 @@ export default function Result({modalVisible, setModalVisible, data}) {
                         NetInfo.fetch().then(state => {
                           if (state.isConnected) {
                             sendScan(dataToSend)
-                              .then(res => {
-                                if (res) {
-                                  if (res.success)
-                                    showToast(
-                                      'success',
-                                      'Success!',
-                                      'Scan sent successfully',
-                                    );
-                                  else
-                                    showToast(
-                                      'error',
-                                      'Error!',
-                                      'Scan could not be sent',
-                                    );
-                                }
-                              })
                               .catch(err => {
-                                console.error('Error sending scan:', err);
                                 storeOfflineData(dataToSend);
                               });
                           } else {
