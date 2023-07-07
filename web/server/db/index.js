@@ -7,13 +7,7 @@ mongoose.set('debug', true);
 mongoose
     .connect(process.env.STRING_URI,
         {
-            useNewUrlParser: true,
-            server: {
-                socketOptions: {
-                    keepAlive: 100,
-                    connectTimeoutMS: 60000
-                }
-            }
+            useNewUrlParser: true
         }
     ).catch(e => {
         console.error('Connection error', e.message)
