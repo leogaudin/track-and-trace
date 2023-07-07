@@ -1,24 +1,22 @@
-'use strict';
-
 import React, {useState} from 'react';
-import {Pressable, View, Text} from 'react-native';
+import {View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
-import globalStyles from '../../styles/GlobalStyles';
-import ResultModal from '../organisms/Result';
-import OfflineScansModal from '../molecules/OfflineScans';
-import Flashlight from '../svg/Flashlight';
-import Offline from '../svg/Offline';
+import styles from '../../styles';
+import SendScanModal from '../organisms/SendScanModal';
+import OfflineScansModal from '../organisms/OfflineScans';
+import Flashlight from '../../assets/svg/Flashlight';
+import Offline from '../../assets/svg/Offline';
 import IconButton from '../atoms/IconButton';
 import Toast from 'react-native-toast-message';
 
 export default function Scanner() {
   const [flash, setFlash] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
-  const [notificationVisible, setNotificationVisible] = useState(false);
+  const [offlineScansVisible, setOfflineScansVisible] = useState(false);
   const [data, setData] = useState('');
 
-  const handleRead = e => {
+  const handleRead = (e: { data: React.SetStateAction<string>; }) => {
     if (!resultVisible) {
       setData(e.data);
       setResultVisible(true);
@@ -32,7 +30,7 @@ export default function Scanner() {
         vibrate={false}
         reactivate={true}
         reactivateTimeout={3000}
-        cameraStyle={globalStyles.camera}
+        cameraStyle={styles.camera}
         onRead={handleRead}
         flashMode={
           flash
@@ -40,14 +38,14 @@ export default function Scanner() {
             : RNCamera.Constants.FlashMode.off
         }
       />
-      <ResultModal
+      <SendScanModal
         modalVisible={resultVisible}
         setModalVisible={setResultVisible}
         data={data}
       />
       <OfflineScansModal
-        visible={notificationVisible}
-        onClose={() => setNotificationVisible(false)}
+        visible={offlineScansVisible}
+        onClose={() => setOfflineScansVisible(false)}
       />
       <View
         style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
@@ -57,12 +55,8 @@ export default function Scanner() {
           justifyContent: 'space-between',
           marginTop: 50,
         }}>
-          <Pressable onPress={() => setNotificationVisible(true)}>
-            <IconButton icon={<Offline />} />
-          </Pressable>
-          <Pressable onPress={() => setFlash(!flash)}>
-            <IconButton icon={<Flashlight />} />
-          </Pressable>
+          <IconButton onPress={() => setOfflineScansVisible(true)} icon={<Offline />} />
+          <IconButton onPress={() => setFlash(!flash)} icon={<Flashlight />} />
         </View>
       </View>
       <Toast />

@@ -4,8 +4,6 @@
 
 🚀 This repository contains the source code for the track and trace system developed for the World Bank's Read@Home program. The system enables the tracking and tracing of boxes of educational books.
 
-### ⚠️ The code in this repository is being refactored and will soon be deprecated. Please do not base yourself on it until the new version is released.
-
 ## Table of Contents
 
 - [Overview](#overview)
