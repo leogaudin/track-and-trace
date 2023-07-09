@@ -17,13 +17,16 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
       ecl: 'H',
     });
 
-    const qrCodeSvg = qrCode.svg();
+    let qrCodeSvg = qrCode.svg();
+    qrCodeSvg = qrCodeSvg.replace(/<rect/g, '<rect rx="7"');
+    qrCodeSvg = qrCodeSvg.replace(/ style="fill:#000000;shape-rendering:crispEdges;"/g, '');
 
 	const htmlStyles = `
 	  body {
-		font-family: Arial, sans-serif;
+		font-family: sans-serif, Helvetica Neue, Helvetica, Arial;
 		margin: 0;
 		padding: 0;
+    font-weight: 100;
 	  }
 	  .document-container {
 		display: flex;
@@ -47,10 +50,11 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
 		flex: 1;
 	  }
 	  .info-heading {
-		color: #888;
+		color: #424242;
 		font-size: 12px;
 		text-transform: uppercase;
 		margin-bottom: 10px;
+    font-weight: 100;
 	  }
 	  .info-row {
 		display: flex;
@@ -58,7 +62,7 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
 		margin-bottom: 10px;
 	  }
 	  .info-label {
-		font-weight: bold;
+		font-weight: normal;
 		flex: 0 0 120px;
 	  }
 	  .info-value {
