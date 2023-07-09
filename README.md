@@ -1,4 +1,4 @@
-# 🌍 A lightweight (< 0.5 MB) JavaScript track-and-trace solution.
+# 🌍 A lightweight JavaScript & TypeScript track-and-trace solution.
 
 [![License](https://img.shields.io/github/license/leogaudin/track-and-trace)](LICENSE)
 
@@ -20,7 +20,7 @@ The track and trace system consists of two main components:
 1. `application`: 📱 A React Native mobile app for scanning QR codes on the boxes.
 2. `web`: 🌐 A MERN stack web app for creating and managing the boxes and their QR codes.
 
-The system is built using JavaScript, making it lightweight, fast and compatible.
+The system is built using JavaScript and TypeScript, making it lightweight, fast and compatible.
 
 ## Features
 
@@ -31,7 +31,7 @@ The track and trace system offers the following features:
 - 🏷️ Generate QR codes for each box to enable tracking.
 - 🔍 Track the movement of educational books.
 - 🌐 Manage boxes and their QR codes through the web app.
-- 🚀 Lightweight and efficient, with a client bundle size of only **333.84 KB** when gzipped.
+- 🚀 Lightweight and efficient.
 
 ## Compatibility
 
@@ -39,7 +39,7 @@ The system is compatible with the following minimum versions:
 
 ### 📱 Mobile Application (React Native)
 
-- iOS: Minimum version iOS 11
+- iOS: Minimum version iOS 12.4
 - Android: Minimum version Android 6.0 (Marshmallow)
 
 ### 🌐 Web Application (React)
