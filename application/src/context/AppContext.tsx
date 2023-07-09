@@ -58,9 +58,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const hasConnection = NetInfo.addEventListener((state) => {
       setInternetConnection(state.isConnected!);
     });
-    const checkLogin = async () => {
-      const userNumber = await getString('user_number');
-      setLogin(userNumber!);
+    const checkLogin = () => {
+      getString('user_number')
+      .then((userNumber) => {
+        setLogin(userNumber || '');
+      });
     };
     const checkCameraPermission = async () => {
       const cameraPermission = await requestCameraPermission();
