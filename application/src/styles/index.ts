@@ -42,10 +42,5 @@ export default EStyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'center',
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
   }
 });
