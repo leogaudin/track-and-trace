@@ -14,7 +14,7 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
       padding: 0,
       color: '#000000',
       background: '#ffffff',
-      ecl: 'M',
+      ecl: 'H',
     });
 
     const qrCodeSvg = qrCode.svg();

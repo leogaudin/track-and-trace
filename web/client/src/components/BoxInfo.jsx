@@ -51,7 +51,7 @@ const BoxInfo = ({ boxData, width = null, height = null }) => {
           {isMobile
             ? null
             : <Stack direction={'column'} spacing={1} alignItems={'center'}>
-            <QRCodeSVG value={boxData?.id} size={150} />
+            <QRCodeSVG value={boxData?.id} size={150} level='H'/>
             <Typography
               fontFamily={
                 'Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New'
