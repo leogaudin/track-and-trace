@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {Pressable, View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import styles from '../../styles';
@@ -9,6 +9,7 @@ import Flashlight from '../../assets/svg/Flashlight';
 import Offline from '../../assets/svg/Offline';
 import IconButton from '../atoms/IconButton';
 import Toast from 'react-native-toast-message';
+import { Button } from 'react-native-paper';
 
 export default function Scanner() {
   const [flash, setFlash] = useState(false);
@@ -16,8 +17,10 @@ export default function Scanner() {
   const [offlineScansVisible, setOfflineScansVisible] = useState(false);
   const [data, setData] = useState('');
 
-  const handleRead = (e: { data: React.SetStateAction<string>; }) => {
+  const handleRead = (e: { data: string; }) => {
     if (!resultVisible) {
+      if (e.data.startsWith('tnt://'))
+        e.data = e.data.replace('tnt://', '');
       setData(e.data);
       setResultVisible(true);
     }
@@ -47,8 +50,6 @@ export default function Scanner() {
         visible={offlineScansVisible}
         onClose={() => setOfflineScansVisible(false)}
       />
-      <View
-        style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
         <View style={{
           display: 'flex',
           flexDirection: 'row',
@@ -58,7 +59,6 @@ export default function Scanner() {
           <IconButton onPress={() => setOfflineScansVisible(true)} icon={<Offline />} />
           <IconButton onPress={() => setFlash(!flash)} icon={<Flashlight />} />
         </View>
-      </View>
       <Toast />
     </View>
   );

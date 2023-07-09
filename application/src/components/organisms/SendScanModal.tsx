@@ -50,11 +50,11 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
       error => {
         switch (error.code) {
           case 3:
-            showToast('Error', 'Timeout', 'The location search has timed out.');
+            showToast('error', 'Timeout', 'The location search has timed out.');
             break;
         }
       },
-      {enableHighAccuracy: false, timeout: 20000, maximumAge: 360000},
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 360000},
     );
   }
 
@@ -87,7 +87,8 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
                   Box n°{data}
                 </Text>
                 {locationLoaded && componentMounted ? (
-                  <View
+                  Platform.OS !== 'android'
+                  ? <View
                     style={{
                       height: 150,
                       width: '100%',
@@ -109,6 +110,7 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
                       }}
                     />
                   </View>
+                  : false
                 ) : (
                   <Text>Determining current location...</Text>
                 )}
