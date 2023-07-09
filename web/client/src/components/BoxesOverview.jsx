@@ -12,8 +12,6 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 	const [boxID, setBoxID] = useState('');
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 
-console.log(isMobile)
-
 	return (
 		<TableCard
 			contentName='boxes'
