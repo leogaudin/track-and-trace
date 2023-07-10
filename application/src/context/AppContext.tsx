@@ -3,6 +3,7 @@ import NetInfo from '@react-native-community/netinfo';
 import { getString } from '../utils/asyncStorage';
 import { requestCameraPermission, requestLocationPermission } from '../utils/permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loginKey, offlineKey } from '../constants';
 
 interface AppContextValue {
   login: string;
@@ -41,11 +42,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [hasLocationPermissions, setLocationPermissions] = useState(false);
   const [offlineData, setOfflineData] = useState<any[]>([]);
 
-  // Monitor the offlineData state and store it in AsyncStorage
   useEffect(() => {
     const storeOfflineData = async () => {
       try {
-        await AsyncStorage.setItem('offlineData', JSON.stringify(offlineData));
+        if (offlineData?.length)
+          await AsyncStorage.setItem(offlineKey, JSON.stringify(offlineData));
       } catch (error) {
         console.error('Error storing offline data:', error);
       }
@@ -58,11 +59,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const hasConnection = NetInfo.addEventListener((state) => {
       setInternetConnection(state.isConnected!);
     });
-    const checkLogin = () => {
-      getString('user_number')
-      .then((userNumber) => {
-        setLogin(userNumber || '');
-      });
+    const checkLogin = async () => {
+      const userNumber = await getString(loginKey);
+      if (userNumber)
+          setLogin(userNumber);
     };
     const checkCameraPermission = async () => {
       const cameraPermission = await requestCameraPermission();
@@ -74,22 +74,20 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     };
     const retrieveOfflineData = async () => {
       try {
-        const storedData = await AsyncStorage.getItem('offlineData');
-        if (storedData && JSON.stringify(offlineData) !== storedData) {
+        const storedData = await AsyncStorage.getItem(offlineKey);
+        if (storedData && JSON.stringify(offlineData) !== storedData)
           setOfflineData(JSON.parse(storedData));
-        }
       } catch (error) {
         console.log('Error retrieving offline data:', error);
       }
     };
-
-    retrieveOfflineData();
 
     return () => {
       hasConnection();
       checkLogin();
       checkCameraPermission();
       checkLocationPermission();
+      retrieveOfflineData();
     };
   }), [];
 

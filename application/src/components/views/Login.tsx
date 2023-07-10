@@ -12,6 +12,7 @@ import {storeString} from '../../utils/asyncStorage';
 import AppContext from '../../context/AppContext';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import PhoneInput from 'react-native-phone-input';
+import { loginKey } from '../../constants';
 
 export default function Login(this: any) {
   const [number, setNumber] = useState('');
@@ -22,7 +23,7 @@ export default function Login(this: any) {
     <Portal>
       <Modal
         style={styles.view}
-        visible={login === ''}
+        visible={login === '' || !login}
       >
         <KeyboardAvoidingView
           style={{flex: 1}}
@@ -58,7 +59,7 @@ export default function Login(this: any) {
                   style={{marginVertical: 15}}
                   mode='contained'
                   onPress={() => {
-                    storeString('user_number', number);
+                    storeString(loginKey, number);
                     setLogin(number);
                   }}
                   disabled={!isNumberValid || number === ''}>

@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sendScan } from './api';
-
-const offlineKey = 'offline_scans';
+import { offlineKey } from '../constants';
 
 /**
  * Stores a string in AsyncStorage

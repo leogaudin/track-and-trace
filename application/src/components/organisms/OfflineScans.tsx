@@ -16,8 +16,7 @@ interface DataProps {
 }
 
 export default function OfflineScans({ visible, onClose }: OfflineScansProps) {
-  const [isConnected] = useState(true);
-  const { offlineData } = useContext(AppContext);
+  const { offlineData, hasInternetConnection } = useContext(AppContext);
 
   return (
     <InfoModal
@@ -53,7 +52,7 @@ export default function OfflineScans({ visible, onClose }: OfflineScansProps) {
                   sendOfflineData(offlineData);
                   onClose();
                 }}
-                disabled={!isConnected}
+                disabled={!hasInternetConnection}
                 style={{ margin: 5 }}>
                 Send offline scans
               </Button>
