@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import HTMLExport from '../components/HTMLExport';
+import AppContext from '../context/AppContext';
 
-export default function Export({ boxes }) {
+export default function Export() {
   const [selectedOption, setSelectedOption] = useState('all');
+  const {boxes} = useContext(AppContext);
   const [filteredBoxes, setFilteredBoxes] = useState(boxes);
   const [selectedField, setSelectedField] = useState('');
   const [loading, setLoading] = useState(true);
@@ -95,16 +97,13 @@ export default function Export({ boxes }) {
               </Stack>
             )}
           </Stack>
-          {loading ? (
-            <Typography variant="overline">Please wait while the boxes are loading...</Typography>
-          ) : (
             <Stack direction={'column'} spacing={1} alignItems={'center'}>
-              <Typography variant='overline'>
-                <b>{filteredBoxes.length}</b> items will be exported.
-              </Typography>
+              {!loading
+                ? <Typography variant='overline'><b>{filteredBoxes.length}</b> items will be exported.</Typography>
+                : <Typography variant='overline'>Please wait while the boxes are loading...</Typography>
+              }
               <HTMLExport objects={filteredBoxes} folderName={getFolderName()} />
             </Stack>
-          )}
         </CardContent>
       </Card>
     </Box>

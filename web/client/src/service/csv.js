@@ -35,7 +35,7 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 }
 
 function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComplete) {
-	const BUFFER_LENGTH = 21;
+	const BUFFER_LENGTH = 15;
 	const numBoxes = boxes.length;
 	let bufferStartIndex = 0;
 	const responses = [];
@@ -45,7 +45,6 @@ function uploadBoxes(boxes, setUploadProgress, setResults, setIsLoading, setComp
 		const compressedPayload = {
 			data: lzstring.compressToEncodedURIComponent(payload)
 		};
-
 		addBoxes(compressedPayload)
 			.then((res) => {
 				responses.push(res);

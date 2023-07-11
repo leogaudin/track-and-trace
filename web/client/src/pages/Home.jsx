@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Grid, Card, CardContent, Typography, SvgIcon } from '@mui/material';
 import { Link } from 'react-router-dom';
-import BoxesOverview from '../components/BoxesOverview';
 import { Helmet } from 'react-helmet';
 import ProgressOverview from '../components/ProgressOverview'
 import { items } from '../components/constants';
+import AppContext from '../context/AppContext';
 
-export default function Home({ boxes, scans }) {
+export default function Home() {
+	const { boxes, scans } = useContext(AppContext);
 	const cards = items.slice(1);
 	return (
 		<>

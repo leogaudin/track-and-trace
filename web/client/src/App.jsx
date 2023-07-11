@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { createTheme } from './theme/index';
 import { ThemeProvider } from '@emotion/react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
@@ -8,65 +8,18 @@ import Home from './pages/Home';
 import Boxes from './pages/Boxes';
 import Scans from './pages/Scans';
 import Login from './pages/Login';
-import Register from './pages/Register';
+// import Register from './pages/Register';
 import Export from './pages/Export';
-import { getBoxesByAdminId, getScansByBoxes } from './service';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
 import {Helmet} from 'react-helmet';
-import { getCountryName } from './service';
 import { useMediaQuery } from '@mui/material';
 import TopMenu from './components/TopMenu';
+import { AppProvider } from './context/AppContext';
 
 const theme = createTheme();
 
 function App() {
-  const [boxes, setBoxes] = useState([]);
-	const [scans, setScans] = useState([]);
-  const user = JSON.parse(localStorage.getItem('user'));
-  const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));
-  const [navOpen, setNavOpen] = useState(false);
-
-  useEffect(() => {
-    setNavOpen(!isMobile);
-    if (!user) return;
-
-    const fetchData = async () => {
-      try {
-        const boxesResponse = await getBoxesByAdminId(user.id);
-        boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setBoxes(boxesResponse.data);
-      } catch (err) {
-        console.log(err);
-        if (err.response && err.response.status >= 400)
-          setBoxes(null);
-      }
-
-      try {
-        const boxesResponse = await getBoxesByAdminId(user.id);
-        const boxIds = boxesResponse.data.map(box => box.id);
-        const scansResponse = await getScansByBoxes(boxIds);
-        const scans = scansResponse.data;
-
-        const updatedScans = [];
-        for (const scan of scans) {
-          const { latitude, longitude } = scan.location.coords;
-          const name = await getCountryName({latitude, longitude});
-          const updatedScan = { ...scan, countryName: name['country'] };
-          updatedScans.push(updatedScan);
-        }
-        updatedScans.sort((a, b) => new Date(b.time) - new Date(a.time));
-        setScans(updatedScans);
-      } catch (err) {
-        console.log(err);
-        if (err.response && err.response.status >= 400)
-          setScans(null);
-      }
-    };
-
-    fetchData();
-  }, [isMobile]);
-
   return (
     <div className="App">
       <Helmet>
@@ -75,33 +28,36 @@ function App() {
       </Helmet>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <TopMenu visible={user ? isMobile : false} setNav={setNavOpen}/>
-          <SideNav isMobile={isMobile} open={navOpen} onClose={() => setNavOpen(false)}/>
-          <Routes>
-            <Route path='/' element={
-              <RequireAuth>
-                <Home boxes={boxes} scans={scans}/>
-              </RequireAuth>
-            } />
-            <Route path='/boxes' element={
-              <RequireAuth>
-                <Boxes boxes={boxes} scans={scans}/>
-              </RequireAuth>
-            } />
-            <Route path='/scans' element={
-              <RequireAuth>
-                <Scans boxes={boxes} scans={scans}/>
-              </RequireAuth>
-            } />
-            {boxes ? <Route path='/export' element={
-              <RequireAuth>
-                <Export boxes={boxes}/>
-              </RequireAuth>
-            } /> : false}
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/logout' element={<Logout />} />
-          </Routes>
+          <AppProvider theme={theme} useMediaQuery={useMediaQuery}>
+            <TopMenu />
+            <SideNav />
+            <Routes>
+              <Route path='/' element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              } />
+              <Route path='/boxes' element={
+                <RequireAuth>
+                  <Boxes />
+                </RequireAuth>
+              } />
+              <Route path='/scans' element={
+                <RequireAuth>
+                  <Scans />
+                </RequireAuth>
+              } />
+              <Route path='/export' element={
+                  <RequireAuth>
+                    <Export />
+                  </RequireAuth>
+                }
+              />
+              <Route path='/login' element={<Login />} />
+              {/* <Route path='/register' element={<Register />} /> */}
+              <Route path='/logout' element={<Logout />} />
+            </Routes>
+          </AppProvider>
         </ThemeProvider>
       </BrowserRouter>
     </div>

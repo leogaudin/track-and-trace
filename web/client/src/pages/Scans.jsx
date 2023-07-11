@@ -1,22 +1,40 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ScansOverview from '../components/ScansOverview';
-import { Box } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { Helmet } from 'react-helmet';
+import AppContext from '../context/AppContext';
+import CachedIcon from '@mui/icons-material/Cached';
 
-export default function Scans({ boxes, scans }) {
+export default function Scans() {
+	const { boxes, scans, fetchScans } = useContext(AppContext);
 	return (
 		<>
 			<Helmet>
 				<title>Scans - Track-and-Trace</title>
 				<meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
 			</Helmet>
-			<Box
+			<Grid
+				container
 				padding={3}
-				display={'flex'}
-				width={'100%'}
+				spacing={2}
+				alignItems='stretch'
 			>
-				<ScansOverview boxes={boxes} scans={scans} />
-			</Box>
+				<Grid item xs={12}>
+					<Button
+						variant='outlined'
+						color='primary'
+						fullWidth
+						onClick={() => fetchScans(boxes)}
+						size='large'
+						startIcon={<CachedIcon />}
+					>
+						Refresh scans
+					</Button>
+				</Grid>
+				<Grid item xs={12}>
+					<ScansOverview boxes={boxes} scans={scans} />
+				</Grid>
+			</Grid>
 		</>
 	);
 }

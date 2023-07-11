@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import BoxesOverview from '../components/BoxesOverview';
 import { Button, Grid } from '@mui/material';
 import Upload from '../components/Upload';
 import { Helmet } from 'react-helmet';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AppContext from '../context/AppContext';
 
-export default function Boxes({ boxes, scans }) {
+export default function Boxes() {
+	const { boxes, scans } = useContext(AppContext);
 	const [uploadOpen, setUploadOpen] = useState(false);
 
 	return (

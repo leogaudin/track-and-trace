@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { items } from './constants';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AppContext from '../context/AppContext';
+import { useContext } from 'react';
 
 const SIDE_NAV_WIDTH = 200;
 
@@ -30,17 +32,18 @@ const getContent = (location, items) => {
   )
 }
 
-export const SideNav = ({isMobile, open, onClose}) => {
+export const SideNav = () => {
   const location = useLocation();
   const content = getContent(location, items);
   const user = JSON.parse(localStorage.getItem('user'));
+  const { isMobile, navOpen, setNavOpen, fetchScans } = useContext(AppContext);
 
   return (
     location.pathname !== '/login' && location.pathname !== '/register'
     ? <Drawer
         anchor="left"
-        open={open}
-        onClose={onClose}
+        open={navOpen}
+        onClose={() => setNavOpen(false)}
         PaperProps={{
           sx: {
             backgroundColor: 'neutral.800',
