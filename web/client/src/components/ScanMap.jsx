@@ -36,9 +36,9 @@ function ScanMap({ scans, scansCount }) {
 										scan?.location.coords.longitude
 									]}
 									fill
-									fillColor={index === 0 ? '#0B71E7' : 'white'}
+									fillColor={scan?.finalDestination ? '#10B981' : (index === 0 ? '#0B71E7' : 'white')}
 									fillOpacity={.7}
-									color={index === 0 ? '#0B71E7' : 'white'}
+									color={scan?.finalDestination ? '#10B981' : (index === 0 ? '#0B71E7' : 'white')}
 									zIndexOffset={20}
 									key={scan?.id}
 								>
