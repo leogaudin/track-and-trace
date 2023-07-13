@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {useState, useContext} from 'react';
 import {
   Keyboard,
@@ -14,6 +14,7 @@ import { Button, Modal, Portal, Text } from 'react-native-paper';
 import PhoneInput from 'react-native-phone-input';
 import { loginKey } from '../../constants';
 
+
 export default function Login(this: any) {
   const [number, setNumber] = useState('');
   const [isNumberValid, setIsNumberValid] = useState(true);
@@ -23,7 +24,7 @@ export default function Login(this: any) {
     <Portal>
       <Modal
         style={styles.view}
-        visible={login === '' || !login}
+        visible={login === undefined}
       >
         <KeyboardAvoidingView
           style={{flex: 1}}

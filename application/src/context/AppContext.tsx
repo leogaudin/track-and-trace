@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginKey, offlineKey } from '../constants';
 
 interface AppContextValue {
-  login: string;
+  login: string | undefined | null;
   setLogin: (loggedIn: string) => void;
   hasInternetConnection: boolean;
   setInternetConnection: (hasConnection: boolean) => void;
@@ -19,13 +19,13 @@ interface AppContextValue {
 }
 
 const AppContext = createContext<AppContextValue>({
-  login: '',
+  login: null,
   setLogin: () => { },
   hasInternetConnection: false,
   setInternetConnection: () => { },
-  hasCameraPermissions: false,
+  hasCameraPermissions: true,
   setCameraPermissions: () => { },
-  hasLocationPermissions: false,
+  hasLocationPermissions: true,
   setLocationPermissions: () => { },
   offlineData: [],
   setOfflineData: () => { },
@@ -36,10 +36,10 @@ interface AppProviderProps {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [login, setLogin] = useState('');
+  const [login, setLogin] = useState<string | undefined | null>(null);
   const [hasInternetConnection, setInternetConnection] = useState(false);
-  const [hasCameraPermissions, setCameraPermissions] = useState(false);
-  const [hasLocationPermissions, setLocationPermissions] = useState(false);
+  const [hasCameraPermissions, setCameraPermissions] = useState(true);
+  const [hasLocationPermissions, setLocationPermissions] = useState(true);
   const [offlineData, setOfflineData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -61,8 +61,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     });
     const checkLogin = async () => {
       const userNumber = await getString(loginKey);
-      if (userNumber)
-          setLogin(userNumber);
+      setLogin(userNumber);
     };
     const checkCameraPermission = async () => {
       const cameraPermission = await requestCameraPermission();
@@ -82,14 +81,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
     };
 
-    return () => {
+    // return () => {
       hasConnection();
       checkLogin();
       checkCameraPermission();
       checkLocationPermission();
       retrieveOfflineData();
-    };
-  }), [];
+    // };
+  }, []);
 
   return (
     <AppContext.Provider
