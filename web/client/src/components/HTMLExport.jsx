@@ -9,7 +9,7 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
       const { school, project, division, district, zone, institutionType, htName, htPhone, createdAt, id } = object;
 
       const qrCode = new QRCode({
-        content: object.id,
+        content: 'tnt://' + object.id,
         width: 150,
         height: 150,
         padding: 0,
