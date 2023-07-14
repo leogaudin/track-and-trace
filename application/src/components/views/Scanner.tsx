@@ -21,9 +21,11 @@ export default function Scanner() {
   const handleRead = (e: { data: string; }) => {
     if (!resultVisible) {
       if (e.data.startsWith('tnt://'))
+      {
         e.data = e.data.replace('tnt://', '');
-      setData(e.data);
-      setResultVisible(true);
+        setData(e.data);
+        setResultVisible(true);
+      }
     }
   };
 
