@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Dialog, DialogContent, Stack, Typography, Grid, Alert, Button } from "@mui/material";
 import Map from "./ScanMap";
 import ScansOverview from "./ScansOverview";
@@ -8,8 +8,10 @@ import { colorsMap, textsMap } from "./constants";
 import ConfirmDialog from "./ConfirmDialog";
 import { deleteBoxes } from "../service";
 import { useMediaQuery } from "@mui/material";
+import AppContext from "../context/AppContext";
 
-export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
+export default function BoxSummary({ id, open, setOpen }) {
+	const {boxes, scans} = useContext(AppContext);
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
 	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
@@ -38,7 +40,7 @@ export default function BoxSummary({ boxes, scans, id, open, setOpen }) {
 				<Stack direction={isMobile ? 'column' : 'row'} spacing={2}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
-							<BoxInfo boxData={boxData} />
+							<BoxInfo box={boxData} />
 						</Grid>
 						<Grid item xs={12}>
 							<Button

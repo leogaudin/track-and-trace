@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Stack } from '@mui/material';
 import {QRCodeSVG} from 'qrcode.react';
 import { useMediaQuery } from '@mui/material';
 
-const BoxInfo = ({ boxData, width = null, height = null }) => {
+const BoxInfo = ({ box, width = null, height = null }) => {
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 
   return (
@@ -20,47 +20,39 @@ const BoxInfo = ({ boxData, width = null, height = null }) => {
         >
           <Stack direction={'column'} spacing={0.5}>
             <Typography>
-              Project: <b>{boxData?.project}</b>
+              Project: <b>{box?.project}</b>
             </Typography>
             <Typography>
-              Recipient: <b>{boxData?.school}</b>
+              Recipient: <b>{box?.school}</b>
             </Typography>
             <Typography>
-              Division: <b>{boxData?.division}</b>
+              Division: <b>{box?.division}</b>
             </Typography>
             <Typography>
-              District: <b>{boxData?.district}</b>
+              District: <b>{box?.district}</b>
             </Typography>
             <Typography>
-              Zone: <b>{boxData?.zone}</b>
+              Zone: <b>{box?.zone}</b>
             </Typography>
             <Typography>
-              Institution type: <b>{boxData?.institutionType}</b>
+              Institution type: <b>{box?.institutionType}</b>
             </Typography>
             <Typography>
-              Person in charge: <b>{boxData?.htName}</b>
+              Person in charge: <b>{box?.htName}</b>
             </Typography>
             <Typography>
-              Phone: <b>{boxData?.htPhone}</b>
+              Phone: <b>{box?.htPhone}</b>
             </Typography>
             <Typography>
               Created:{' '}
-              <b>{new Date(boxData?.createdAt).toLocaleString()}</b>
+              <b>{new Date(box?.createdAt).toLocaleString()}</b>
             </Typography>
           </Stack>
           {isMobile
             ? null
-            : <Stack direction={'column'} spacing={1} alignItems={'center'}>
-            <QRCodeSVG value={'tnt://' + boxData?.id} size={150} level='H'/>
-            <Typography
-              fontFamily={
-                'Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New'
-              }
-              fontSize={'.7rem'}
-            >
-              {boxData?.id}
-            </Typography>
-          </Stack>}
+            :
+            <QRCodeSVG value={'tnt://' + box?.id} size={150} level='H'/>
+          }
         </Stack>
       </CardContent>
     </Card>

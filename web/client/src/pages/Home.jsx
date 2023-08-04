@@ -8,7 +8,7 @@ import AppContext from '../context/AppContext';
 
 export default function Home() {
 	const { boxes, scans } = useContext(AppContext);
-	const cards = items.slice(1);
+	const cards = items.slice(1, 4);
 	return (
 		<>
 			<Helmet>

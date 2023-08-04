@@ -6,7 +6,7 @@ import AppContext from '../context/AppContext';
 import CachedIcon from '@mui/icons-material/Cached';
 
 export default function Scans() {
-	const { boxes, scans, fetchScans } = useContext(AppContext);
+	const { boxes, scans } = useContext(AppContext);
 	return (
 		<>
 			<Helmet>
@@ -24,11 +24,13 @@ export default function Scans() {
 						variant='outlined'
 						color='primary'
 						fullWidth
-						onClick={() => fetchScans(boxes)}
+						onClick={() => {
+							window.location.reload(false);
+						}}
 						size='large'
 						startIcon={<CachedIcon />}
 					>
-						Refresh scans
+						Refresh
 					</Button>
 				</Grid>
 				<Grid item xs={12}>
@@ -38,3 +40,4 @@ export default function Scans() {
 		</>
 	);
 }
+

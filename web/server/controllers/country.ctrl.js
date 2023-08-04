@@ -39,6 +39,14 @@ const getCountryName = (req, res) => {
 	}
 };
 
+const getCountryNameLocal = (longitude, latitude) => {
+
+	const countryInfo = reverseGeocode(Number(longitude), Number(latitude), borders);
+
+	return countryInfo.nameEn || 'Unknown';
+};
+
 module.exports = {
 	getCountryName,
+	getCountryNameLocal,
 };

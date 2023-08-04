@@ -16,6 +16,7 @@ import {Helmet} from 'react-helmet';
 import { useMediaQuery } from '@mui/material';
 import TopMenu from './components/TopMenu';
 import { AppProvider } from './context/AppContext';
+import Delete from './pages/Delete';
 
 const theme = createTheme();
 
@@ -50,6 +51,12 @@ function App() {
               <Route path='/export' element={
                   <RequireAuth>
                     <Export />
+                  </RequireAuth>
+                }
+              />
+              <Route path='/delete' element={
+                  <RequireAuth>
+                    <Delete />
                   </RequireAuth>
                 }
               />

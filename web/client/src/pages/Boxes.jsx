@@ -1,13 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import BoxesOverview from '../components/BoxesOverview';
 import { Button, Grid } from '@mui/material';
 import Upload from '../components/Upload';
 import { Helmet } from 'react-helmet';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import AppContext from '../context/AppContext';
 
 export default function Boxes() {
-	const { boxes, scans } = useContext(AppContext);
 	const [uploadOpen, setUploadOpen] = useState(false);
 
 	return (
@@ -35,7 +33,7 @@ export default function Boxes() {
 					</Button>
 				</Grid>
 				<Grid item xs={12}>
-					<BoxesOverview boxes={boxes} scans={scans} />
+					<BoxesOverview />
 				</Grid>
 			</Grid>
 			<Upload open={uploadOpen} setOpen={setUploadOpen} />

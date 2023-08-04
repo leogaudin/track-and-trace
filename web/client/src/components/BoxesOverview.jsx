@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'
@@ -6,11 +6,13 @@ import TableCard from './TableCard';
 import { getProgress } from '../service/progress';
 import { colorsMap, textsMap } from './constants';
 import { Skeleton, useMediaQuery } from '@mui/material';
+import AppContext from '../context/AppContext';
 
-export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
+export default function BoxesOverview({ pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const {boxes, scans} = useContext(AppContext);
 
 	return (
 		<TableCard
@@ -28,11 +30,9 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 					return [
 						box.id,
 						box.school,
-						scans?.length
-						? <SeverityPill color={colorsMap[progress]}>
+						<SeverityPill color={colorsMap[progress]}>
 							{textsMap[progress]}
 						</SeverityPill>
-						: <Skeleton variant='text' />
 					]
 				else
 					return [
@@ -40,11 +40,9 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 						box.project,
 						box.school,
 						timeAgo(box.createdAt),
-						scans?.length
-						? <SeverityPill color={colorsMap[progress]}>
+						<SeverityPill color={colorsMap[progress]}>
 							{textsMap[progress]}
 						</SeverityPill>
-						: <Skeleton variant='text' />
 					]
 			}) : null}
 			pageSize={pageSize}
@@ -52,8 +50,6 @@ export default function BoxesOverview({ boxes, scans, pageSize = 10 }) {
 			setSelectedItem={setBoxID}
 		>
 			<BoxSummary
-				boxes={boxes}
-				scans={scans}
 				id={boxID}
 				open={boxDialogOpen}
 				setOpen={setBoxDialogOpen}

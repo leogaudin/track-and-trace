@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
-import HTMLExport from '../components/HTMLExport';
+import { Button, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import AppContext from '../context/AppContext';
+import { deleteBoxes } from "../service";
+import ConfirmDialog from '../components/ConfirmDialog';
 
-export default function Export() {
+export default function Delete() {
   const [selectedOption, setSelectedOption] = useState('all');
   const {boxes} = useContext(AppContext);
   const [filteredBoxes, setFilteredBoxes] = useState(boxes);
   const [selectedField, setSelectedField] = useState('');
   const [loading, setLoading] = useState(true);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const excludedFields = [
     '_id',
     'id',
@@ -21,6 +23,8 @@ export default function Export() {
     '__v',
     'scans'
   ];
+
+  console.log(filteredBoxes)
 
   useEffect(() => {
     setFilteredBoxes(boxes);
@@ -50,12 +54,6 @@ export default function Export() {
 
   const availableFields = Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field));
 
-  const getFolderName = () => {
-	const title = selectedOption === 'all' ? '' : `-${selectedOption}-${selectedField}`;
-    return `Boxes${title}`;
-
-  };
-
   if (!boxes)
     return (
       <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
@@ -73,7 +71,7 @@ export default function Export() {
         <CardContent>
           <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'}>
             <Stack direction={'column'} spacing={1} alignItems={'flex-start'} width={'50%'}>
-              <Typography variant="overline">Export options</Typography>
+              <Typography variant="overline">Delete options</Typography>
               <RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange}>
                 <FormControlLabel value="all" control={<Radio />} label="All" />
                 {availableFields.map((field) => (
@@ -98,13 +96,28 @@ export default function Export() {
               </Stack>
             )}
           </Stack>
-            <Stack direction={'column'} spacing={1} alignItems={'center'}>
-              {!loading
-                ? <Typography variant='overline'><b>{filteredBoxes.length}</b> items will be exported.</Typography>
-                : <Typography variant='overline'>Please wait while the boxes are loading...</Typography>
-              }
-              <HTMLExport objects={filteredBoxes} folderName={getFolderName()} />
-            </Stack>
+          <Stack direction={'column'} spacing={1} alignItems={'center'}>
+            {!loading
+              ? <Typography variant='overline' color='error'><b>{filteredBoxes.length}</b> items will be deleted.</Typography>
+              : <Typography variant='overline'>Please wait while the boxes are loading...</Typography>
+            }
+            <div>
+              <Button variant={'contained'} color='error' size='large' onClick={() => setOpenDeleteDialog(true)}>
+                Delete boxes
+              </Button>
+            </div>
+          </Stack>
+          <ConfirmDialog
+            open={openDeleteDialog}
+            setOpen={setOpenDeleteDialog}
+            message="Are you sure you want to proceed to the removal? This action cannot be undone."
+            onConfirm={() => {
+              deleteBoxes(filteredBoxes)
+                .then(() => {
+                  window.location.reload();
+                })
+            }}
+          />
         </CardContent>
       </Card>
     </Box>

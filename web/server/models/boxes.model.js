@@ -13,7 +13,8 @@ const Box = new Schema(
 		htPhone: { type: String, required: true },
 		institutionType: { type: String, required: false },
 		adminId: { type: String, required: true },
-		createdAt: { type: Date, required: true }
+		createdAt: { type: Date, required: true },
+		scans: { type: Array, required: false },
 	}
 )
 

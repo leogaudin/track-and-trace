@@ -67,7 +67,6 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
               </div>
               <div class="qrcode-container">
                 ${qrCodeSvg}
-                <div class="qrcode-value">${id}</div>
               </div>
             </div>
           </div>

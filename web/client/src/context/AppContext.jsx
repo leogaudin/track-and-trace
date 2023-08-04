@@ -22,6 +22,7 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
 
   const fetchBoxes = async () => {
     try {
+      setBoxes([]);
       const boxesResponse = await getBoxesByAdminId(user.id);
       boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setBoxes(boxesResponse.data);
@@ -35,26 +36,14 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
 
   const fetchScans = async (boxes) => {
     if (!boxes) return;
-    try {
-      setScans([]);
-      const boxIds = boxes.map(box => box.id);
-      const scansResponse = await getScansByBoxes(boxIds);
-      const scans = scansResponse.data;
+    setScans([]);
+    const reducer = boxes.reduce((accumulator, box) => {
+      if (box.scans && Array.isArray(box.scans))
+        return accumulator.concat(box.scans);
+      return accumulator;
+    }, []);
 
-      const updatedScans = [];
-      for (const scan of scans) {
-        const { latitude, longitude } = scan.location.coords;
-        const name = await getCountryName({latitude, longitude});
-        const updatedScan = { ...scan, countryName: name['country'] };
-        updatedScans.push(updatedScan);
-      }
-      updatedScans.sort((a, b) => new Date(b.time) - new Date(a.time));
-      setScans(updatedScans);
-    } catch (err) {
-      console.log(err);
-      if (err.response && err.response.status >= 400)
-        setScans(null);
-    }
+    setScans(reducer?.length > 0 ? reducer : null);
   }
 
   useEffect(() => {

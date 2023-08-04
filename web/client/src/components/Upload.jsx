@@ -111,14 +111,14 @@ export default function Upload({ open, setOpen }) {
                   {hover ? "Drop!" : "Click or Drag files here to upload"}
                 </Typography>
                 <div style={{paddingTop: 0, width: '100%'}}>
-                <Alert severity='info' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center'}}>
+                <Alert severity='info' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
                     <Typography variant='body1'>
                       <b>Supported file types:</b> .csv
                       <br />
                       A CSV file can be obtained from any spreadsheet software such as Microsoft Excel, Google Sheets, or Apple Numbers. You can choose this format in your export options.
                     </Typography>
                   </Alert>
-                  <Alert severity='warning' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center'}}>
+                  <Alert severity='warning' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
                     <Typography variant='body1'>
                       <b>Upload can be long for large files (500+ items), please be patient.</b>
                     </Typography>
