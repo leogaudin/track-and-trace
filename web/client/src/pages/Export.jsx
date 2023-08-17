@@ -36,7 +36,7 @@ export default function Export() {
       setFilteredBoxes(boxes);
     } else {
       setSelectedField(availableFields[0]);
-      const filtered = boxes.filter((box) => box[option] === availableFields[0]);
+      const filtered = boxes?.filter((box) => box[option] === availableFields[0]);
       setFilteredBoxes(filtered);
     }
   };
@@ -44,16 +44,15 @@ export default function Export() {
   const handleFieldChange = (event) => {
     setSelectedField(event.target.value);
 
-    const filtered = boxes.filter((box) => box[selectedOption] === event.target.value);
+    const filtered = boxes?.filter((box) => box[selectedOption] === event.target.value);
     setFilteredBoxes(filtered);
   };
 
-  const availableFields = Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field));
+  const availableFields = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field)) : null;
 
   const getFolderName = () => {
 	const title = selectedOption === 'all' ? '' : `-${selectedOption}-${selectedField}`;
     return `Boxes${title}`;
-
   };
 
   if (!boxes)

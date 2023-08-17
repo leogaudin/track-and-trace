@@ -24,8 +24,6 @@ export default function Delete() {
     'scans'
   ];
 
-  console.log(filteredBoxes)
-
   useEffect(() => {
     setFilteredBoxes(boxes);
     setLoading(false);
@@ -40,7 +38,7 @@ export default function Delete() {
       setFilteredBoxes(boxes);
     } else {
       setSelectedField(availableFields[0]);
-      const filtered = boxes.filter((box) => box[option] === availableFields[0]);
+      const filtered = boxes?.filter((box) => box[option] === availableFields[0]);
       setFilteredBoxes(filtered);
     }
   };
@@ -48,11 +46,11 @@ export default function Delete() {
   const handleFieldChange = (event) => {
     setSelectedField(event.target.value);
 
-    const filtered = boxes.filter((box) => box[selectedOption] === event.target.value);
+    const filtered = boxes?.filter((box) => box[selectedOption] === event.target.value);
     setFilteredBoxes(filtered);
   };
 
-  const availableFields = Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field));
+  const availableFields = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field)) : null;
 
   if (!boxes)
     return (
