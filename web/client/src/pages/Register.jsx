@@ -48,7 +48,6 @@ function Register() {
         displayName: formik.values.name,
         password: formik.values.password
       };
-      console.log(user);
       register(user)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response['user']));
