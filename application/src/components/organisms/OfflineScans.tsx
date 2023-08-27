@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import InfoModal from '../molecules/InfoModal';
 import { Button, Text } from 'react-native-paper';
 import { sendOfflineData } from '../../utils/asyncStorage';
 import AppContext from '../../context/AppContext';
+import NetInfo from '@react-native-community/netinfo';
 
 interface OfflineScansProps {
   visible: boolean;
@@ -16,7 +17,13 @@ interface DataProps {
 }
 
 export default function OfflineScans({ visible, onClose }: OfflineScansProps) {
-  const { offlineData, hasInternetConnection } = useContext(AppContext);
+  const { offlineData, hasInternetConnection, setInternetConnection } = useContext(AppContext);
+
+  useEffect(() => {
+    NetInfo.addEventListener((state) => {
+      setInternetConnection(state.isConnected!);
+    });
+  }, []);
 
   return (
     <InfoModal
