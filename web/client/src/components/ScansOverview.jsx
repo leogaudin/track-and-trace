@@ -3,19 +3,21 @@ import { useState } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './TableCard';
 import { useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function ScansOverview({ boxes, scans, disableDialogs = false }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const { t } = useTranslation();
 
 	return (
 		<TableCard
-			contentName='scans'
+			contentName={t('scans').toLowerCase()}
 			columns={
 				isMobile
-				? ['Box', 'Location', 'Time']
-				: ['Box', 'Location', 'Time', 'Comment', 'Final']
+				? [t('box'), t('location'), t('time')]
+				: [t('box'), t('location'), t('time'), t('comment'), t('final')]
 			}
 			rows={scans[0] ? scans.map(scan => {
 				if (isMobile)

@@ -4,15 +4,17 @@ import { Button, Grid } from '@mui/material';
 import Upload from '../components/Upload';
 import { Helmet } from 'react-helmet';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useTranslation } from 'react-i18next';
 
 export default function Boxes() {
 	const [uploadOpen, setUploadOpen] = useState(false);
+	const { t } = useTranslation();
 
 	return (
 		<>
 			<Helmet>
-				<title>Boxes - Track-and-Trace</title>
-				<meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+				<title>{t('boxes')} - Track-and-Trace</title>
+				<meta name="description" content={t('description')} />
 			</Helmet>
 			<Grid
 				container
@@ -29,7 +31,7 @@ export default function Boxes() {
 						size='large'
 						startIcon={<CloudUploadIcon />}
 					>
-						Upload boxes from a distribution list
+						{t('uploadPrompt')}
 					</Button>
 				</Grid>
 				<Grid item xs={12}>

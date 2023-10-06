@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import HTMLExport from '../components/HTMLExport';
 import AppContext from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Export() {
   const [selectedOption, setSelectedOption] = useState('all');
@@ -21,6 +22,7 @@ export default function Export() {
     '__v',
     'scans'
   ];
+  const { t } = useTranslation();
 
   useEffect(() => {
     setFilteredBoxes(boxes);
@@ -60,7 +62,7 @@ export default function Export() {
       <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
         <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
           <CardContent>
-            <Typography variant="overline">No boxes found</Typography>
+            <Typography variant="overline">{t('noBoxes')}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -72,20 +74,20 @@ export default function Export() {
         <CardContent>
           <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'}>
             <Stack direction={'column'} spacing={1} alignItems={'flex-start'} width={'50%'}>
-              <Typography variant="overline">Export options</Typography>
+              <Typography variant="overline">{t('exportOptions')}</Typography>
               <RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange}>
                 <FormControlLabel value="all" control={<Radio />} label="All" />
                 {availableFields.map((field) => (
-                  <FormControlLabel key={field} value={field} control={<Radio />} label={`By ${field}`} />
+                  <FormControlLabel key={field} value={field} control={<Radio />} label={`${t('by', {item: field})}`} />
                 ))}
               </RadioGroup>
             </Stack>
             {selectedOption !== 'all' && (
               <Stack direction={'column'} spacing={1} alignItems={'center'}>
-                <Typography variant="overline">Select {selectedOption}</Typography>
+                <Typography variant="overline">{t('select', {option: selectedOption})}</Typography>
                 <Select
                   onChange={handleFieldChange}
-                  placeholder={`Select ${selectedOption}`}
+                  placeholder={`${t('select', {option: selectedOption})}`}
                   sx={{ marginBottom: '1rem' }}
                 >
                   {Array.from(new Set(boxes.map((box) => box[selectedOption]))).map((value) => (
@@ -99,8 +101,8 @@ export default function Export() {
           </Stack>
             <Stack direction={'column'} spacing={1} alignItems={'center'}>
               {!loading
-                ? <Typography variant='overline'><b>{filteredBoxes.length}</b> items will be exported.</Typography>
-                : <Typography variant='overline'>Please wait while the boxes are loading...</Typography>
+                ? <Typography variant='overline'><b>{t('itemsWillBeExported', {number: filteredBoxes.length})}</b></Typography>
+                : <Typography variant='overline'>{t('waitBoxesLoading')}</Typography>
               }
               <HTMLExport objects={filteredBoxes} folderName={getFolderName()} />
             </Stack>

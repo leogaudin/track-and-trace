@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import SkeletonTable from './SkeletonTable';
 import { SearchBar } from './SearchBar';
+import { useTranslation } from 'react-i18next';
 
 const filterData = (query, data) => {
   return data.filter((item) => {
@@ -50,6 +51,7 @@ export default function TableCard({
 }) {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -82,7 +84,7 @@ export default function TableCard({
   return (
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
       <CardContent>
-        <Typography variant="overline">Your {contentName}</Typography>
+        <Typography variant="overline">{t('your', {item: contentName})}</Typography>
         {rows?.length ? (
           <Stack direction="column" spacing={3} alignItems="center">
             {searchEnabled ? (
@@ -129,7 +131,7 @@ export default function TableCard({
         ) : (
           <React.Fragment>
             {rows === null ? (
-              <Alert severity="info">You have no {contentName}</Alert>
+              <Alert severity="info">{t('youHaveNo', {item: contentName})}</Alert>
             ) : (
               <SkeletonTable rows={pageSize} />
             )}

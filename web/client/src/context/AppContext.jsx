@@ -10,7 +10,9 @@ const AppContext = createContext({
   fetchBoxes: () => {},
   fetchScans: () => {},
   isMobile: false,
-  user: null
+  user: null,
+  language: 'en',
+  setLanguage: () => {},
 });
 
 export const AppProvider = ({ theme, useMediaQuery, children }) => {
@@ -19,6 +21,7 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
   const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));
   const [navOpen, setNavOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
+  const [language, setLanguage] = useState('en');
 
   const fetchBoxes = async () => {
     try {
@@ -65,7 +68,9 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
         fetchBoxes,
         fetchScans,
         isMobile,
-        user
+        user,
+        language,
+        setLanguage,
       }}
     >
       {children}

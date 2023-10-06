@@ -2,16 +2,18 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, LinearProgress, Skeleton } from '@mui/material';
 import { calculateDeliveryPercentage } from '../service/progress';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ProgressOverview = ({ boxes, scans }) => {
   const deliveryResults = boxes && scans ? calculateDeliveryPercentage(boxes, scans) : [];
+  const { t } = useTranslation();
 
   if (boxes?.length && scans?.length)
     return (
       <Card>
         <CardContent>
           <Typography variant="overline" gutterBottom>
-            Delivery Statuses
+            {t('progressOverview')}
           </Typography>
           <Grid container spacing={2}>
               {deliveryResults.map((result) => (

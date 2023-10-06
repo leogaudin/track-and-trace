@@ -2,30 +2,31 @@ import BoxIcon from '@mui/icons-material/Archive';
 import ScanIcon from '@mui/icons-material/Scanner';
 import ExportIcon from '@mui/icons-material/ImportExport';
 import { Home as HomeIcon, Inventory as InventoryIcon, QrCodeScanner as QrCodeScannerIcon, IosShare as IosShareIcon, Delete as DeleteIcon } from '@mui/icons-material'
+import i18n from './language';
 
-export const items = [
+export let items = [
 	{
-		title: 'Home',
+		title: i18n.t('home'),
 		path: '/',
 		icon: <HomeIcon />
 	},
 	{
-		title: 'Boxes',
+		title: i18n.t('boxes'),
 		path: '/boxes',
 		icon: <InventoryIcon />
 	},
 	{
-		title: 'Scans',
+		title: i18n.t('scans'),
 		path: '/scans',
 		icon: <QrCodeScannerIcon />
 	},
 	{
-		title: 'Export',
+		title: i18n.t('export'),
 		path: '/export',
 		icon: <IosShareIcon />
 	},
 	{
-		title: 'Delete',
+		title: i18n.t('delete'),
 		path: '/delete',
 		icon: <DeleteIcon />
 	},
@@ -34,19 +35,19 @@ export const items = [
 export const homeCardsData = [
   {
     id: 'boxes',
-    title: 'Boxes',
+    title: i18n.t('boxes'),
     icon: <BoxIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
     route: '/boxes',
   },
   {
     id: 'scans',
-    title: 'Scans',
+    title: i18n.t('scans'),
     icon: <ScanIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
     route: '/scans',
   },
   {
     id: 'export',
-    title: 'Export',
+    title: i18n.t('export'),
     icon: <ExportIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
     route: '/export',
   },
@@ -59,9 +60,9 @@ export const colorsMap = {
 	noscans: 'neutral'
 };
 
-export const textsMap = {
-	inprogress: 'In Progress',
-	delivered: 'Delivered',
-	confusing: 'Confusing',
-	noscans: 'No Scans Yet'
+export let textsMap = {
+	inprogress: i18n.t('inprogress'),
+	delivered: i18n.t('delivered'),
+	confusing: i18n.t('confusing'),
+	noscans: i18n.t('noscans')
 };

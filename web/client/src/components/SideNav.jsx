@@ -1,4 +1,4 @@
-import { Box, Drawer, Stack, SvgIcon, Typography } from '@mui/material';
+import { Box, Drawer, Select, Stack, SvgIcon, Typography, MenuItem } from '@mui/material';
 import { SideNavItem } from './SideNavItem';
 import { useLocation } from 'react-router-dom';
 import { items } from './constants';
@@ -6,6 +6,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppContext from '../context/AppContext';
 import { useContext } from 'react';
+import i18n, { languages } from './constants/language';
+import { useTranslation } from 'react-i18next';
 
 const SIDE_NAV_WIDTH = 200;
 
@@ -36,7 +38,8 @@ export const SideNav = () => {
   const location = useLocation();
   const content = getContent(location, items);
   const user = JSON.parse(localStorage.getItem('user'));
-  const { isMobile, navOpen, setNavOpen, fetchScans } = useContext(AppContext);
+  const { isMobile, navOpen, setNavOpen, fetchScans, language, setLanguage } = useContext(AppContext);
+  const { t } = useTranslation();
 
   return (
     location.pathname !== '/login' && location.pathname !== '/register'
@@ -77,7 +80,7 @@ export const SideNav = () => {
                 textAlign={'center'}
                 style={{ wordWrap: "break-all"}}
                 >
-                  Logged in as <b>{user.displayName}</b>
+                  {t('loggedInAs')} <b>{user.displayName}</b>
               </Typography>
             </Stack>
           </Stack>
@@ -89,13 +92,32 @@ export const SideNav = () => {
         ?
         <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
           <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
+            <Select
+              label={'Language'}
+              defaultValue='en'
+              value={language}
+              onChange={(event) => {
+                setLanguage(event.target.value);
+                i18n.changeLanguage(event.target.value);
+              }}
+              sx={{ color: 'common.white' }}
+              variant='standard'
+            >
+              {languages.map((language) => {
+                return (
+                  <MenuItem key={language.code} value={language.code}>
+                    {language.label}
+                  </MenuItem>
+                );
+              })}
+            </Select>
             <SideNavItem
                 icon={<SvgIcon><LogoutIcon /></SvgIcon>}
                 key={'logout'}
                 path={'/logout'}
                 disabled
                 title={
-                  <Typography variant='overline' fontSize={'.9rem'}>Logout</Typography>
+                  <Typography variant='overline' fontSize={'.9rem'}>{t('logout')}</Typography>
                 }
               />
           </Stack>

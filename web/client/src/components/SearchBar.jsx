@@ -1,4 +1,6 @@
 import TextField from "@mui/material/TextField";
+import "./constants/language";
+import i18n from "./constants/language";
 
 export const SearchBar = ({setSearchQuery}) => (
 	<TextField
@@ -7,9 +9,9 @@ export const SearchBar = ({setSearchQuery}) => (
 		onInput={(e) => {
 			setSearchQuery(e.target.value);
 		}}
-		label="Search..."
+		label={i18n.t("search")}
 		variant="filled"
-		placeholder="Search..."
+		placeholder={i18n.t("search")}
 		fullWidth
 	/>
   );

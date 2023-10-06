@@ -5,15 +5,18 @@ import { Helmet } from 'react-helmet';
 import ProgressOverview from '../components/ProgressOverview'
 import { items } from '../components/constants';
 import AppContext from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
 	const { boxes, scans } = useContext(AppContext);
 	const cards = items.slice(1, 4);
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<Helmet>
-				<title>Home - Track-and-Trace</title>
-				<meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+				<title>{t("home")} - Track-and-Trace</title>
+				<meta name="description" content={t("description")} />
 			</Helmet>
 			<Grid
 				container

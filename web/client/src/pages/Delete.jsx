@@ -3,6 +3,7 @@ import { Button, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, S
 import AppContext from '../context/AppContext';
 import { deleteBoxes } from "../service";
 import ConfirmDialog from '../components/ConfirmDialog';
+import { useTranslation } from 'react-i18next';
 
 export default function Delete() {
   const [selectedOption, setSelectedOption] = useState('all');
@@ -23,6 +24,7 @@ export default function Delete() {
     '__v',
     'scans'
   ];
+  const { t } = useTranslation();
 
   useEffect(() => {
     setFilteredBoxes(boxes);
@@ -57,7 +59,7 @@ export default function Delete() {
       <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
         <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
           <CardContent>
-            <Typography variant="overline">No boxes found</Typography>
+            <Typography variant="overline">{t('noBoxes')}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -69,20 +71,20 @@ export default function Delete() {
         <CardContent>
           <Stack direction={'row'} alignItems={'flex-start'} justifyContent={'space-between'} width={'100%'}>
             <Stack direction={'column'} spacing={1} alignItems={'flex-start'} width={'50%'}>
-              <Typography variant="overline">Delete options</Typography>
+              <Typography variant="overline">{t('deleteOptions')}</Typography>
               <RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange}>
                 <FormControlLabel value="all" control={<Radio />} label="All" />
                 {availableFields.map((field) => (
-                  <FormControlLabel key={field} value={field} control={<Radio />} label={`By ${field}`} />
+                  <FormControlLabel key={field} value={field} control={<Radio />} label={`${t('by', {item: field})}`} />
                 ))}
               </RadioGroup>
             </Stack>
             {selectedOption !== 'all' && (
               <Stack direction={'column'} spacing={1} alignItems={'center'}>
-                <Typography variant="overline">Select {selectedOption}</Typography>
+                <Typography variant="overline">{t('select', {option: selectedOption})}</Typography>
                 <Select
                   onChange={handleFieldChange}
-                  placeholder={`Select ${selectedOption}`}
+                  placeholder={`${t('select', {option: selectedOption})}`}
                   sx={{ marginBottom: '1rem' }}
                 >
                   {Array.from(new Set(boxes.map((box) => box[selectedOption]))).map((value) => (
@@ -96,19 +98,19 @@ export default function Delete() {
           </Stack>
           <Stack direction={'column'} spacing={1} alignItems={'center'}>
             {!loading
-              ? <Typography variant='overline' color='error'><b>{filteredBoxes.length}</b> items will be deleted.</Typography>
-              : <Typography variant='overline'>Please wait while the boxes are loading...</Typography>
+              ? <Typography variant='overline' color='error'><b>{t('itemsWillBeDeleted', {number: filteredBoxes.length})}</b></Typography>
+              : <Typography variant='overline'>{t('waitBoxesLoading')}</Typography>
             }
             <div>
               <Button variant={'contained'} color='error' size='large' onClick={() => setOpenDeleteDialog(true)}>
-                Delete boxes
+                {t('deleteBoxes')}
               </Button>
             </div>
           </Stack>
           <ConfirmDialog
             open={openDeleteDialog}
             setOpen={setOpenDeleteDialog}
-            message="Are you sure you want to proceed to the removal? This action cannot be undone."
+            message={t('confirmDelete')}
             onConfirm={() => {
               deleteBoxes(filteredBoxes)
                 .then(() => {

@@ -15,11 +15,13 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function Login() {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const { t } = useTranslation();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -35,10 +37,10 @@ function Login() {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email('Must be a valid email')
+        .email(t('invalidEmail'))
         .max(255)
-        .required('Email is required'),
-      password: Yup.string().max(255).required('Password is required')
+        .required(t('emailRequired')),
+      password: Yup.string().max(255).required(t('passwordRequired'))
     }),
     onSubmit: () => {
       const user = {
@@ -54,7 +56,7 @@ function Login() {
         .catch((error) => {
           setIsAuth(false);
           formik.setErrors({
-            submit: 'Invalid email or password'
+            submit: t('invalidCredentials')
           });
         });
     }
@@ -63,10 +65,10 @@ function Login() {
   return (
     <>
       <Helmet>
-        <title>Login - Track-and-Trace</title>
+        <title>{t('login')} - Track-and-Trace</title>
         <meta
           name="description"
-          content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times."
+          content={t('description')}
         />
       </Helmet>
       <Box
@@ -90,30 +92,30 @@ function Login() {
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
               <Typography variant="h2">Login</Typography>
-              <Typography color="text.secondary" variant="body2">
-                Don&apos;t have an account?&nbsp;
+              {/* <Typography color="text.secondary" variant="body2">
+                {t('noAccountYet')}{' '}
                 <Link
                   component={RouterLink}
                   to="/register"
                   underline="hover"
                   variant="subtitle2"
                 >
-                  Register
+                  {t('register')}
                 </Link>
-              </Typography>
+              </Typography> */}
             </Stack>
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
                 <FormTextField
                   field="email"
                   formik={formik}
-                  label="Email Address"
+                  label={t('email')}
                   type="email"
                 />
                 <FormTextField
                   field="password"
                   formik={formik}
-                  label="Password"
+                  label={t('password')}
                   type="password"
                 />
               </Stack>
@@ -134,7 +136,7 @@ function Login() {
                 type="submit"
                 variant="contained"
               >
-                Continue
+                {t('continue')}
               </Button>
             </form>
           </div>

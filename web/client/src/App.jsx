@@ -17,15 +17,19 @@ import { useMediaQuery } from '@mui/material';
 import TopMenu from './components/TopMenu';
 import { AppProvider } from './context/AppContext';
 import Delete from './pages/Delete';
+import "./components/constants/language";
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme();
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <div className="App">
       <Helmet>
         <title>Track-and-Trace</title>
-        <meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+        <meta name="description" content={t('description')} />
       </Helmet>
       <BrowserRouter>
         <ThemeProvider theme={theme}>

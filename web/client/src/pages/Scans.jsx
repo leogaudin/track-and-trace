@@ -4,14 +4,17 @@ import { Box, Button, Grid } from '@mui/material';
 import { Helmet } from 'react-helmet';
 import AppContext from '../context/AppContext';
 import CachedIcon from '@mui/icons-material/Cached';
+import { useTranslation } from 'react-i18next';
 
 export default function Scans() {
 	const { boxes, scans } = useContext(AppContext);
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<Helmet>
-				<title>Scans - Track-and-Trace</title>
-				<meta name="description" content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times." />
+				<title>{t('scans')} - Track-and-Trace</title>
+				<meta name="description" content={t('description')} />
 			</Helmet>
 			<Grid
 				container
@@ -30,7 +33,7 @@ export default function Scans() {
 						size='large'
 						startIcon={<CachedIcon />}
 					>
-						Refresh
+						{t('refresh')}
 					</Button>
 				</Grid>
 				<Grid item xs={12}>

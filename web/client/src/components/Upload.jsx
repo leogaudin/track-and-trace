@@ -3,6 +3,7 @@ import { handleCSV } from '../service/csv';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import UploadSummary from '../components/UploadSummary';
 import { Alert, Dialog, DialogContent, Typography } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 export default function Upload({ open, setOpen }) {
   const [hover, setHover] = useState(false);
@@ -11,6 +12,7 @@ export default function Upload({ open, setOpen }) {
   const [results, setResults] = useState([]);
   const [isComplete, setComplete] = useState(false);
   const inputFile = useRef(null);
+  const { t } = useTranslation();
 
   const handleDragEnter = e => {
     e.preventDefault();
@@ -108,19 +110,19 @@ export default function Upload({ open, setOpen }) {
               <div style={dragDropZoneStyles}>
                 <div></div>
                 <Typography variant='overline'>
-                  {hover ? "Drop!" : "Click or Drag files here to upload"}
+                  {hover ? t('drop') : t('dragPrompt')}
                 </Typography>
                 <div style={{paddingTop: 0, width: '100%'}}>
                 <Alert severity='info' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
                     <Typography variant='body1'>
-                      <b>Supported file types:</b> .csv
+                      <b>{t('supportedTypes')}:</b> .csv
                       <br />
-                      A CSV file can be obtained from any spreadsheet software such as Microsoft Excel, Google Sheets, or Apple Numbers. You can choose this format in your export options.
+                      {t('csvExplanation')}
                     </Typography>
                   </Alert>
                   <Alert severity='warning' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
                     <Typography variant='body1'>
-                      <b>Upload can be long for large files (500+ items), please be patient.</b>
+                      <b>{t('longUpload')}</b>
                     </Typography>
                   </Alert>
                 </div>

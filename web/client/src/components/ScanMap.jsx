@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Popup, Polyline, LayerGroup, CircleMarker } from 'react-leaflet';
 import { getLatLngCenter, getZoomLevel } from '../service/mapUtils';
 import { Typography } from '@mui/material';
-
+import { useTranslation } from 'react-i18next';
 
 function ScanMap({ scans, scansCount }) {
 	const [scansLoaded, setScansLoaded] = useState(false);
+	const { t } = useTranslation();
+
 	useEffect(() => {
 		if (scans.length === scansCount)
 			setScansLoaded(true)
@@ -61,7 +63,7 @@ function ScanMap({ scans, scansCount }) {
 	else {
 		return (
 			// TODO: Implement cool loading
-			<Typography>Loading...</Typography>
+			<Typography>{t('loading')}</Typography>
 		)
 	}
 }

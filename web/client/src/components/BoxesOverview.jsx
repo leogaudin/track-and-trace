@@ -7,20 +7,22 @@ import { getProgress } from '../service/progress';
 import { colorsMap, textsMap } from './constants';
 import { Skeleton, useMediaQuery } from '@mui/material';
 import AppContext from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function BoxesOverview({ pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 	const {boxes, scans} = useContext(AppContext);
+	const { t } = useTranslation();
 
 	return (
 		<TableCard
-			contentName='boxes'
+			contentName={t('boxes').toLowerCase()}
 			columns={
 				isMobile
-				? ['ID', 'Recipient', 'Status']
-				: ['ID', 'Project', 'Recipient', 'Created', 'Status']
+				? [t('id'), t('recipient'), t('status')]
+				: [t('id'), t('project'), t('recipient'), t('created'), t('status')]
 
 			}
 			rows={boxes ? boxes.map((box) => {

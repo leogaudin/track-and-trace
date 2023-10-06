@@ -9,6 +9,7 @@ import ConfirmDialog from "./ConfirmDialog";
 import { deleteBoxes } from "../service";
 import { useMediaQuery } from "@mui/material";
 import AppContext from "../context/AppContext";
+import { useTranslation } from "react-i18next";
 
 export default function BoxSummary({ id, open, setOpen }) {
 	const {boxes, scans} = useContext(AppContext);
@@ -16,6 +17,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
 	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const { t } = useTranslation();
 
 	function handleClose() {
 		setOpen(false);
@@ -36,7 +38,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 			<DialogContent>
 				<Typography
 					variant='overline'
-				>Box summary</Typography>
+				>{t('boxSummary')}</Typography>
 				<Stack direction={isMobile ? 'column' : 'row'} spacing={2}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
@@ -49,7 +51,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 								onClick={handleDelete}
 								fullWidth
 							>
-								Delete this box
+								{t('deleteBox')}
 							</Button>
 						</Grid>
 						{getProgress(scanData) !== 'noscans'
@@ -74,7 +76,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 				<ConfirmDialog
 					open={openDeleteDialog}
 					setOpen={setOpenDeleteDialog}
-					message="Are you sure you want to proceed to the removal? This action cannot be undone."
+					message={t('confirmDelete')}
 					onConfirm={() => {
 						deleteBoxes([boxData])
 							.then(() => {

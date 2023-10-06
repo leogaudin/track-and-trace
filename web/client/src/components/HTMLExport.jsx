@@ -2,8 +2,10 @@ import React from 'react';
 import QRCode from 'qrcode-svg';
 import { saveAs } from 'file-saver';
 import { Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) => {
+  const { t } = useTranslation();
   const htmlContent = (objects) => {
     const pages = objects.map((object) => {
       const { school, project, division, district, zone, institutionType, htName, htPhone, createdAt, id } = object;
@@ -27,41 +29,41 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
           <div class="document-container">
             <div class="content-wrapper">
               <div class="info-container">
-                <div class="info-heading">Informations</div>
+                <div class="info-heading">${t('informations')}</div>
                 <div class="info-row">
-                  <span class="info-label">Recipient:</span>
+                  <span class="info-label">${t('recipient')}:</span>
                   <span class="info-value">${school}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Project:</span>
+                  <span class="info-label">${t('project')}:</span>
                   <span class="info-value">${project}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Division:</span>
+                  <span class="info-label">${t('division')}:</span>
                   <span class="info-value">${division}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">District:</span>
+                  <span class="info-label">${t('district')}:</span>
                   <span class="info-value">${district}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Zone:</span>
+                  <span class="info-label">${t('zone')}:</span>
                   <span class="info-value">${zone}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Institution Type:</span>
+                  <span class="info-label">${t('institutionType')}:</span>
                   <span class="info-value">${institutionType}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Person in Charge:</span>
+                  <span class="info-label">${t('personInCharge')}:</span>
                   <span class="info-value">${htName}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Phone:</span>
+                  <span class="info-label">${t('phone')}:</span>
                   <span class="info-value">${htPhone}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Created:</span>
+                  <span class="info-label">${t('created')}:</span>
                   <span class="info-value">${new Date(createdAt).toLocaleString()}</span>
                 </div>
               </div>
@@ -98,7 +100,7 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
   return (
     <div>
       <Button variant={'contained'} color='success' size='large' onClick={downloadDocuments}>
-        Download HTML
+        {t('download', {item: "HTML"})}
       </Button>
     </div>
   );

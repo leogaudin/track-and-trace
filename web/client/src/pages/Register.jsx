@@ -15,11 +15,13 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function Register() {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
   const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const { t } = useTranslation();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -36,11 +38,11 @@ function Register() {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email('Must be a valid email')
+        .email(t('invalidEmail'))
         .max(255)
-        .required('Email is required'),
-      name: Yup.string().max(255).required('Name is required'),
-      password: Yup.string().max(255).required('Password is required')
+        .required(t('emailRequired')),
+      name: Yup.string().max(255).required(t('nameRequired')),
+      password: Yup.string().max(255).required(t('passwordRequired'))
     }),
     onSubmit: () => {
       const user = {
@@ -63,10 +65,10 @@ function Register() {
   return (
     <>
       <Helmet>
-        <title>Register - Track-and-Trace</title>
+        <title>{t('register')} - Track-and-Trace</title>
         <meta
           name="description"
-          content="Track and trace packages with ease using our advanced web application. Stay updated on the status and location of your shipments in real-time. Effortlessly monitor delivery progress and gain peace of mind knowing where your packages are at all times."
+          content={t('description')}
         />
       </Helmet>
       <Box
@@ -89,16 +91,16 @@ function Register() {
         >
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h2">Register</Typography>
+              <Typography variant="h2">{t('register')}</Typography>
               <Typography color="text.secondary" variant="body2">
-                Already have an account?&nbsp;
+                {t('alreadyHaveAccount')}
                 <Link
                   component={RouterLink}
                   to="/login"
                   underline="hover"
                   variant="subtitle2"
                 >
-                  Log in
+                  {t('login')}
                 </Link>
               </Typography>
             </Stack>
@@ -107,18 +109,18 @@ function Register() {
                 <FormTextField
                   field="name"
                   formik={formik}
-                  label="Name"
+                  label={t('name')}
                 />
                 <FormTextField
                   field="email"
                   formik={formik}
-                  label="Email Address"
+                  label={t('email')}
                   type="email"
                 />
                 <FormTextField
                   field="password"
                   formik={formik}
-                  label="Password"
+                  label={t('password')}
                   type="password"
                 />
               </Stack>
@@ -138,7 +140,7 @@ function Register() {
                 type="submit"
                 variant="contained"
               >
-                Continue
+                {t('continue')}
               </Button>
             </form>
           </div>
