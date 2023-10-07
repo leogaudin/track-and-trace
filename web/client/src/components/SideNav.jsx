@@ -1,11 +1,11 @@
 import { Box, Drawer, Select, Stack, SvgIcon, Typography, MenuItem } from '@mui/material';
 import { SideNavItem } from './SideNavItem';
 import { useLocation } from 'react-router-dom';
-import { items } from './constants';
+import { getItems } from './constants';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppContext from '../context/AppContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import i18n, { languages } from './constants/language';
 import { useTranslation } from 'react-i18next';
 
@@ -36,7 +36,7 @@ const getContent = (location, items) => {
 
 export const SideNav = () => {
   const location = useLocation();
-  const content = getContent(location, items);
+  let content = getContent(location, getItems());
   const user = JSON.parse(localStorage.getItem('user'));
   const { isMobile, navOpen, setNavOpen, fetchScans, language, setLanguage } = useContext(AppContext);
   const { t } = useTranslation();

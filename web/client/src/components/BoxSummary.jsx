@@ -4,7 +4,7 @@ import Map from "./ScanMap";
 import ScansOverview from "./ScansOverview";
 import BoxInfo from './BoxInfo';
 import { getProgress } from "../service/progress";
-import { colorsMap, textsMap } from "./constants";
+import { colorsMap, getTextsMap } from "./constants";
 import ConfirmDialog from "./ConfirmDialog";
 import { deleteBoxes } from "../service";
 import { useMediaQuery } from "@mui/material";
@@ -17,6 +17,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
 	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const textsMap = getTextsMap();
 	const { t } = useTranslation();
 
 	function handleClose() {

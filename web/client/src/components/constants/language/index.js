@@ -14,7 +14,7 @@ i18n
 		lng: "en",
 		fallbackLng: "en",
 		interpolation: {
-		escapeValue: false,
+			escapeValue: false,
 		},
 		resources: {
 			en: {
@@ -174,7 +174,7 @@ i18n
 					loading: 'Chargement...',
 					box: 'Boîte',
 					location: 'Emplacement',
-					time: 'Heure',
+					time: 'Date',
 					comment: 'Commentaire',
 					final: 'Arrivée',
 					search: 'Rechercher...',
@@ -200,7 +200,7 @@ i18n
 					loggedInAs: 'Connecté en tant que',
 					logout: 'Déconnexion',
 					drop: 'Lâchez !',
-					dragPrompt: 'Cliquez ou glisser-déposez des fichiers ici pour les uploader',
+					dragPrompt: 'Cliquez ou glissez-déposez des fichiers ici pour les uploader',
 					supportedTypes: 'Types de fichiers pris en charge',
 					csvExplanation: 'Un fichier CSV peut être obtenu à partir de n\'importe quel tableur tel que Microsoft Excel, Google Sheets ou Apple Numbers. Vous pouvez choisir ce format dans vos options d\'exportation.',
 					longUpload: 'Le téléchargement peut être long pour les gros fichiers (500+ éléments), veuillez patienter.',

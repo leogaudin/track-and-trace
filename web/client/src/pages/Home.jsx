@@ -3,12 +3,13 @@ import { Grid, Card, CardContent, Typography, SvgIcon } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import ProgressOverview from '../components/ProgressOverview'
-import { items } from '../components/constants';
+import { getItems } from '../components/constants';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
 
 export default function Home() {
 	const { boxes, scans } = useContext(AppContext);
+	let items = getItems();
 	const cards = items.slice(1, 4);
 	const { t } = useTranslation();
 

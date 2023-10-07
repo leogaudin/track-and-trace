@@ -4,7 +4,7 @@ import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'
 import TableCard from './TableCard';
 import { getProgress } from '../service/progress';
-import { colorsMap, textsMap } from './constants';
+import { colorsMap, getTextsMap } from './constants';
 import { Skeleton, useMediaQuery } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ export default function BoxesOverview({ pageSize = 10 }) {
 	const [boxID, setBoxID] = useState('');
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 	const {boxes, scans} = useContext(AppContext);
+	const textsMap = getTextsMap();
 	const { t } = useTranslation();
 
 	return (
