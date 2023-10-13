@@ -4,8 +4,9 @@ import { useLocation } from 'react-router-dom';
 import { getItems } from './constants';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LanguageIcon from '@mui/icons-material/Language';
 import AppContext from '../context/AppContext';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import i18n, { languages } from './constants/language';
 import { useTranslation } from 'react-i18next';
 
@@ -92,25 +93,33 @@ export const SideNav = () => {
         ?
         <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
           <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
-            <Select
-              label={'Language'}
-              defaultValue='en'
-              value={language}
-              onChange={(event) => {
-                setLanguage(event.target.value);
-                i18n.changeLanguage(event.target.value);
-              }}
-              sx={{ color: 'common.white' }}
-              variant='standard'
-            >
-              {languages.map((language) => {
-                return (
-                  <MenuItem key={language.code} value={language.code}>
-                    {language.label}
-                  </MenuItem>
-                );
-              })}
-            </Select>
+            <SideNavItem
+              icon={<SvgIcon><LanguageIcon /></SvgIcon>}
+              key={'language'}
+              path={'/language'}
+              disabled={true}
+              title={
+                <Select
+                  label={'Language'}
+                  defaultValue='en'
+                  value={language}
+                  onChange={(event) => {
+                    setLanguage(event.target.value);
+                    i18n.changeLanguage(event.target.value);
+                  }}
+                  sx={{ color: 'common.white' }}
+                  variant='standard'
+                >
+                  {languages.map((language) => {
+                    return (
+                      <MenuItem key={language.code} value={language.code}>
+                        {language.label}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              }
+            />
             <SideNavItem
                 icon={<SvgIcon><LogoutIcon /></SvgIcon>}
                 key={'logout'}
