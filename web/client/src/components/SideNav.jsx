@@ -96,7 +96,6 @@ export const SideNav = () => {
             <SideNavItem
               icon={<SvgIcon><LanguageIcon /></SvgIcon>}
               key={'language'}
-              path={'/language'}
               disabled={true}
               title={
                 <Select
