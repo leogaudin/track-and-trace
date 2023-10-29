@@ -112,7 +112,7 @@ const htmlStyles = `
     margin: 0;
     padding: 0;
     font-weight: 100;
-    color: #8E8E8E;
+    color: #808080;
   }
   .page {
     page-break-before: always;
