@@ -38,7 +38,6 @@ function Register() {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email(t('invalidEmail'))
         .max(255)
         .required(t('emailRequired')),
       name: Yup.string().max(255).required(t('nameRequired')),
@@ -115,7 +114,6 @@ function Register() {
                   field="email"
                   formik={formik}
                   label={t('email')}
-                  type="email"
                 />
                 <FormTextField
                   field="password"
