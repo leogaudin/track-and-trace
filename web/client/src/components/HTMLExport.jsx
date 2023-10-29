@@ -115,16 +115,20 @@ const htmlStyles = `
     color: #8E8E8E;
   }
   .page {
+    page-break-before: always;
     page-break-after: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .document-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    padding: 20px;
     box-sizing: border-box;
     background-color: #ffffff;
+    width: 8.27in;
+    height: 4in;
   }
   .content-wrapper {
     display: flex;
@@ -132,7 +136,6 @@ const htmlStyles = `
     max-width: 800px;
     background-color: #ffffff;
     border-radius: 4px;
-    padding: 20px;
   }
   .info-container {
     flex: 1;
