@@ -3,7 +3,7 @@ import BoxSummary from './BoxSummary';
 import { SeverityPill } from './SeverityPill';
 import { timeAgo } from '../service/timeAgo'
 import TableCard from './TableCard';
-import { getProgress } from '../service/progress';
+import { getProgress } from '../service/statistics';
 import { colorsMap, getTextsMap } from './constants';
 import { Skeleton, useMediaQuery } from '@mui/material';
 import AppContext from '../context/AppContext';

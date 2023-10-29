@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid, LinearProgress, Skeleton } from '@mui/material';
-import { calculateDeliveryPercentage } from '../service/progress';
+import { calculateDeliveryPercentage } from '../service/statistics';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +23,7 @@ const ProgressOverview = ({ boxes, scans }) => {
                       <CardContent sx={{'&:hover': {backgroundColor: 'neutral.100'}}}>
                         <Typography variant="subtitle1">{result.project}</Typography>
                         <Typography variant="h4" component="div" gutterBottom>
-                          {result.deliveryPercentage}%
+                          {result.deliveryPercentage}% {<span style={{fontWeight: 300, fontSize: '1rem'}}>{t('delivered').toLowerCase()}</span>}
                         </Typography>
                         <LinearProgress color={'success'} variant="determinate" value={result.deliveryPercentage} />
                       </CardContent>

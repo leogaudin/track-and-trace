@@ -3,7 +3,7 @@ import { Dialog, DialogContent, Stack, Typography, Grid, Alert, Button } from "@
 import Map from "./ScanMap";
 import ScansOverview from "./ScansOverview";
 import BoxInfo from './BoxInfo';
-import { getProgress } from "../service/progress";
+import { getProgress } from "../service/statistics";
 import { colorsMap, getTextsMap } from "./constants";
 import ConfirmDialog from "./ConfirmDialog";
 import { deleteBoxes } from "../service";

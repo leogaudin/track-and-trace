@@ -46,7 +46,7 @@ export function calculateDeliveryPercentage(boxes, scans) {
 		project,
 		delivered: deliveredBoxes,
 		total: boxesInGroup.length,
-		deliveryPercentage: deliveryPercentage.toFixed(2),
+		deliveryPercentage: deliveryPercentage.toFixed(0),
 	  });
 	}
 
