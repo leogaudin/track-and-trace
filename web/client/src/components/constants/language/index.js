@@ -112,6 +112,10 @@ i18n
 					summary: 'Summary',
 					boxCreated: 'Box n°{{id}} was successfully created.',
 					download: 'Download {{item}}',
+					report: 'Report',
+					username: 'Username',
+					invalidUsername: 'Invalid username',
+					usernameRequired: 'Username is required',
 				}
 			},
 			fr: {
@@ -209,6 +213,10 @@ i18n
 					summary: 'Résumé',
 					boxCreated: 'La boîte n°{{id}} a été créée avec succès.',
 					download: 'Télécharger le {{item}}',
+					report: 'Rapport',
+					username: 'Nom d\'utilisateur',
+					invalidUsername: 'Nom d\'utilisateur invalide',
+					usernameRequired: 'Le nom d\'utilisateur est obligatoire',
 				}
 			},
 			es: {
@@ -306,6 +314,10 @@ i18n
 					summary: 'Resumen',
 					boxCreated: 'La caja n.º{{id}} se creó con éxito.',
 					download: 'Descargar {{item}}',
+					report: 'Informe',
+					username: 'Nombre de Usuario',
+					invalidUsername: 'Nombre de usuario no válido',
+					usernameRequired: 'Se requiere nombre de usuario',
 				}
 			},
 			de: {
@@ -403,6 +415,10 @@ i18n
 					summary: 'Zusammenfassung',
 					boxCreated: 'Kasten Nr. {{id}} wurde erfolgreich erstellt.',
 					download: '{{item}} herunterladen',
+					report: 'Report',
+					username: 'Benutzername',
+					invalidUsername: 'Ungültiger Benutzername',
+					usernameRequired: 'Benutzername ist erforderlich',
 				}
 			}
 		},
