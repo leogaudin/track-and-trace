@@ -81,3 +81,11 @@ export async function login(user) {
 export async function register(user) {
   return await sendRequest('post', 'register', user);
 }
+
+export async function setInsights(id, publicInsights) {
+  return await sendRequest('post', 'insights', { id, publicInsights });
+}
+
+export async function getInsights(id) {
+  return await sendRequest('get', `insights/${id}`);
+}

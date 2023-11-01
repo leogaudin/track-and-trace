@@ -10,15 +10,15 @@ const deleteBox = deleteOne(Box);
 const deleteBoxes = deleteMany(Box);
 const getBoxesByAdminId = async (req, res) => {
     try {
-        if (!req.headers['x-authorization']) {
-            return res.status(401).json({ success: false, error: 'API key required' });
-        }
-        const apiKey = req.headers['x-authorization'];
-        const admin = await Admin.findOne({ apiKey });
+        // if (!req.headers['x-authorization']) {
+        //     return res.status(401).json({ success: false, error: 'API key required' });
+        // }
+        // const apiKey = req.headers['x-authorization'];
+        // const admin = await Admin.findOne({ apiKey });
 
-        if (!admin) {
-            return res.status(401).json({ success: false, error: 'Invalid API key' });
-        }
+        // if (!admin) {
+        //     return res.status(401).json({ success: false, error: 'Invalid API key' });
+        // }
         const boxes = await Box.find({ adminId: req.params.adminId });
         if (!boxes.length)
             return res.status(404).json({ success: false, error: `No boxes available` });

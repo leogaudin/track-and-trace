@@ -42,96 +42,90 @@ export const SideNav = () => {
   const { isMobile, navOpen, setNavOpen, fetchScans, language, setLanguage } = useContext(AppContext);
   const { t } = useTranslation();
 
-  return (
-    location.pathname !== '/login' && location.pathname !== '/register'
-    ? <Drawer
-        anchor="left"
-        open={navOpen}
-        onClose={() => setNavOpen(false)}
-        PaperProps={{
-          sx: {
-            backgroundColor: 'neutral.800',
-            color: 'common.white',
+  if (user)
+    return (
+      location.pathname !== '/login' && location.pathname !== '/register'
+      ? <Drawer
+          anchor="left"
+          open={navOpen}
+          onClose={() => setNavOpen(false)}
+          PaperProps={{
+            sx: {
+              backgroundColor: 'neutral.800',
+              color: 'common.white',
+              width: SIDE_NAV_WIDTH
+            }
+          }}
+          sx={{
+            zIndex: (theme) => theme.zIndex.appBar + 100,
             width: SIDE_NAV_WIDTH
-          }
-        }}
-        sx={{
-          zIndex: (theme) => theme.zIndex.appBar + 100,
-          width: SIDE_NAV_WIDTH
-        }}
-        variant={isMobile ? "temporary" : "permanent"}
-      >
-    <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
-    {user ?
-          <Stack
-            direction={'column'}
-            component="li"
-            spacing={0.5}
-            alignItems={'center'}
-            sx={{
-              listStyle: 'none',
-              p: '16px'
-            }}
-            >
-            <SvgIcon style={{marginRight: 7}}><AccountCircleIcon /></SvgIcon>
-            <Stack maxWidth={'100%'}>
-              <Typography
-                variant='overline'
-                fontSize={'.7rem'}
-                textAlign={'center'}
-                style={{ wordWrap: "break-all"}}
-                >
-                  {t('loggedInAs')} <b>{user.displayName}</b>
-              </Typography>
+          }}
+          variant={isMobile ? "temporary" : "permanent"}
+        >
+      <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
+            <Stack
+              direction={'column'}
+              component="li"
+              spacing={0.5}
+              alignItems={'center'}
+              sx={{
+                listStyle: 'none',
+                p: '16px'
+              }}
+              >
+              <SvgIcon style={{marginRight: 7}}><AccountCircleIcon /></SvgIcon>
+              <Stack maxWidth={'100%'}>
+                <Typography
+                  variant='overline'
+                  fontSize={'.7rem'}
+                  textAlign={'center'}
+                  style={{ wordWrap: "break-all"}}
+                  >
+                    {t('loggedInAs')} <b>{user.displayName}</b>
+                </Typography>
+              </Stack>
             </Stack>
-          </Stack>
-          : null
-        }
-      </Stack>
-      {content}
-      {user
-        ?
-        <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
-          <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
-            <SideNavItem
-              icon={<SvgIcon><LanguageIcon /></SvgIcon>}
-              key={'language'}
-              disabled={true}
-              title={
-                <Select
-                  label={'Language'}
-                  defaultValue='en'
-                  value={language}
-                  onChange={(event) => {
-                    setLanguage(event.target.value);
-                    i18n.changeLanguage(event.target.value);
-                  }}
-                  sx={{ color: 'common.white' }}
-                  variant='standard'
-                >
-                  {languages.map((language) => {
-                    return (
-                      <MenuItem key={language.code} value={language.code}>
-                        {language.label}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              }
-            />
-            <SideNavItem
-                icon={<SvgIcon><LogoutIcon /></SvgIcon>}
-                key={'logout'}
-                path={'/logout'}
-                disabled
+        </Stack>
+        {content}
+          <Box component="nav" sx={{ flexGrow: 1, px: 2, py: 3 }}>
+            <Stack component="ul" spacing={0.5} sx={{ listStyle: 'none', p: 0, m: 0 }}>
+              <SideNavItem
+                icon={<SvgIcon><LanguageIcon /></SvgIcon>}
+                key={'language'}
+                disabled={true}
                 title={
-                  <Typography variant='overline' fontSize={'.9rem'}>{t('logout')}</Typography>
+                  <Select
+                    label={'Language'}
+                    defaultValue='en'
+                    value={language}
+                    onChange={(event) => {
+                      setLanguage(event.target.value);
+                      i18n.changeLanguage(event.target.value);
+                    }}
+                    sx={{ color: 'common.white' }}
+                    variant='standard'
+                  >
+                    {languages.map((language) => {
+                      return (
+                        <MenuItem key={language.code} value={language.code}>
+                          {language.label}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
                 }
               />
-          </Stack>
-        </Box>
-        : null
-      }
-    </Drawer>
-  : null);
+              <SideNavItem
+                  icon={<SvgIcon><LogoutIcon /></SvgIcon>}
+                  key={'logout'}
+                  path={'/logout'}
+                  disabled
+                  title={
+                    <Typography variant='overline' fontSize={'.9rem'}>{t('logout')}</Typography>
+                  }
+                />
+            </Stack>
+          </Box>
+      </Drawer>
+    : null);
 };

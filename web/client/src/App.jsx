@@ -7,6 +7,7 @@ import { SideNav } from './components/SideNav';
 import Home from './pages/Home';
 import Boxes from './pages/Boxes';
 import Scans from './pages/Scans';
+import PublicInsights from './pages/PublicInsights';
 import Login from './pages/Login';
 // import Register from './pages/Register';
 import Export from './pages/Export';
@@ -19,6 +20,8 @@ import { AppProvider } from './context/AppContext';
 import Delete from './pages/Delete';
 import "./components/constants/language";
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme();
 
@@ -36,6 +39,7 @@ function App() {
           <AppProvider theme={theme} useMediaQuery={useMediaQuery}>
             <TopMenu />
             <SideNav />
+            <ToastContainer />
             <Routes>
               <Route path='/' element={
                 <RequireAuth>
@@ -52,6 +56,10 @@ function App() {
                   <Scans />
                 </RequireAuth>
               } />
+              <Route path='/insights/:id' element={
+                  <PublicInsights />
+                }
+              />
               <Route path='/export' element={
                   <RequireAuth>
                     <Export />

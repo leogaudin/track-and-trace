@@ -8,7 +8,8 @@ const Admin = new Schema(
 		password: { type: String, required: true },
 		apiKey: { type: String, required: true },
 		displayName: { type: String, required: true },
-		createdAt: { type: Date, required: true }
+		createdAt: { type: Date, required: true },
+		publicInsights: { type: Boolean, required: true },
 	}
 )
 

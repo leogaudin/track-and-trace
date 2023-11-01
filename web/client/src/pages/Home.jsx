@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
-import { Grid, Card, CardContent, Typography, SvgIcon } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Alert, Grid, Card, CardContent, Typography, Button, TextField, Stack, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import ProgressOverview from '../components/ProgressOverview'
-import { getItems } from '../components/constants';
-import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
+import AppContext from '../context/AppContext';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { toast } from 'react-toastify';
+import { setInsights } from '../service';
+import Insights from '../components/Insights';
 
 export default function Home() {
-	const { boxes, scans } = useContext(AppContext);
-	let items = getItems();
-	const cards = items.slice(1, 4);
+	const { boxes, isMobile, user } = useContext(AppContext);
 	const { t } = useTranslation();
 
 	return (
@@ -26,41 +26,42 @@ export default function Home() {
 				alignItems='stretch'
 			>
 				<Grid item xs={12}>
-					<ProgressOverview boxes={boxes} scans={scans} />
+					<Typography variant="h2" fontWeight={800} component="h1" gutterBottom>
+						Insights
+					</Typography>
+					<Alert style={{alignItems: 'center'}} severity={user.publicInsights ? 'success' : 'error'}>
+						{t('yourInsightsAreCurrently')}{user.publicInsights ? t('public') : t('private')}.
+						<br/>
+						{<Button style={{marginTop: 10}} size='small' variant={'outlined'} color={user.publicInsights ? 'success' : 'error'} onClick={() => {
+							setInsights(user.id, !user.publicInsights)
+							.then(() => {
+								window.location.reload();
+								user.publicInsights = !user.publicInsights;
+								localStorage.setItem('user', JSON.stringify(user));
+							})
+							.catch(() => {
+								toast.error("Error updating visibility", {autoClose: 1000, hideProgressBar: true})
+							})
+						}}>
+							{t('make')} {user.publicInsights ? t('private') : t('public')}
+						</Button>}
+					</Alert>
+					<Stack spacing={1} marginY={2} direction={isMobile ? 'column' : 'row'} justifyContent={'center'} alignItems={'stretch'}>
+						<TextField disabled style={{width: '100%'}} label={t('accessLink')} variant="filled" value={`${window.location.href}insights/${user.id}`} />
+						<IconButton onClick={() => {
+							toast.success(t('copied'), {autoClose: 1000, hideProgressBar: true})
+							navigator.clipboard.writeText(`${window.location.href}insights/${user.id}`)
+						}}>
+							<ContentCopyIcon />
+						</IconButton>
+					</Stack>
+					{<React.Fragment>
+						{boxes === null ? (
+							<Alert severity="info">{t('youHaveNo', {item: t('boxes').toLowerCase()})}</Alert>
+						) : false}
+					</React.Fragment>}
 				</Grid>
-				{cards.map((card) => (
-					<Grid item xs={12} sm={6} md={4} key={card.id}>
-					<Card>
-						<Link
-							to={card.path}
-							style={{
-								textDecoration: 'none',
-								height: '100%',
-							}}
-						>
-						<CardContent
-							sx={{
-								borderRadius: '1rem',
-								backgroundColor: 'white',
-								overflow: 'hidden',
-								textAlign: 'center',
-								color: 'primary.dark',
-								'&:hover': {
-									backgroundColor: 'neutral.100',
-								},
-							}}
-						>
-							<SvgIcon sx={{ fontSize: '5rem' }}>
-								{card.icon}
-							</SvgIcon>
-							<Typography variant="subtitle1">
-								{card.title}
-							</Typography>
-						</CardContent>
-						</Link>
-					</Card>
-					</Grid>
-				))}
+				<Insights boxes={boxes} />
 			</Grid>
 		</>
 	);

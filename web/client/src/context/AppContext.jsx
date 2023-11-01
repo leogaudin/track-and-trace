@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createTheme } from '../theme/index';
 import { getBoxesByAdminId, getScansByBoxes, getCountryName } from '../service';
+import { toast } from 'react-toastify';
 
 const AppContext = createContext({
   boxes: [],
@@ -24,17 +25,18 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
   const [language, setLanguage] = useState('en');
 
   const fetchBoxes = async () => {
-    try {
-      setBoxes([]);
-      const boxesResponse = await getBoxesByAdminId(user.id);
-      boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setBoxes(boxesResponse.data);
-      return boxesResponse.data;
-    } catch (err) {
-      console.log(err);
-      if (err.response && err.response.status >= 400)
-        setBoxes(null);
-    }
+    if (user)
+      try {
+        setBoxes([]);
+        const boxesResponse = await getBoxesByAdminId(user.id);
+        boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setBoxes(boxesResponse.data);
+        return boxesResponse.data;
+      } catch (err) {
+        toast.error(err.response?.data?.message || err.message);
+        if (err.response && err.response.status >= 400)
+          setBoxes(null);
+      }
   }
 
   const fetchScans = async (boxes) => {
