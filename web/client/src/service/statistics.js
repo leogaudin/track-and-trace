@@ -16,40 +16,24 @@ export function getProgress(scans) {
 	}
 }
 
-export function calculateDeliveryPercentage(boxes, scans) {
-	const groupedBoxes = {};
-	const results = [];
+export function calculateDeliveryPercentage(project) {
+	const uniqueBoxIds = [...new Set(project.map(box => box.id))];
 
-	for (const box of boxes) {
-	  const { project } = box;
-	  if (!groupedBoxes[project]) {
-		groupedBoxes[project] = [];
-	  }
-	  groupedBoxes[project].push(box);
-	}
+	const scans = project.reduce((accumulator, box) => {
+		if (box.scans && Array.isArray(box.scans))
+			return accumulator.concat(box.scans);
+		return accumulator;
+	}, []);
 
-	for (const project in groupedBoxes) {
-	  const boxesInGroup = groupedBoxes[project];
-	  const uniqueBoxIds = [...new Set(boxesInGroup.map(box => box.id))];
-
-	  const deliveredBoxes = uniqueBoxIds.reduce((count, boxId) => {
+	const deliveredBoxes = uniqueBoxIds.reduce((count, boxId) => {
 		const finalDestinationScan = scans.find(scan => scan.boxId === boxId && scan.finalDestination === true);
 		if (finalDestinationScan) {
-		  count++;
+			count++;
 		}
 		return count;
-	  }, 0);
+	}, 0);
 
-	  const deliveryPercentage = (deliveredBoxes / boxesInGroup.length) * 100;
+	const deliveryPercentage = (deliveredBoxes / project.length) * 100;
 
-	  results.push({
-		project,
-		delivered: deliveredBoxes,
-		total: boxesInGroup.length,
-		deliveryPercentage: deliveryPercentage.toFixed(0),
-	  });
-	}
-
-	return results;
-  }
-
+	return deliveryPercentage.toFixed(0);
+}
