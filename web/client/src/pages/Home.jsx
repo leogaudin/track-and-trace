@@ -30,7 +30,7 @@ export default function Home() {
 						Insights
 					</Typography>
 					<Alert style={{alignItems: 'center'}} severity={user.publicInsights ? 'success' : 'error'}>
-						{t('yourInsightsAreCurrently')}{user.publicInsights ? t('public') : t('private')}.
+						{t('yourInsightsAreCurrently')} {user.publicInsights ? t('public') : t('private')}.
 						<br/>
 						{<Button style={{marginTop: 10}} size='small' variant={'outlined'} color={user.publicInsights ? 'success' : 'error'} onClick={() => {
 							setInsights(user.id, !user.publicInsights)
