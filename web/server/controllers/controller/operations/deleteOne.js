@@ -1,4 +1,4 @@
-const { handle400Error, handle200Success } = require('../errorHandlers');
+const { handle400Error, handle200Success, handle404Error } = require('../errorHandlers');
 const { requireApiKey } = require('../apiKey');
 
 const deleteOne = (Model, apiKeyNeeded = true) => async (req, res) => {
