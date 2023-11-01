@@ -1,7 +1,9 @@
 import React from 'react';
 import { Typography, LinearProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function DeliveryPercent({projectName, deliveryPercentage}) {
+	const { t } = useTranslation();
 	return (
 		<>
 			<Typography variant="subtitle1">{projectName}</Typography>
