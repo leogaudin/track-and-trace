@@ -26,9 +26,8 @@ const handleLogin = async (req, res) => {
 		if (!user)
 			return res.status(404).json({ message: 'A user with this email does not exist' });
 
-		const providedPassword = await sha512(password);
-		if (providedPassword !== user.password)
-			return res.status(401).json({ message: 'Invalid password' }, providedPassword, user.password);
+		if (password !== user.password)
+			return res.status(401).json({ message: 'Invalid password' });
 
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 		user.token = token;
@@ -59,9 +58,8 @@ const handleRegister = async (req, res) => {
 				error: `User with ID ${existent.id} already exists`,
 			});
 
-		const hashedPassword = await sha512(password);
 		const apiKey = generateApiKey();
-		const user = { id, email, password: hashedPassword, apiKey, displayName, createdAt };
+		const user = { id, email, password, apiKey, displayName, createdAt, publicInsights: false };
 
 		const instance = new Admin(user);
 		await instance.save();

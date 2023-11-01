@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { sha512 } from 'js-sha512';
 
 function Register() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Register() {
       const user = {
         email: formik.values.email,
         displayName: formik.values.name,
-        password: formik.values.password
+        password: sha512(formik.values.password)
       };
       register(user)
         .then((response) => {
@@ -99,7 +100,7 @@ function Register() {
                   underline="hover"
                   variant="subtitle2"
                 >
-                  {t('login')}
+                   {t('login')}
                 </Link>
               </Typography>
             </Stack>

@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import {sha512} from 'js-sha512';
 
 function Login() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function Login() {
     onSubmit: () => {
       const user = {
         email: formik.values.email,
-        password: formik.values.password
+        password: sha512(formik.values.password)
       };
       login(user)
         .then((response) => {
@@ -90,7 +91,7 @@ function Login() {
         >
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h2">Login</Typography>
+              <Typography variant="h2">{t('login')}</Typography>
               {/* <Typography color="text.secondary" variant="body2">
                 {t('noAccountYet')}{' '}
                 <Link
