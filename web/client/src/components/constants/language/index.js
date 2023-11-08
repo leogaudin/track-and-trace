@@ -6,6 +6,8 @@ import { initReactI18next } from "react-i18next";
 export const languages = [
 	{ label: 'English', code: 'en', flag: <GbFlag /> },
 	{ label: 'Français', code: 'fr', flag: <FrFlag /> },
+	{ label: 'Español', code: 'es', flag: <FrFlag /> },
+	{ label: 'Deutsch', code: 'de', flag: <FrFlag /> },
 ];
 
 i18n
@@ -130,6 +132,13 @@ i18n
 					make: 'Make',
 					copied: 'Copied!',
 					accessLink: 'Access link',
+					notScannedSinceDays: 'Not scanned since {{days}} days',
+					neverScanned: 'Never scanned',
+					notScanned: 'Not scanned',
+					scanned: 'Scanned',
+					scannedInThePast: 'Scanned in the past {{days}} days',
+					notScannedInThePast: 'Not scanned in the past {{days}} days',
+					thereAreXNeverScanned: 'There are {{number}} boxes that were never scanned.',
 				}
 			},
 			fr: {
@@ -245,6 +254,13 @@ i18n
 					make: 'Rendre',
 					copied: 'Copié !',
 					accessLink: 'Lien d\'accès',
+					notScannedSinceDays: 'Pas scanné depuis {{days}} jours',
+					neverScanned: 'Jamais scanné',
+					notScanned: 'Pas scanné',
+					scanned: 'Scanné',
+					scannedInThePast: 'Scanné dans les {{days}} derniers jours',
+					notScannedInThePast: 'Pas scanné dans les {{days}} derniers jours',
+					thereAreXNeverScanned: 'Il y a {{number}} boîtes qui n\'ont jamais été scannées.',
 				}
 			},
 			es: {
@@ -360,6 +376,13 @@ i18n
 					make: 'Hacer',
 					copied: '¡Copiado!',
 					accessLink: 'Enlace de acceso',
+					notScannedSinceDays: 'No escaneado desde hace {{days}} días',
+					neverScanned: 'Nunca escaneado',
+					notScanned: 'No escaneado',
+					scanned: 'Escaneado',
+					scannedInThePast: 'Escaneado en los últimos {{days}} días',
+					notScannedInThePast: 'No escaneado en los últimos {{days}} días',
+					thereAreXNeverScanned: 'Hay {{number}} cajas que nunca han sido escaneadas.',
 				}
 			},
 			de: {
@@ -475,6 +498,13 @@ i18n
 					make: 'Machen',
 					copied: 'Kopiert!',
 					accessLink: 'Zugriffslink',
+					notScannedSinceDays: 'Seit {{days}} Tagen nicht mehr gescannt',
+					neverScanned: 'Nie gescannt',
+					notScanned: 'Nicht gescannt',
+					scanned: 'Gescannt',
+					scannedInThePast: 'In den letzten {{days}} Tagen gescannt',
+					notScannedInThePast: 'In den letzten {{days}} Tagen nicht gescannt',
+					thereAreXNeverScanned: 'Es gibt {{number}} Kisten, die noch nie gescannt wurden.',
 				}
 			}
 		},
