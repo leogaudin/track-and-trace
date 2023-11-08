@@ -19,7 +19,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 				? [t('box'), t('location'), t('time')]
 				: [t('box'), t('location'), t('time'), t('comment'), t('final')]
 			}
-			rows={scans[0] ? scans.map(scan => {
+			rows={scans && scans[0] ? scans.map(scan => {
 				if (isMobile)
 					return [
 						scan.boxId,
