@@ -48,11 +48,12 @@ export default function ProgressFunnel({project}) {
 				colors={{ 'datum': 'color' }}
 				labelColor="#ffffff"
 				shapeBlending={1}
+				motionConfig="gentle"
 				tooltip={({part}) =>
 					<div style={{
 						padding: 12,
-						color: '#fff',
-						background: '#222222'
+						color: '#222222',
+						background: '#fff'
 					}}>
 						<span>
 							{part.data.id}: <strong>{part.formattedValue}</strong>

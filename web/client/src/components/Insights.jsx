@@ -5,6 +5,7 @@ import ProgressFunnel from './insights/ProgressFunnel';
 import ScannedOncePie from './insights/ScannedOncePie';
 import { Grid, Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
+import NotScannedSince from './insights/NotScannedSince';
 
 export default function Insights({boxes}) {
 	const [groupedBoxes, setGroupedBoxes] = useState({});
@@ -37,9 +38,8 @@ export default function Insights({boxes}) {
 									spacing={2}
 									alignItems='stretch'
 								>
-									<ScansPerDate project={project}/>
 									<ProgressFunnel project={project}/>
-									<ScannedOncePie project={project}/>
+									<NotScannedSince project={project}/>
 								</Grid>
 							</CardContent>
 						</Card>

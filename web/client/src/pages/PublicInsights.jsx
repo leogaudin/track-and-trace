@@ -35,13 +35,13 @@ export default function PublicInsights() {
 
 	if (authorized)
 		return (
-			<>
+			<div style={{width: '100%'}}>
 				<Helmet>
 					<title>{t("insights")} - Track-and-Trace</title>
 					<meta name="description" content={t("description")} />
 				</Helmet>
 				<Insights boxes={boxes} />
-			</>
+			</div>
 		);
 	else if (authorized === false)
 		return (
