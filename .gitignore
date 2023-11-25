@@ -2,3 +2,4 @@
 .jest
 .vscode
 application/src/assets/icon/project.ai
+.watchman-cookie-Mac*
