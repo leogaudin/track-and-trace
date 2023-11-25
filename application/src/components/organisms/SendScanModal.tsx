@@ -54,13 +54,14 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
             break;
         }
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 360000},
+      {enableHighAccuracy: false, timeout: 10000, maximumAge: 10000},
     );
   }
 
   function resetData() {
     setLocationLoaded(false);
     setComment('');
+    setToggleCheckBox(false);
   }
 
   const storeOfflineData = (scannedData: any) => {
