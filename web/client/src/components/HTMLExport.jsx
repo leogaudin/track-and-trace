@@ -21,8 +21,6 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
       });
 
       let qrCodeSvg = qrCode.svg();
-      qrCodeSvg = qrCodeSvg.replace(/<rect/g, '<rect rx="7"');
-      qrCodeSvg = qrCodeSvg.replace(/ style="fill:#000000;shape-rendering:crispEdges;"/g, '');
 
       return `
         <div class="page">
