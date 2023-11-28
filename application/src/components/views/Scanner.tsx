@@ -16,7 +16,7 @@ export default function Scanner() {
   const [resultVisible, setResultVisible] = useState(false);
   const [offlineScansVisible, setOfflineScansVisible] = useState(false);
   const [data, setData] = useState('');
-  const {hasCameraPermissions, hasLocationPermissions} = useContext(AppContext);
+  const {hasCameraPermissions, hasLocationPermissions, loading} = useContext(AppContext);
 
   const handleRead = (e: { data: string; }) => {
     if (!resultVisible) {
@@ -29,7 +29,7 @@ export default function Scanner() {
     }
   };
 
-  if (hasCameraPermissions && hasLocationPermissions)
+  if (!loading && hasCameraPermissions && hasLocationPermissions)
     return (
       <View>
         <QRCodeScanner

@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 import { getString } from '../utils/asyncStorage';
-import { requestCameraPermission, requestLocationPermission } from '../utils/permissions';
+import { requestAllPermissions, requestCameraPermission, requestLocationPermission } from '../utils/permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginKey, offlineKey } from '../constants';
 
@@ -16,6 +16,8 @@ interface AppContextValue {
   setLocationPermissions: (hasLocationPermissions: boolean) => void;
   offlineData: any[];
   setOfflineData: (offlineData: any[]) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 const AppContext = createContext<AppContextValue>({
@@ -29,6 +31,9 @@ const AppContext = createContext<AppContextValue>({
   setLocationPermissions: () => { },
   offlineData: [],
   setOfflineData: () => { },
+  loading: true,
+  setLoading: () => { },
+
 });
 
 interface AppProviderProps {
@@ -41,6 +46,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [hasCameraPermissions, setCameraPermissions] = useState(true);
   const [hasLocationPermissions, setLocationPermissions] = useState(true);
   const [offlineData, setOfflineData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storeOfflineData = async () => {
@@ -71,6 +77,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       const locationPermission = await requestLocationPermission();
       setLocationPermissions(locationPermission);
     };
+    const checkAllPermissions = async () => {
+      const allPermissions = await requestAllPermissions();
+      setLocationPermissions(allPermissions.location);
+      setCameraPermissions(allPermissions.camera);
+    }
     const retrieveOfflineData = async () => {
       try {
         const storedData = await AsyncStorage.getItem(offlineKey);
@@ -81,13 +92,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
     };
 
-    // return () => {
-      hasConnection();
-      checkLogin();
-      checkCameraPermission();
-      checkLocationPermission();
-      retrieveOfflineData();
-    // };
+    Promise.all([
+      hasConnection,
+      checkLogin(),
+      checkAllPermissions(),
+      retrieveOfflineData(),
+    ])
+      .then(() => setLoading(false));
   }, []);
 
   return (
@@ -103,6 +114,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setLocationPermissions,
         offlineData,
         setOfflineData,
+        loading,
+        setLoading,
       }}
     >
       {children}
