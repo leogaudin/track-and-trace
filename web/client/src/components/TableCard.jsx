@@ -62,7 +62,7 @@ export default function TableCard({
   }, []);
 
   const filteredRows = rows
-    ? filterData(searchQuery, rows).slice((page - 1) * pageSize, page * pageSize)
+    ? (searchEnabled ? filterData(searchQuery, rows).slice((page - 1) * pageSize, page * pageSize) : rows)
     : null;
 
   const handleChangePage = (event, newPage) => {
