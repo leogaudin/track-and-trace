@@ -45,7 +45,7 @@ i18n
 					invalidEmail: 'Must be a valid email',
 					emailRequired: 'Email is required',
 					passwordRequired: 'Password is required',
-					invalidCredentials: 'Invalid email or password',
+					invalidCredentials: 'Invalid username or password',
 					noAccountYet: 'Don\'t have an account yet?',
 					register: 'Register',
 					email: 'Email Address',
