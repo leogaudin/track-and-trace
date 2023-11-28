@@ -11,6 +11,10 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 	const { t } = useTranslation();
 
+	const sortedScans = scans ? scans.sort((a, b) => {
+		return new Date(b.time) - new Date(a.time);
+	}) : null;
+
 	return (
 		<TableCard
 			contentName={t('scans').toLowerCase()}
@@ -19,7 +23,7 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 				? [t('box'), t('location'), t('time')]
 				: [t('box'), t('location'), t('time'), t('comment'), t('final')]
 			}
-			rows={scans && scans[0] ? scans.map(scan => {
+			rows={sortedScans && sortedScans[0] ? sortedScans.map(scan => {
 				if (isMobile)
 					return [
 						scan.boxId,
