@@ -17,14 +17,15 @@ async function sha512(str) {
 
 const handleLogin = async (req, res) => {
 	try {
-		const { email, password } = req.body;
-		if (!email || !password)
-			return res.status(400).json({ message: 'Missing email or password' });
+		const { username, password } = req.body;
+		console.log(req.body)
+		if (!username || !password)
+			return res.status(400).json({ message: 'Missing username or password' });
 
-		const id = await sha512(email);
+		const id = await sha512(username);
 		const user = await Admin.findOne({ id });
 		if (!user)
-			return res.status(404).json({ message: 'A user with this email does not exist' });
+			return res.status(404).json({ message: 'A user with this username does not exist' });
 
 		if (password !== user.password)
 			return res.status(401).json({ message: 'Invalid password' });
@@ -44,12 +45,12 @@ const handleRegister = async (req, res) => {
 		if (!errors.isEmpty())
 			return res.status(400).json({ errors: errors.array() });
 
-		const { email, password, displayName } = req.body;
-		if (!email || !password || !displayName)
-			return res.status(400).json({ message: 'Missing email, password or name' });
+		const { username, password, displayName } = req.body;
+		if (!username || !password || !displayName)
+			return res.status(400).json({ message: 'Missing username, password or name' });
 		const createdAt = new Date().getTime();
 
-		const id = await sha512(email);
+		const id = await sha512(username);
 
 		const existent = await Admin.findOne({ id });
 		if (existent)
@@ -59,7 +60,7 @@ const handleRegister = async (req, res) => {
 			});
 
 		const apiKey = generateApiKey();
-		const user = { id, email, password, apiKey, displayName, createdAt, publicInsights: false };
+		const user = { id, email: username, password, apiKey, displayName, createdAt, publicInsights: false };
 
 		const instance = new Admin(user);
 		await instance.save();

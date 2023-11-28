@@ -32,21 +32,21 @@ function Register() {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       name: '',
       password: '',
       submit: null
     },
     validationSchema: Yup.object({
-      email: Yup.string()
+      username: Yup.string()
         .max(255)
-        .required(t('emailRequired')),
+        .required(t('usernameRequired')),
       name: Yup.string().max(255).required(t('nameRequired')),
       password: Yup.string().max(255).required(t('passwordRequired'))
     }),
     onSubmit: () => {
       const user = {
-        email: formik.values.email,
+        username: formik.values.username,
         displayName: formik.values.name,
         password: sha512(formik.values.password)
       };
@@ -100,7 +100,7 @@ function Register() {
                   underline="hover"
                   variant="subtitle2"
                 >
-                   {t('login')}
+                   { t('login')}
                 </Link>
               </Typography>
             </Stack>
@@ -112,9 +112,9 @@ function Register() {
                   label={t('name')}
                 />
                 <FormTextField
-                  field="email"
+                  field="username"
                   formik={formik}
-                  label={t('email')}
+                  label={t('username')}
                 />
                 <FormTextField
                   field="password"

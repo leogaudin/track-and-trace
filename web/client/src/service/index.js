@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://track-and-trace-api.vercel.app/api';
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000/api' : 'https://track-and-trace-api.vercel.app/api';
 
 function sendRequest(method, endpoint, data = null, headers = {}) {
   const user = JSON.parse(localStorage.getItem('user'));
