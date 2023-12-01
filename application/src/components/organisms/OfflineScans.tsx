@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import InfoModal from '../molecules/InfoModal';
 import { Button, Text } from 'react-native-paper';
 import { sendOfflineData } from '../../utils/asyncStorage';
@@ -31,28 +31,30 @@ export default function OfflineScans({ visible, onClose }: OfflineScansProps) {
       visible={visible}
       onClose={onClose}
       children={
-        <View>
+        <View style={{maxHeight: '50%'}}>
           {offlineData.length ? (
             <View>
-              {offlineData.map((data: DataProps, index) => {
-                return (
-                  <View
-                    key={data.boxId}
-                    style={{
-                      justifyContent: 'center',
-                      padding: 10,
-                      marginVertical: 5,
-                      backgroundColor: '#EFEFEF',
-                      borderRadius: 10,
-                    }}>
-                    <Text
-                      style={{ fontWeight: 'bold', fontSize: 17, marginBottom: 7 }}>
-                      Box n°{data.boxId}
-                    </Text>
-                    <Text>{new Date(data.time).toLocaleString()}</Text>
-                  </View>
-                );
-              })}
+              <ScrollView style={{flexGrow:0}}>
+                {offlineData.map((data: DataProps, index) => {
+                  return (
+                    <View
+                      key={data.boxId}
+                      style={{
+                        justifyContent: 'center',
+                        padding: 10,
+                        marginVertical: 5,
+                        backgroundColor: '#EFEFEF',
+                        borderRadius: 10,
+                      }}>
+                      <Text
+                        style={{ fontWeight: 'bold', fontSize: 17, marginBottom: 7 }}>
+                        Box n°{data.boxId}
+                      </Text>
+                      <Text>{new Date(data.time).toLocaleString()}</Text>
+                    </View>
+                  );
+                })}
+              </ScrollView>
               <Button
                 mode='contained'
                 onPress={() => {
@@ -60,7 +62,7 @@ export default function OfflineScans({ visible, onClose }: OfflineScansProps) {
                   onClose();
                 }}
                 disabled={!hasInternetConnection}
-                style={{ margin: 5 }}>
+                style={{ marginTop: 20}}>
                 Send offline scans
               </Button>
             </View>
