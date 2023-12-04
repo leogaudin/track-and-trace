@@ -68,6 +68,8 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
               </div>
               <div class="qrcode-container">
                 ${qrCodeSvg}
+                <br />
+                <code>${id}</code>
               </div>
             </div>
           </div>
