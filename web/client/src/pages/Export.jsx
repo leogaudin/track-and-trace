@@ -86,6 +86,8 @@ export default function Export() {
                   onChange={handleFieldChange}
                   placeholder={`${t('select', {option: selectedOption})}`}
                   sx={{ marginBottom: '1rem' }}
+                  displayEmpty
+                  renderValue={(value) => value ? value : `${t('select', {option: selectedOption})}`}
                 >
                   {Array.from(new Set(boxes.map((box) => box[selectedOption]))).map((value) => (
                     <MenuItem key={value} value={value}>

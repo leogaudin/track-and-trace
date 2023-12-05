@@ -5,7 +5,7 @@ import { timeAgo } from '../service/timeAgo'
 import TableCard from './TableCard';
 import { getProgress } from '../service/statistics';
 import { colorsMap, getTextsMap } from './constants';
-import { Skeleton, useMediaQuery, Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem } from '@mui/material';
+import { Skeleton, useMediaQuery, Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
 
@@ -113,16 +113,18 @@ export default function BoxesOverview({ pageSize = 10 }) {
 				{selectedOption !== 'all' && (
 				<Stack direction={'column'}>
 					<Typography variant="overline">{t('select', {option: selectedOption})}</Typography>
-						<Select
-							onChange={handleFieldChange}
-							placeholder={`${t('select', {option: selectedOption})}`}
-						>
-						{Array.from(new Set(boxes.map((box) => box[selectedOption]))).map((value) => (
-							<MenuItem key={value} value={value}>
-								{value}
-							</MenuItem>
-						))}
-						</Select>
+					<Select
+						onChange={handleFieldChange}
+						placeholder={`${t('select', {option: selectedOption})}`}
+						displayEmpty
+						renderValue={(value) => value ? value : `${t('select', {option: selectedOption})}`}
+					>
+					{Array.from(new Set(boxes.map((box) => box[selectedOption]))).map((value) => (
+						<MenuItem key={value} value={value}>
+							{value}
+						</MenuItem>
+					))}
+					</Select>
 				</Stack>
 				)}
 				<Stack direction={'column'}>
