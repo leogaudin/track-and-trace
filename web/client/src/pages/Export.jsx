@@ -10,7 +10,7 @@ export default function Export() {
   const [filteredBoxes, setFilteredBoxes] = useState(boxes);
   const [selectedField, setSelectedField] = useState('');
   const [loading, setLoading] = useState(true);
-  const excludedFields = [
+  const excludedOptions = [
     '_id',
     'id',
     'school',
@@ -24,33 +24,30 @@ export default function Export() {
   ];
   const { t } = useTranslation();
 
-  useEffect(() => {
-    setFilteredBoxes(boxes);
+	useEffect(() => {
+    setFilteredBoxes(boxes ? boxes : []);
     setLoading(false);
-  }, [boxes]);
+	}, [boxes]);
 
-  const handleOptionChange = (event) => {
-    const option = event.target.value;
-    setSelectedOption(option);
+	useEffect(() => {
+		updateFilteredBoxes();
+	}, [selectedField, selectedOption]);
 
-    if (option === 'all') {
-      setSelectedField('');
-      setFilteredBoxes(boxes);
-    } else {
-      setSelectedField(availableFields[0]);
-      const filtered = boxes?.filter((box) => box[option] === availableFields[0]);
-      setFilteredBoxes(filtered);
-    }
-  };
+	const availableOptions = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedOptions?.includes(field)) : null;
 
-  const handleFieldChange = (event) => {
-    setSelectedField(event.target.value);
+	const updateFilteredBoxes = () => {
+		setFilteredBoxes(boxes?.filter((box) =>
+			(box[selectedOption] === selectedField || selectedOption === 'all')
+		));
+	}
 
-    const filtered = boxes?.filter((box) => box[selectedOption] === event.target.value);
-    setFilteredBoxes(filtered);
-  };
+	const handleOptionChange = (event) => {
+		setSelectedOption(event.target.value);
+	};
 
-  const availableFields = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedFields?.includes(field)) : null;
+	const handleFieldChange = (event) => {
+		setSelectedField(event.target.value);
+	};
 
   const getFolderName = () => {
 	const title = selectedOption === 'all' ? '' : `-${selectedOption}-${selectedField}`;
@@ -76,8 +73,8 @@ export default function Export() {
             <Stack direction={'column'} spacing={1} alignItems={'flex-start'} width={'50%'}>
               <Typography variant="overline">{t('exportOptions')}</Typography>
               <RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange}>
-                <FormControlLabel value="all" control={<Radio />} label="All" />
-                {availableFields.map((field) => (
+                <FormControlLabel value="all" control={<Radio />} label={t('all')} />
+                {availableOptions.map((field) => (
                   <FormControlLabel key={field} value={field} control={<Radio />} label={`${t('by', {item: field})}`} />
                 ))}
               </RadioGroup>

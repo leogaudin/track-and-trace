@@ -85,11 +85,12 @@ export default function TableCard({
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
       <CardContent>
         <Typography variant="overline">{t('your', {item: contentName})}</Typography>
-        {rows?.length ? (
           <Stack direction="column" spacing={3} alignItems="center">
             {searchEnabled ? (
               <SearchBar setSearchQuery={handleSearchQueryChange} initialValue={searchQuery} />
-            ) : null}
+              ) : null}
+            {children}
+            {rows?.length ? (
             <Table>
               <TableHead>
                 <TableRow>
@@ -116,7 +117,15 @@ export default function TableCard({
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+            </Table> ) : (
+              <React.Fragment>
+                {rows === null ? (
+                  <Alert severity="info">{t('youHaveNo', {item: contentName})}</Alert>
+                ) : (
+                  <SkeletonTable rows={pageSize} />
+                )}
+              </React.Fragment>
+            )}
             {pageSize <= rows.length ? (
               <Pagination
                 count={Math.ceil(rows.length / pageSize)}
@@ -128,16 +137,6 @@ export default function TableCard({
               />
             ) : null}
           </Stack>
-        ) : (
-          <React.Fragment>
-            {rows === null ? (
-              <Alert severity="info">{t('youHaveNo', {item: contentName})}</Alert>
-            ) : (
-              <SkeletonTable rows={pageSize} />
-            )}
-          </React.Fragment>
-        )}
-        {children}
       </CardContent>
     </Card>
   );

@@ -139,6 +139,10 @@ i18n
 					scannedInThePast: 'Scanned in the past {{days}} days',
 					notScannedInThePast: 'Not scanned in the past {{days}} days',
 					thereAreXNeverScanned: 'There are {{number}} boxes that were never scanned.',
+					filterOptions: 'Filter options',
+					progress: 'Progress',
+					any: 'Any',
+					all: 'All',
 				}
 			},
 			fr: {
@@ -152,7 +156,7 @@ i18n
 					inprogress: 'En chemin',
 					delivered: 'Livré',
 					confusing: 'Préoccupant',
-					noscans: 'Aucun',
+					noscans: 'Aucun scan',
 					uploadPrompt: 'Uploadez des boîtes depuis une liste de distribution',
 					noBoxes: 'Aucune boîte trouvée',
 					deleteOptions: 'Options de suppression',
@@ -261,6 +265,10 @@ i18n
 					scannedInThePast: 'Scanné dans les {{days}} derniers jours',
 					notScannedInThePast: 'Pas scanné dans les {{days}} derniers jours',
 					thereAreXNeverScanned: 'Il y a {{number}} boîtes qui n\'ont jamais été scannées.',
+					filterOptions: 'Options de filtrage',
+					progress: 'Progression',
+					any: 'Tous',
+					all: 'Tous',
 				}
 			},
 			es: {
@@ -383,6 +391,10 @@ i18n
 					scannedInThePast: 'Escaneado en los últimos {{days}} días',
 					notScannedInThePast: 'No escaneado en los últimos {{days}} días',
 					thereAreXNeverScanned: 'Hay {{number}} cajas que nunca han sido escaneadas.',
+					filterOptions: 'Opciones de filtro',
+					progress: 'Progreso',
+					any: 'Cualquiera',
+					all: 'Todos',
 				}
 			},
 			de: {
@@ -505,6 +517,10 @@ i18n
 					scannedInThePast: 'In den letzten {{days}} Tagen gescannt',
 					notScannedInThePast: 'In den letzten {{days}} Tagen nicht gescannt',
 					thereAreXNeverScanned: 'Es gibt {{number}} Kisten, die noch nie gescannt wurden.',
+					filterOptions: 'Filteroptionen',
+					progress: 'Fortschritt',
+					any: 'Alle',
+					all: 'Alle',
 				}
 			}
 		},
