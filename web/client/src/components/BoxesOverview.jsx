@@ -104,7 +104,7 @@ export default function BoxesOverview({ pageSize = 10 }) {
 					<Stack direction={'row'} spacing={1} alignItems={'flex-start'}>
 						<RadioGroup name="export-options" value={selectedOption} onChange={handleOptionChange} row>
 							<FormControlLabel value="all" control={<Radio />} label={t('all')} />
-							{availableOptions.map((field) => (
+							{availableOptions?.map((field) => (
 							<FormControlLabel key={field} value={field} control={<Radio />} label={`${t('by', {item: field})}`} />
 							))}
 						</RadioGroup>
