@@ -81,6 +81,7 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
       <!DOCTYPE html>
       <html>
         <head>
+          <meta charset="UTF-8">
           <style>
             ${htmlStyles}
           </style>
