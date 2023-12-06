@@ -32,9 +32,9 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      username: null,
-      password: null,
-      submit: null
+      username: '',
+      password: '',
+      submit: ''
     },
     validationSchema: Yup.object({
       username: Yup.string()
