@@ -59,10 +59,10 @@ export function getHomeCards() {
 
 export function getTextsMap() {
 	return {
+		noscans: i18n.t('noscans'),
 		inprogress: i18n.t('inprogress'),
 		delivered: i18n.t('delivered'),
 		confusing: i18n.t('confusing'),
-		noscans: i18n.t('noscans')
 	};
 }
 
