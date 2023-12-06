@@ -49,7 +49,7 @@
     "analyze": "source-map-explorer --gzip 'build/static/js/*.js'",
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!your-module-name)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -69,5 +69,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
+    "babel-jest": "^29.7.0"
   }
 }
