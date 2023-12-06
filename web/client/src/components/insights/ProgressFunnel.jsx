@@ -27,9 +27,10 @@ export default function ProgressFunnel({project}) {
 		project.forEach(box => {
 			data[0].value++;
 			if (box.scans && box.scans.length > 0) {
-				const lastScan = box.scans[box.scans.length - 1];
-				if (lastScan.finalDestination)
+				const hasFinalDestination = box.scans.some(scan => scan.finalDestination === true);
+				if (hasFinalDestination) {
 					data[2].value++;
+				}
 				data[1].value++;
 			}
 		});
