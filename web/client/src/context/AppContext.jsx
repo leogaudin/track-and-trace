@@ -17,7 +17,7 @@ const AppContext = createContext({
 });
 
 export const AppProvider = ({ theme, useMediaQuery, children }) => {
-	const [boxes, setBoxes] = useState([]);
+  const [boxes, setBoxes] = useState([]);
   const [scans, setScans] = useState([]);
   const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));
   const [navOpen, setNavOpen] = useState(false);
@@ -25,18 +25,36 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
   const [language, setLanguage] = useState('en');
 
   const fetchBoxes = async () => {
-    if (user)
+    if (user) {
       try {
         setBoxes([]);
-        const boxesResponse = await getBoxesByAdminId(user.id);
-        boxesResponse.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setBoxes(boxesResponse.data);
-        return boxesResponse.data;
+        let hasMore = true;
+        const limit = 2500;
+        const requests = [];
+
+        while (hasMore) {
+          const skip = requests.length * limit;
+          const request = getBoxesByAdminId(user.id, skip, limit);
+          requests.push(request);
+          const response = await request;
+          if (response.data.length < limit) hasMore = false;
+        }
+
+        const responses = await Promise.all(requests);
+        const mergedBoxes = responses.reduce((accumulator, response) => {
+          return accumulator.concat(response.data);
+        }, []);
+
+        mergedBoxes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setBoxes(mergedBoxes);
+        return mergedBoxes;
       } catch (err) {
         toast.error(err.response?.data?.message || err.message);
-        if (err.response && err.response.status >= 400)
+        if (err.response && err.response.status >= 400) {
           setBoxes(null);
+        }
       }
+    }
   }
 
   const fetchScans = async (boxes) => {

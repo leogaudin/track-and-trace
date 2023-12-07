@@ -43,8 +43,8 @@ export async function getBoxes() {
   return await sendRequest('get', 'boxes');
 }
 
-export async function getBoxesByAdminId(adminId) {
-  return await sendRequest('get', `boxes/${adminId}`);
+export async function getBoxesByAdminId(adminId, skip, limit) {
+  return await sendRequest('get', `boxes/${adminId}?skip=${skip}&limit=${limit}`);
 }
 
 export async function getBox(id) {
