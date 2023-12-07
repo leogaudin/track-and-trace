@@ -17,7 +17,7 @@ export default function PublicInsights() {
 		try {
 			setBoxes([]);
 			let hasMore = true;
-			const limit = 2500;
+			const limit = 2100;
 			const requests = [];
 
 			while (hasMore) {

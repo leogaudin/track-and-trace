@@ -29,7 +29,7 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
       try {
         setBoxes([]);
         let hasMore = true;
-        const limit = 2500;
+        const limit = 2100;
         const requests = [];
 
         while (hasMore) {
@@ -65,7 +65,6 @@ export const AppProvider = ({ theme, useMediaQuery, children }) => {
         return accumulator.concat(box.scans);
       return accumulator;
     }, []);
-
     setScans(reducer?.length > 0 ? reducer : null);
   }
 
