@@ -13,7 +13,7 @@ import Login from './pages/Login';
 import Export from './pages/Export';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
-import {Helmet} from 'react-helmet';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
 import TopMenu from './components/TopMenu';
 import { AppProvider } from './context/AppContext';
 import Delete from './pages/Delete';
@@ -28,57 +28,59 @@ function App() {
   const { t } = useTranslation();
 
   return (
-    <div className="App">
-      <Helmet>
-        <title>Track-and-Trace</title>
-        <meta name="description" content={t('description')} />
-      </Helmet>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <AppProvider theme={theme} >
-            <TopMenu />
-            <SideNav />
-            <ToastContainer />
-            <Routes>
-              <Route path='/' element={
-                <RequireAuth>
-                  <Home />
-                </RequireAuth>
-              } />
-              <Route path='/boxes' element={
-                <RequireAuth>
-                  <Boxes />
-                </RequireAuth>
-              } />
-              <Route path='/scans' element={
-                <RequireAuth>
-                  <Scans />
-                </RequireAuth>
-              } />
-              <Route path='/insights/:id' element={
-                  <PublicInsights />
-                }
-              />
-              <Route path='/export' element={
+    <HelmetProvider>
+      <div className="App">
+        <Helmet>
+          <title>Track-and-Trace</title>
+          <meta name="description" content={t('description')} />
+        </Helmet>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <AppProvider theme={theme} >
+              <TopMenu />
+              <SideNav />
+              <ToastContainer />
+              <Routes>
+                <Route path='/' element={
                   <RequireAuth>
-                    <Export />
+                    <Home />
                   </RequireAuth>
-                }
-              />
-              <Route path='/delete' element={
+                } />
+                <Route path='/boxes' element={
                   <RequireAuth>
-                    <Delete />
+                    <Boxes />
                   </RequireAuth>
-                }
-              />
-              <Route path='/login' element={<Login />} />
-              {/* <Route path='/register' element={<Register />} /> */}
-              <Route path='/logout' element={<Logout />} />
-            </Routes>
-          </AppProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </div>
+                } />
+                <Route path='/scans' element={
+                  <RequireAuth>
+                    <Scans />
+                  </RequireAuth>
+                } />
+                <Route path='/insights/:id' element={
+                    <PublicInsights />
+                  }
+                />
+                <Route path='/export' element={
+                    <RequireAuth>
+                      <Export />
+                    </RequireAuth>
+                  }
+                />
+                <Route path='/delete' element={
+                    <RequireAuth>
+                      <Delete />
+                    </RequireAuth>
+                  }
+                />
+                <Route path='/login' element={<Login />} />
+                {/* <Route path='/register' element={<Register />} /> */}
+                <Route path='/logout' element={<Logout />} />
+              </Routes>
+            </AppProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </div>
+    </HelmetProvider>
   );
 }
 

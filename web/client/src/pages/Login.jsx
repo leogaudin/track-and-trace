@@ -12,7 +12,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from '../components/Globe';
 import { login } from '../service';
 import { useEffect, useState, useContext } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BoxesOverview from '../components/BoxesOverview';
 import { Button, Grid } from '@mui/material';
 import Upload from '../components/Upload';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useTranslation } from 'react-i18next';
 
