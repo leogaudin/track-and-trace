@@ -14,7 +14,6 @@ import Export from './pages/Export';
 import RequireAuth from './components/RequireAuth';
 import Logout from './pages/Logout';
 import {Helmet} from 'react-helmet';
-import { useMediaQuery } from '@mui/material';
 import TopMenu from './components/TopMenu';
 import { AppProvider } from './context/AppContext';
 import Delete from './pages/Delete';
@@ -23,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const theme = createTheme();
+export const theme = createTheme();
 
 function App() {
   const { t } = useTranslation();
@@ -36,7 +35,7 @@ function App() {
       </Helmet>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <AppProvider theme={theme} useMediaQuery={useMediaQuery}>
+          <AppProvider theme={theme} >
             <TopMenu />
             <SideNav />
             <ToastContainer />
