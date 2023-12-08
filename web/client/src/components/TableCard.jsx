@@ -61,6 +61,10 @@ export default function TableCard({
     }
   }, []);
 
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, rows]);
+
   const filteredRows = searchEnabled && rows ? filterData(searchQuery, rows) : rows;
 
   const slicedRows = filteredRows?.slice((page - 1) * pageSize, page * pageSize);
