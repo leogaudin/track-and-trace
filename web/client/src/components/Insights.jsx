@@ -26,10 +26,10 @@ export default function Insights({boxes}) {
 			{Object.keys(groupedBoxes).map((key, i) => {
 				const project = groupedBoxes[key];
 				if (!project) return null;
-				const deliveryPerc = calculateDeliveryPercentage(project);
+				const deliveryPerc = parseFloat(calculateDeliveryPercentage(project));
 				return (
-					<Grid item xs={12}>
-						<Card key={i} width={1000}>
+					<Grid item xs={12} key={i}>
+						<Card width={1000}>
 							<CardContent>
 								<DeliveryPercent projectName={key} deliveryPercentage={deliveryPerc} />
 								<Grid
