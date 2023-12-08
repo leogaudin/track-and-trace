@@ -20,6 +20,7 @@ export default function ScansOverview({ overrideScans = null, disableDialogs = f
 		return new Date(b.time) - new Date(a.time);
 	}) : null;
 
+	if (!sortedScans) return null;
 	return (
 		<TableCard
 			contentName={t('scans').toLowerCase()}

@@ -61,9 +61,9 @@ export default function TableCard({
     }
   }, []);
 
-  const filteredRows = searchEnabled ? filterData(searchQuery, rows) : rows;
+  const filteredRows = searchEnabled && rows ? filterData(searchQuery, rows) : rows;
 
-  const slicedRows = filteredRows.slice((page - 1) * pageSize, page * pageSize);
+  const slicedRows = filteredRows?.slice((page - 1) * pageSize, page * pageSize);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -81,7 +81,6 @@ export default function TableCard({
     window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
   };
 
-  console.log(rows);
 
   return (
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
