@@ -1,7 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createTheme } from '../theme/index';
 import { getBoxesByAdminId, getScansByBoxes, getCountryName } from '../service';
+import { useMediaQuery } from '@mui/material';
 import { toast } from 'react-toastify';
+import { theme } from '../App';
 
 const AppContext = createContext({
   boxes: [],
@@ -16,7 +18,7 @@ const AppContext = createContext({
   setLanguage: () => {},
 });
 
-export const AppProvider = ({ theme, useMediaQuery, children }) => {
+export const AppProvider = ({ children }) => {
   const [boxes, setBoxes] = useState([]);
   const [scans, setScans] = useState([]);
   const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));

@@ -11,17 +11,18 @@ import {
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Globe from '../components/Globe';
 import { register } from '../service';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import { FormTextField } from '../components/FormTextField';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { sha512 } from 'js-sha512';
+import AppContext from '../context/AppContext';
 
 function Register() {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
-  const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+  const {isMobile} = useContext(AppContext);
   const { t } = useTranslation();
 
   useEffect(() => {

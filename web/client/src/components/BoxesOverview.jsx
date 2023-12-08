@@ -13,8 +13,7 @@ import BoxFiltering from './BoxFiltering';
 export default function BoxesOverview({ pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
-	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
-	const {boxes, scans} = useContext(AppContext);
+	const {boxes, scans, isMobile} = useContext(AppContext);
 	const textsMap = getTextsMap();
 	const [filteredBoxes, setFilteredBoxes] = useState(boxes);
 	const { t } = useTranslation();

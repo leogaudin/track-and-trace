@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardContent, Typography, Stack } from '@mui/material';
 import {QRCodeSVG} from 'qrcode.react';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import AppContext from '../context/AppContext';
 
 const BoxInfo = ({ box, width = null, height = null }) => {
-	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const isMobile = useContext(AppContext);
   const { t } = useTranslation();
 
   return (

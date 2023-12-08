@@ -126,9 +126,9 @@ export default function TableCard({
                 )}
               </React.Fragment>
             )}
-            {pageSize <= rows.length ? (
+            {pageSize <= rows?.length ? (
               <Pagination
-                count={Math.ceil(rows.length / pageSize)}
+                count={Math.ceil(rows?.length / pageSize)}
                 page={page}
                 onChange={handleChangePage}
                 color="primary"

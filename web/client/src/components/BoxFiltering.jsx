@@ -34,8 +34,6 @@ export default function BoxFiltering({boxes, setFilteredBoxes}) {
 
 	const availableOptions = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedOptions?.includes(field)) : null;
 
-	console.log(progressFilter);
-
 	const updateFilteredBoxes = () => {
 		setFilteredBoxes(boxes?.filter((box) =>
 			(box[selectedOption] === selectedField || selectedOption === 'all')

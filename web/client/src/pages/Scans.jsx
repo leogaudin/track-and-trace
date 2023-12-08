@@ -7,7 +7,6 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { useTranslation } from 'react-i18next';
 
 export default function Scans() {
-	const { boxes, scans } = useContext(AppContext);
 	const { t } = useTranslation();
 
 	return (
@@ -37,7 +36,7 @@ export default function Scans() {
 					</Button>
 				</Grid>
 				<Grid item xs={12}>
-					<ScansOverview boxes={boxes} scans={scans} />
+					<ScansOverview />
 				</Grid>
 			</Grid>
 		</>

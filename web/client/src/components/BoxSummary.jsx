@@ -12,11 +12,10 @@ import AppContext from "../context/AppContext";
 import { useTranslation } from "react-i18next";
 
 export default function BoxSummary({ id, open, setOpen }) {
-	const {boxes, scans} = useContext(AppContext);
+	const {boxes, scans, isMobile} = useContext(AppContext);
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 	const boxData = boxes ? boxes.filter(box => { return box.id === id })[0] : null;
 	const scanData = scans ? scans.filter(scan => { return scan.boxId === id }) : null;
-	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
 	const textsMap = getTextsMap();
 	const { t } = useTranslation();
 
@@ -28,6 +27,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 		setOpenDeleteDialog(true);
 	}
 
+	if (!boxData) return null;
 	return (
 		<Dialog
 			open={open}
@@ -68,7 +68,7 @@ export default function BoxSummary({ id, open, setOpen }) {
 						: false}
 						{scanData?.length ?
 							<Grid item xs={12}>
-								<ScansOverview boxes={boxes} scans={scanData} disableDialogs />
+								<ScansOverview overrideScans={scanData} disableDialogs />
 							</Grid>
 							: null}
 					</Grid>

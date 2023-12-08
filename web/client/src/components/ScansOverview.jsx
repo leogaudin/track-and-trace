@@ -1,17 +1,22 @@
 import { timeAgo } from '../service/timeAgo';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './TableCard';
 import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import AppContext from '../context/AppContext';
 
-export default function ScansOverview({ boxes, scans, disableDialogs = false }) {
+
+export default function ScansOverview({ overrideScans = null, disableDialogs = false }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
-	const isMobile = !useMediaQuery(theme => theme.breakpoints.up('lg'));
+	const {scans, isMobile} = useContext(AppContext);
+
 	const { t } = useTranslation();
 
-	const sortedScans = scans ? scans.sort((a, b) => {
+	const scansToUse = overrideScans ? overrideScans : scans;
+
+	const sortedScans = scansToUse ? scansToUse.sort((a, b) => {
 		return new Date(b.time) - new Date(a.time);
 	}) : null;
 
@@ -47,8 +52,6 @@ export default function ScansOverview({ boxes, scans, disableDialogs = false }) 
 			{disableDialogs
 			? null
 			: <BoxSummary
-				boxes={boxes}
-				scans={scans}
 				id={boxID}
 				open={boxDialogOpen}
 				setOpen={setBoxDialogOpen}
