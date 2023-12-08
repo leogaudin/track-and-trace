@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import AppContext from '../context/AppContext';
 
 
-export default function ScansOverview({ overrideScans = null, disableDialogs = false }) {
+export default function ScansOverview({ overrideScans = null, disableDialogs = false, searchEnabled = false }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 	const {scans, isMobile} = useContext(AppContext);
@@ -46,6 +46,7 @@ export default function ScansOverview({ overrideScans = null, disableDialogs = f
 			}) : null}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
+			searchEnabled={searchEnabled}
 		>
 			{disableDialogs
 			? null
