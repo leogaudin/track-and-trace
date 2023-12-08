@@ -44,10 +44,8 @@ export default function ScansOverview({ overrideScans = null, disableDialogs = f
 						scan.finalDestination ? '✅' : ''
 					]
 			}) : null}
-			pageSize={10}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
-			searchEnabled={false}
 		>
 			{disableDialogs
 			? null
