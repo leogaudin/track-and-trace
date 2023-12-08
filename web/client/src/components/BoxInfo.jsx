@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import AppContext from '../context/AppContext';
 
 const BoxInfo = ({ box, width = null, height = null }) => {
-	const isMobile = useContext(AppContext);
+	const {isMobile} = useContext(AppContext);
   const { t } = useTranslation();
 
   return (
