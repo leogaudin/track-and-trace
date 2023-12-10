@@ -7,7 +7,6 @@ import { getProgress } from "../service/statistics";
 import { colorsMap, getTextsMap } from "../constants";
 import ConfirmDialog from "./customisation/ConfirmDialog";
 import { deleteBoxes } from "../service";
-import { useMediaQuery } from "@mui/material";
 import AppContext from "../context/AppContext";
 import { useTranslation } from "react-i18next";
 

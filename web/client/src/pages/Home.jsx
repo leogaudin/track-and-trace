@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Alert, Grid, Card, CardContent, Typography, Button, TextField, Stack, IconButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Alert, Grid, Typography, Button, TextField, Stack, IconButton } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import AppContext from '../context/AppContext';

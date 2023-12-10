@@ -2,7 +2,6 @@ import { timeAgo } from '../service/timeAgo';
 import { useState, useContext } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './reusable/TableCard';
-import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AppContext from '../context/AppContext';
 

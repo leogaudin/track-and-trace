@@ -14,7 +14,6 @@ import { register } from '../service';
 import { useEffect, useState, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormTextField } from '../components/customisation/FormTextField';
-import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { sha512 } from 'js-sha512';
 import AppContext from '../context/AppContext';

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Card, CardContent, Typography, Stack } from '@mui/material';
 import {QRCodeSVG} from 'qrcode.react';
-import { useMediaQuery } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import AppContext from '../../context/AppContext';
 

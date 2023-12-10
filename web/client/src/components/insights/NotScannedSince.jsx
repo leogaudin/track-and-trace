@@ -3,7 +3,7 @@ import InsightWrapper from '../reusable/InsightWrapper';
 import { commonProperties } from './index';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { Alert, Slider, Stack, Typography } from '@mui/material';
+import { Alert, Slider, Stack } from '@mui/material';
 
 export default function NotScannedSince({project}) {
 	const {t} = useTranslation();

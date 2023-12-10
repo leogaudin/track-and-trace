@@ -1,8 +1,6 @@
 import DeliveryPercent from './insights/DeliveryPercent';
 import { calculateDeliveryPercentage } from '../service/statistics';
-import ScansPerDate from './insights/ScansPerDate';
 import ProgressFunnel from './insights/ProgressFunnel';
-import ScannedOncePie from './insights/ScannedOncePie';
 import { Grid, Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
 import NotScannedSince from './insights/NotScannedSince';

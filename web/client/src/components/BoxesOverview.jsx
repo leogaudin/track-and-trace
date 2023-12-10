@@ -1,11 +1,10 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './customisation/SeverityPill';
 import { timeAgo } from '../service/timeAgo'
 import TableCard from './reusable/TableCard';
 import { getProgress } from '../service/statistics';
 import { colorsMap, getTextsMap } from '../constants';
-import { Skeleton, useMediaQuery, Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
 import BoxFiltering from './controls/BoxFiltering';

@@ -12,7 +12,6 @@ import {
   Pagination,
   Stack
 } from '@mui/material';
-import SkeletonTable from '../customisation/SkeletonTable';
 import { SearchBar } from '../controls/SearchBar';
 import { useTranslation } from 'react-i18next';
 

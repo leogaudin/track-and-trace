@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { SeverityPill } from '../customisation/SeverityPill';
 import { getProgress } from '../../service/statistics';
 import { colorsMap, getTextsMap } from '../../constants';
-import { Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 export default function BoxFiltering({boxes, setFilteredBoxes}) {

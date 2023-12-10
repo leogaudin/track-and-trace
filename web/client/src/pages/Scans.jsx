@@ -1,8 +1,7 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import ScansOverview from '../components/ScansOverview';
-import { Box, Button, Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import AppContext from '../context/AppContext';
 import CachedIcon from '@mui/icons-material/Cached';
 import { useTranslation } from 'react-i18next';
 

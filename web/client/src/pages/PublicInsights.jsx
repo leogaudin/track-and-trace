@@ -1,4 +1,4 @@
-import { Alert, Typography } from "@mui/material";
+import { Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";

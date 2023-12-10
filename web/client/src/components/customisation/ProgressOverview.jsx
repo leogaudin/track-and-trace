@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid, LinearProgress, Skeleton } from '@mui/material';
+import { Card, CardContent, Typography, Grid, LinearProgress } from '@mui/material';
 import { calculateDeliveryPercentage } from '../../service/statistics';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
