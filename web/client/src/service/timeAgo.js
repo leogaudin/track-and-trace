@@ -1,4 +1,4 @@
-import i18n from "../components/constants/language";
+import i18n from "../constants/language";
 
 export function timeAgo(time) {
 

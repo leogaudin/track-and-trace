@@ -1,5 +1,5 @@
 import { ResponsivePie } from '@nivo/pie'
-import InsightWrapper from '../InsightWrapper';
+import InsightWrapper from '../reusable/InsightWrapper';
 import { commonProperties } from './index';
 import { useTranslation } from 'react-i18next';
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
-import HTMLExport from '../components/HTMLExport';
+import HTMLExport from '../components/controls/HTMLExport';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
-import BoxFiltering from '../components/BoxFiltering';
+import BoxFiltering from '../components/controls/BoxFiltering';
 
 export default function Export() {
   const {boxes} = useContext(AppContext);

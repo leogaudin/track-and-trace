@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import { Dialog, DialogContent, Stack, Typography, Grid, Alert, Button } from "@mui/material";
-import Map from "./ScanMap";
+import Map from "./customisation/ScanMap";
 import ScansOverview from "./ScansOverview";
-import BoxInfo from './BoxInfo';
+import BoxInfo from './customisation/BoxInfo';
 import { getProgress } from "../service/statistics";
-import { colorsMap, getTextsMap } from "./constants";
-import ConfirmDialog from "./ConfirmDialog";
+import { colorsMap, getTextsMap } from "../constants";
+import ConfirmDialog from "./customisation/ConfirmDialog";
 import { deleteBoxes } from "../service";
 import { useMediaQuery } from "@mui/material";
 import AppContext from "../context/AppContext";

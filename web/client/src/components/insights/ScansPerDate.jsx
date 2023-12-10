@@ -1,7 +1,7 @@
 import { Line, ResponsiveLine } from "@nivo/line";
 import { commonProperties } from './index';
 import { Card } from "@mui/material";
-import InsightWrapper from "../InsightWrapper";
+import InsightWrapper from "../reusable/InsightWrapper";
 import { useTranslation } from 'react-i18next';
 
 export default function ScansPerDate({project}) {

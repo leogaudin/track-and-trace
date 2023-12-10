@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Button, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { deleteBoxes } from "../service";
-import ConfirmDialog from '../components/ConfirmDialog';
+import ConfirmDialog from '../components/customisation/ConfirmDialog';
 import { useTranslation } from 'react-i18next';
-import BoxFiltering from '../components/BoxFiltering';
+import BoxFiltering from '../components/controls/BoxFiltering';
 
 export default function Delete() {
   const {boxes} = useContext(AppContext);

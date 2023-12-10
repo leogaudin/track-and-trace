@@ -1,13 +1,13 @@
 import { Box, Drawer, Select, Stack, SvgIcon, Typography, MenuItem } from '@mui/material';
-import { SideNavItem } from './SideNavItem';
+import { SideNavItem } from './reusable/SideNavItem';
 import { useLocation } from 'react-router-dom';
-import { getItems } from './constants';
+import { getItems } from '../constants';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LanguageIcon from '@mui/icons-material/Language';
 import AppContext from '../context/AppContext';
 import { useContext } from 'react';
-import i18n, { languages } from './constants/language';
+import i18n, { languages } from '../constants/language';
 import { useTranslation } from 'react-i18next';
 
 const SIDE_NAV_WIDTH = 200;

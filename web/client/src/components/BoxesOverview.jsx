@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import BoxSummary from './BoxSummary';
-import { SeverityPill } from './SeverityPill';
+import { SeverityPill } from './customisation/SeverityPill';
 import { timeAgo } from '../service/timeAgo'
-import TableCard from './TableCard';
+import TableCard from './reusable/TableCard';
 import { getProgress } from '../service/statistics';
-import { colorsMap, getTextsMap } from './constants';
+import { colorsMap, getTextsMap } from '../constants';
 import { Skeleton, useMediaQuery, Stack, Typography, RadioGroup, FormControlLabel, Radio, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
-import BoxFiltering from './BoxFiltering';
+import BoxFiltering from './controls/BoxFiltering';
 
 export default function BoxesOverview({ pageSize = 10 }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);

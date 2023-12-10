@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { handleCSV } from '../service/csv';
-import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
-import UploadSummary from '../components/UploadSummary';
+import CircularProgressWithLabel from './customisation/CircularProgressWithLabel';
+import UploadSummary from './customisation/UploadSummary';
 import { Alert, Dialog, DialogContent, Typography } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
