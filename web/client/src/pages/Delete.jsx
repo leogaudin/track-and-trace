@@ -29,7 +29,7 @@ export default function Delete() {
         <CardContent>
           <BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
           <Stack direction={'column'} spacing={1} alignItems={'center'}>
-            <Typography variant='overline' color='error'><b>{t('itemsWillBeDeleted', {number: filteredBoxes.length})}</b></Typography>
+            <Typography variant='overline' color='error'><b>{t('itemsWillBeDeleted', {count: filteredBoxes.length})}</b></Typography>
             <div>
               <Button variant={'contained'} color='error' size='large' onClick={() => setOpenDeleteDialog(true)}>
                 {t('deleteBoxes')}

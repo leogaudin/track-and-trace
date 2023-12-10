@@ -48,11 +48,11 @@ export default function NotScannedSince({project}) {
 	}
 
 	return (
-		<InsightWrapper title={t('notScannedInThePast', {days: since})} height={50}>
+		<InsightWrapper title={t('notScannedInThePast', {count: since})} height={50}>
 			<Stack style={{height: '75%', width: '100%'}}>
 				{getNeverScanned() ?
 				<Alert severity="info" style={{height: '20%'}}>
-					{t('thereAreXNeverScanned', {number: getNeverScanned()})}
+					{t('thereAreXNeverScanned', {count: getNeverScanned()})}
 				</Alert>
 				: false}
 				<ResponsivePie
@@ -84,7 +84,7 @@ export default function NotScannedSince({project}) {
 					onChange={(event, value) => setSince(value)}
 					step={1}
 					valueLabelDisplay="auto"
-					min={2}
+					min={1}
 					max={14}
 				/>
 			</Stack>

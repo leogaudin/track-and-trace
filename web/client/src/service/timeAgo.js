@@ -16,9 +16,9 @@ export function timeAgo(time) {
 	}
 	let time_formats = [
 		[60, 'seconds', 1],
-		[120, i18n.t('minuteAgo', {minute: 1}), i18n.t('minuteFromNow', {minute: 1})],
+		[120, i18n.t('minutesAgo', {count: 1}), i18n.t('minuteFromNow', {count: 1})],
 		[3600, 'minutes', 60],
-		[7200, i18n.t('hourAgo', {hour: 1}), i18n.t('hourFromNow', {hour: 1})],
+		[7200, i18n.t('hoursAgo', {count: 1}), i18n.t('hourFromNow', {count: 1})],
 		[86400, 'hours', 3600],
 		[172800, i18n.t('yesterday'), i18n.t('tomorrow')],
 		[604800, 'days', 86400],
@@ -45,19 +45,19 @@ export function timeAgo(time) {
 			{
 				switch (format[1]) {
 					case 'seconds':
-						return i18n.t('secondsAgo', {seconds: Math.floor(seconds / format[2])});
+						return i18n.t('secondsAgo', {count: Math.floor(seconds / format[2])});
 					case 'minutes':
-						return i18n.t('minuteAgo', {minute: Math.floor(seconds / format[2])});
+						return i18n.t('minutesAgo', {count: Math.floor(seconds / format[2])});
 					case 'hours':
-						return i18n.t('hourAgo', {hour: Math.floor(seconds / format[2])});
+						return i18n.t('hoursAgo', {count: Math.floor(seconds / format[2])});
 					case 'days':
-						return i18n.t('daysAgo', {days: Math.floor(seconds / format[2])});
+						return i18n.t('daysAgo', {count: Math.floor(seconds / format[2])});
 					case 'weeks':
-						return i18n.t('weeksAgo', {weeks: Math.floor(seconds / format[2])});
+						return i18n.t('weeksAgo', {count: Math.floor(seconds / format[2])});
 					case 'months':
-						return i18n.t('monthsAgo', {months: Math.floor(seconds / format[2])});
+						return i18n.t('monthsAgo', {count: Math.floor(seconds / format[2])});
 					case 'years':
-						return i18n.t('yearsAgo', {years: Math.floor(seconds / format[2])});
+						return i18n.t('yearsAgo', {count: Math.floor(seconds / format[2])});
 				}
 			}
 		}

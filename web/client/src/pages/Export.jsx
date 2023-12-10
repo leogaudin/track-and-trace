@@ -32,7 +32,7 @@ export default function Export() {
         <CardContent>
           <BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
             <Stack direction={'column'} spacing={1} alignItems={'center'}>
-              <Typography variant='overline'><b>{t('itemsWillBeExported', {number: filteredBoxes.length})}</b></Typography>
+              <Typography variant='overline'><b>{t('itemsWillBeExported', {count: filteredBoxes.length})}</b></Typography>
               <HTMLExport objects={filteredBoxes} folderName={getFolderName()} />
             </Stack>
         </CardContent>
