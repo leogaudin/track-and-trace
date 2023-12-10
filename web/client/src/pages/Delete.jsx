@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
+import { Alert, Button, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { deleteBoxes } from "../service";
 import ConfirmDialog from '../components/customisation/ConfirmDialog';
@@ -17,7 +17,7 @@ export default function Delete() {
       <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
         <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
           <CardContent>
-            <Typography variant="overline">{t('noBoxes')}</Typography>
+            <Alert severity="info">{t('youHaveNo', {item: t('boxes').toLowerCase()})}</Alert>
           </CardContent>
         </Card>
       </Box>

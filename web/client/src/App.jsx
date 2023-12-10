@@ -21,6 +21,7 @@ import "./constants/language";
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import WaitForContext from './components/controls/WaitForContext';
 
 export const theme = createTheme();
 
@@ -43,17 +44,23 @@ function App() {
               <Routes>
                 <Route path='/' element={
                   <RequireAuth>
-                    <Home />
+                    <WaitForContext>
+                      <Home />
+                    </WaitForContext>
                   </RequireAuth>
                 } />
                 <Route path='/boxes' element={
                   <RequireAuth>
-                    <Boxes />
+                    <WaitForContext>
+                      <Boxes />
+                    </WaitForContext>
                   </RequireAuth>
                 } />
                 <Route path='/scans' element={
                   <RequireAuth>
-                    <Scans />
+                    <WaitForContext>
+                      <Scans />
+                    </WaitForContext>
                   </RequireAuth>
                 } />
                 <Route path='/insights/:id' element={
@@ -61,15 +68,19 @@ function App() {
                   }
                 />
                 <Route path='/export' element={
-                    <RequireAuth>
+                  <RequireAuth>
+                    <WaitForContext>
                       <Export />
-                    </RequireAuth>
+                    </WaitForContext>
+                  </RequireAuth>
                   }
                 />
                 <Route path='/delete' element={
-                    <RequireAuth>
+                  <RequireAuth>
+                    <WaitForContext>
                       <Delete />
-                    </RequireAuth>
+                    </WaitForContext>
+                  </RequireAuth>
                   }
                 />
                 <Route path='/login' element={<Login />} />

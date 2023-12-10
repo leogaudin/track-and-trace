@@ -16,20 +16,22 @@ const AppContext = createContext({
   user: null,
   language: 'en',
   setLanguage: () => {},
+  loading: true,
 });
 
 export const AppProvider = ({ children }) => {
-  const [boxes, setBoxes] = useState([]);
-  const [scans, setScans] = useState([]);
+  const [boxes, setBoxes] = useState(null);
+  const [scans, setScans] = useState(null);
   const isMobile = !useMediaQuery(theme.breakpoints.up('lg'));
   const [navOpen, setNavOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const [language, setLanguage] = useState('en');
+  const [loading, setLoading] = useState(true);
 
   const fetchBoxes = async () => {
     if (user) {
       try {
-        setBoxes([]);
+        setBoxes(null);
         let hasMore = true;
         const limit = 2100;
         const requests = [];
@@ -61,7 +63,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchScans = async (boxes) => {
     if (!boxes) return;
-    setScans([]);
+    setScans(null);
     const reducer = boxes.reduce((accumulator, box) => {
       if (box.scans && Array.isArray(box.scans))
         return accumulator.concat(box.scans);
@@ -76,7 +78,8 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     fetchBoxes()
-      .then((res) => fetchScans(res));
+      .then((res) => fetchScans(res))
+      .then(() => setLoading(false))
   }, []);
 
   return (
@@ -92,6 +95,7 @@ export const AppProvider = ({ children }) => {
         user,
         language,
         setLanguage,
+        loading,
       }}
     >
       {children}

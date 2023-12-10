@@ -18,48 +18,47 @@ export default function BoxesOverview({ pageSize = 10 }) {
 	const [filteredBoxes, setFilteredBoxes] = useState(boxes);
 	const { t } = useTranslation();
 
-	if (boxes)
-		return (
-			<TableCard
-				contentName={t('boxes').toLowerCase()}
-				columns={
-					isMobile
-					? [t('id'), t('recipient'), t('status')]
-					: [t('id'), t('project'), t('recipient'), t('created'), t('status')]
+	return (
+		<TableCard
+			contentName={t('boxes').toLowerCase()}
+			columns={
+				isMobile
+				? [t('id'), t('recipient'), t('status')]
+				: [t('id'), t('project'), t('recipient'), t('created'), t('status')]
 
-				}
-				rows={filteredBoxes ? filteredBoxes.map((box) => {
-					const boxScans = scans ? scans.filter(scan => { return scan.boxId === box.id }) : null;
-					const progress = getProgress(boxScans);
-					if (isMobile)
-						return [
-							box.id,
-							box.school,
-							<SeverityPill color={colorsMap[progress]}>
-								{textsMap[progress]}
-							</SeverityPill>
-						]
-					else
-						return [
-							box.id,
-							box.project,
-							box.school,
-							timeAgo(box.createdAt),
-							<SeverityPill color={colorsMap[progress]}>
-								{textsMap[progress]}
-							</SeverityPill>
-						]
-				}) : null}
-				pageSize={pageSize}
-				setDialogOpen={setBoxDialogOpen}
-				setSelectedItem={setBoxID}
-			>
-				<BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
-				<BoxSummary
-					id={boxID}
-					open={boxDialogOpen}
-					setOpen={setBoxDialogOpen}
-				/>
-			</TableCard>
-		);
+			}
+			rows={filteredBoxes ? filteredBoxes.map((box) => {
+				const boxScans = scans ? scans.filter(scan => { return scan.boxId === box.id }) : null;
+				const progress = getProgress(boxScans);
+				if (isMobile)
+					return [
+						box.id,
+						box.school,
+						<SeverityPill color={colorsMap[progress]}>
+							{textsMap[progress]}
+						</SeverityPill>
+					]
+				else
+					return [
+						box.id,
+						box.project,
+						box.school,
+						timeAgo(box.createdAt),
+						<SeverityPill color={colorsMap[progress]}>
+							{textsMap[progress]}
+						</SeverityPill>
+					]
+			}) : null}
+			pageSize={pageSize}
+			setDialogOpen={setBoxDialogOpen}
+			setSelectedItem={setBoxID}
+		>
+			<BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
+			<BoxSummary
+				id={boxID}
+				open={boxDialogOpen}
+				setOpen={setBoxDialogOpen}
+			/>
+		</TableCard>
+	);
 }

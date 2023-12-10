@@ -91,11 +91,11 @@ export default function TableCard({
       <CardContent>
         <Typography variant="overline">{t('your', {item: contentName})}</Typography>
           <Stack direction="column" spacing={3} alignItems="center">
-            {searchEnabled ? (
+            {searchEnabled && rows && (
               <SearchBar setSearchQuery={handleSearchQueryChange} initialValue={searchQuery} />
-              ) : null}
-            {children}
-            {rows?.length ? (
+            )}
+            {rows && children}
+            {rows ? (
             <Table>
               <TableHead>
                 <TableRow>
@@ -123,13 +123,7 @@ export default function TableCard({
                 ))}
               </TableBody>
             </Table> ) : (
-              <React.Fragment>
-                {rows === null ? (
-                  <Alert severity="info">{t('youHaveNo', {item: contentName})}</Alert>
-                ) : (
-                  <SkeletonTable rows={pageSize} />
-                )}
-              </React.Fragment>
+                <Alert severity="info">{t('youHaveNo', {item: t('boxes').toLowerCase()})}</Alert>
             )}
             {pageSize <= rows?.length ? (
               <Pagination

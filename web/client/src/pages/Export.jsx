@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
+import { Alert, Card, RadioGroup, Radio, FormControlLabel, Stack, Typography, Select, MenuItem, CardContent, Box } from '@mui/material';
 import HTMLExport from '../components/controls/HTMLExport';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,7 @@ export default function Export() {
       <Box paddingX={'15vw'} paddingY={'10vh'} width={'100%'}>
         <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
           <CardContent>
-            <Typography variant="overline">{t('noBoxes')}</Typography>
+            <Alert severity="info">{t('youHaveNo', {item: t('boxes')})}</Alert>
           </CardContent>
         </Card>
       </Box>
