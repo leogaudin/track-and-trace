@@ -1,23 +1,43 @@
 import { timeAgo } from '../service/timeAgo';
-import { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './reusable/TableCard';
 import { useTranslation } from 'react-i18next';
 import AppContext from '../context/AppContext';
 
-
-export default function ScansOverview({ overrideScans = null, disableDialogs = false, searchEnabled = false }) {
+function ScansOverview({ overrideScans = null, disableDialogs = false, searchEnabled = false }) {
 	const [boxDialogOpen, setBoxDialogOpen] = useState(false);
 	const [boxID, setBoxID] = useState('');
 	const {scans, isMobile} = useContext(AppContext);
-
 	const { t } = useTranslation();
 
 	const scansToUse = overrideScans ? overrideScans : scans;
 
-	const sortedScans = scansToUse ? scansToUse.sort((a, b) => {
-		return new Date(b.time) - new Date(a.time);
-	}) : null;
+	const sortedScans = useMemo(() => {
+		return scansToUse ? scansToUse.sort((a, b) => {
+			return new Date(b.time) - new Date(a.time);
+		}) : null;
+	}, [scansToUse]);
+
+	const rows = useMemo(() => {
+		return sortedScans
+		  ? sortedScans.map((scan) => {
+			  return isMobile
+				? [
+					scan.boxId,
+					scan.countryName,
+					timeAgo(scan.time)
+				]
+				: [
+					scan.boxId,
+					scan.countryName,
+					timeAgo(scan.time),
+					scan.comment,
+					scan.finalDestination ? '✅' : ''
+				];
+			})
+		  : null;
+	}, [sortedScans, isMobile]);
 
 	return (
 		<TableCard
@@ -27,22 +47,7 @@ export default function ScansOverview({ overrideScans = null, disableDialogs = f
 				? [t('box'), t('location'), t('time')]
 				: [t('box'), t('location'), t('time'), t('comment'), t('final')]
 			}
-			rows={sortedScans && sortedScans[0] ? sortedScans.map(scan => {
-				if (isMobile)
-					return [
-						scan.boxId,
-						scan.countryName,
-						timeAgo(scan.time)
-					]
-				else
-					return [
-						scan.boxId,
-						scan.countryName,
-						timeAgo(scan.time),
-						scan.comment,
-						scan.finalDestination ? '✅' : ''
-					]
-			}) : null}
+			rows={rows}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
 			searchEnabled={searchEnabled}
@@ -57,3 +62,5 @@ export default function ScansOverview({ overrideScans = null, disableDialogs = f
 		</TableCard>
 	);
 }
+
+export default React.memo(ScansOverview);

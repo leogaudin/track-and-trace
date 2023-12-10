@@ -4,8 +4,9 @@ import ProgressFunnel from './insights/ProgressFunnel';
 import { Grid, Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
 import NotScannedSince from './insights/NotScannedSince';
+import React from 'react';
 
-export default function Insights({boxes}) {
+function Insights({boxes}) {
 	const [groupedBoxes, setGroupedBoxes] = useState({});
 
 	useEffect(() => {
@@ -47,3 +48,5 @@ export default function Insights({boxes}) {
 		</>
 	);
 }
+
+export default React.memo(Insights);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Alert,
   Table,
@@ -10,7 +10,7 @@ import {
   Typography,
   CardContent,
   Pagination,
-  Stack
+  Stack,
 } from '@mui/material';
 import { SearchBar } from '../controls/SearchBar';
 import { useTranslation } from 'react-i18next';
@@ -38,7 +38,7 @@ const filterData = (query, data) => {
   });
 };
 
-export default function TableCard({
+function TableCard({
   contentName = 'items',
   columns,
   rows,
@@ -64,9 +64,13 @@ export default function TableCard({
     setPage(1);
   }, [searchQuery, rows]);
 
-  const filteredRows = searchEnabled && rows ? filterData(searchQuery, rows) : rows;
+  const filteredRows = useMemo(() => {
+    return searchEnabled && rows ? filterData(searchQuery, rows) : rows;
+  }, [searchQuery, rows]);
 
-  const slicedRows = filteredRows?.slice((page - 1) * pageSize, page * pageSize);
+  const slicedRows = useMemo(() => {
+    return filteredRows?.slice((page - 1) * pageSize, page * pageSize);
+  }, [filteredRows, page, pageSize]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,7 +125,8 @@ export default function TableCard({
                   </TableRow>
                 ))}
               </TableBody>
-            </Table> ) : (
+            </Table>
+            ) : (
                 <Alert severity="info">{t('youHaveNo', {item: t('boxes').toLowerCase()})}</Alert>
             )}
             {pageSize <= rows?.length ? (
@@ -139,3 +144,5 @@ export default function TableCard({
     </Card>
   );
 }
+
+export default React.memo(TableCard);
