@@ -14,7 +14,7 @@ export default function Loading() {
 		justifyContent="center"
 	>
 	  <CircularProgress size={70}/>
-	  <Typography variant="subtitle1" textAlign="center" marginTop={5}>Loading your boxes...</Typography>
+	  <Typography fontSize={14} variant="overline" textAlign="center" marginTop={5} color="primary.dark">Loading your boxes...</Typography>
 	</Stack>
   )
 }
