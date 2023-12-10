@@ -20,33 +20,31 @@ function ScansOverview({ overrideScans = null, disableDialogs = false, searchEna
 	}, [scansToUse]);
 
 	const rows = useMemo(() => {
-		return sortedScans
-		  ? sortedScans.map((scan) => {
-			  return isMobile
-				? [
-					scan.boxId,
-					scan.countryName,
-					timeAgo(scan.time)
-				]
-				: [
-					scan.boxId,
-					scan.countryName,
-					timeAgo(scan.time),
-					scan.comment,
-					scan.finalDestination ? '✅' : ''
-				];
-			})
-		  : null;
+		return sortedScans && sortedScans.map((scan) => {
+			const row = [];
+			if (!disableDialogs)
+				row.push(scan.boxId);
+			row.push(scan.countryName);
+			row.push(timeAgo(scan.time));
+			if (!isMobile) {
+				row.push(scan.comment);
+				row.push(scan.finalDestination ? '✅' : '');
+			}
+			return row;
+		});
 	}, [sortedScans, isMobile]);
+
+	const columns = [];
+	if (!disableDialogs)
+		columns.push(t('box'))
+	columns.push(t('location'), t('time'));
+	if (!isMobile)
+		columns.push(t('comment'), t('final'));
 
 	return (
 		<TableCard
 			contentName={t('scans').toLowerCase()}
-			columns={
-				isMobile
-				? [t('box'), t('location'), t('time')]
-				: [t('box'), t('location'), t('time'), t('comment'), t('final')]
-			}
+			columns={columns}
 			rows={rows}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
