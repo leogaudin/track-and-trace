@@ -1,3 +1,4 @@
+import './wdyr';
 import './App.css';
 import React from 'react';
 import { createTheme } from './theme/index';
