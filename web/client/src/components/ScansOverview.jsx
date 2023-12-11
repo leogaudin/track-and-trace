@@ -25,7 +25,7 @@ function ScansOverview({ overrideScans = null, disableDialogs = false, searchEna
 			if (!disableDialogs)
 				row.push(scan.boxId);
 			row.push(scan.countryName);
-			row.push(timeAgo(scan.time));
+			row.push(scan.time);
 			if (!isMobile) {
 				row.push(scan.comment);
 				row.push(scan.finalDestination ? '✅' : '');
@@ -49,6 +49,7 @@ function ScansOverview({ overrideScans = null, disableDialogs = false, searchEna
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
 			searchEnabled={searchEnabled}
+			translateTimeIndex={disableDialogs ? 1 : 2}
 		>
 			{disableDialogs
 			? null

@@ -28,7 +28,7 @@ function BoxesOverview({ pageSize = 10 }) {
 					box.id,
 					box.project,
 					box.school,
-					timeAgo(box.createdAt),
+					box.createdAt,
 					<SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>,
 				  ];
 			})
@@ -47,6 +47,7 @@ function BoxesOverview({ pageSize = 10 }) {
 			pageSize={pageSize}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
+			translateTimeIndex={isMobile ? -1 : 3}
 		>
 			<BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
 			<BoxSummary

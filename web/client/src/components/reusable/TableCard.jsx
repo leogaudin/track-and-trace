@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { SearchBar } from '../controls/SearchBar';
 import { useTranslation } from 'react-i18next';
+import { timeAgo } from '../../service/timeAgo';
 
 const filterData = (query, data) => {
   return data.filter((item) => {
@@ -46,6 +47,7 @@ function TableCard({
   setDialogOpen,
   setSelectedItem,
   searchEnabled = true,
+  translateTimeIndex = -1,
   children
 }) {
   const [page, setPage] = useState(1);
@@ -88,6 +90,29 @@ function TableCard({
     window.history.replaceState(null, '', `${window.location.pathname}?${urlParams}`);
   };
 
+  const renderRows = useMemo(() => {
+    if (!slicedRows) return null;
+    return slicedRows.map((row, index) => (
+      <TableRow
+        key={row[0] + index}
+        onClick={() => {
+          setSelectedItem(row[0]);
+          setDialogOpen(true);
+        }}
+        hover
+      >
+        {Object.values(row).map((value, index) => {
+          if (translateTimeIndex !== -1 && index === translateTimeIndex)
+            value = timeAgo(value);
+          return (
+            <TableCell key={row[0] + index}>
+              {index === 0 ? <b>{value}</b> : value}
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    ));
+  }, [slicedRows]);
 
   return (
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>
@@ -108,22 +133,7 @@ function TableCard({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {slicedRows.map((row, index) => (
-                  <TableRow
-                    key={row[0] + index}
-                    onClick={() => {
-                      setSelectedItem(row[0]);
-                      setDialogOpen(true);
-                    }}
-                    hover
-                  >
-                    {Object.values(row).map((value, index) => (
-                      <TableCell key={row[0] + index}>
-                        {index === 0 ? <b>{value}</b> : value}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
+                {renderRows}
               </TableBody>
             </Table>
             ) : (
