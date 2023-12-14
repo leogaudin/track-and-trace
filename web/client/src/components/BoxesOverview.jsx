@@ -23,12 +23,16 @@ function BoxesOverview({ pageSize = 10 }) {
 			  const boxScans = scans ? scans.filter((scan) => scan.boxId === box.id) : null;
 			  const progress = getProgress(boxScans);
 			  return isMobile
-				? [box.id, box.school, <SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>]
+				? [
+					box.id,
+					box.school,
+					<SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>
+				]
 				: [
 					box.id,
 					box.project,
 					box.school,
-					box.createdAt,
+					// box.createdAt,
 					<SeverityPill color={colorsMap[progress]}>{textsMap[progress]}</SeverityPill>,
 				  ];
 			})
@@ -40,14 +44,25 @@ function BoxesOverview({ pageSize = 10 }) {
 			contentName={t('boxes').toLowerCase()}
 			columns={
 				isMobile
-				? [t('id'), t('recipient'), t('status')]
-				: [t('id'), t('project'), t('recipient'), t('created'), t('status')]
+				? [
+					t('id'),
+					t('recipient'),
+					t('status')
+				]
+				: [
+					t('id'),
+					t('project'),
+					t('recipient'),
+					// t('created'),
+					t('status')
+				]
 			}
 			rows={rows}
 			pageSize={pageSize}
 			setDialogOpen={setBoxDialogOpen}
 			setSelectedItem={setBoxID}
-			translateTimeIndex={isMobile ? -1 : 3}
+			//translateTimeIndex={isMobile ? -1 : 3}
+			translateTimeIndex={-1}
 		>
 			<BoxFiltering boxes={boxes} setFilteredBoxes={setFilteredBoxes} />
 			<BoxSummary
