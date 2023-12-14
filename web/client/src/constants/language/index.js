@@ -318,7 +318,7 @@ i18n
 					login: 'Iniciar sesión',
 					name: 'Nombre',
 					refresh: 'Actualizar',
-					your: 'Tu {{item}}',
+					your: 'Tus {{item}}',
 					youHaveNo: 'No tienes {{item}}.',
 					id: 'ID',
 					recipient: 'Destinatario',
