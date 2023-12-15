@@ -28,9 +28,10 @@ export default function NotScannedSince({project}) {
 		project.forEach(box => {
 			if (box.scans && box.scans.length > 0) {
 				const lastScan = box.scans[box.scans.length - 1];
-				if (lastScan.time > sinceTimestamp)
+				const isDelivered = box.scans.some(scan => scan.finalDestination);
+				if (lastScan.time > sinceTimestamp && !isDelivered)
 					data[0].value++;
-				else
+				else if (!isDelivered)
 					data[1].value++;
 			}
 		});
@@ -47,14 +48,28 @@ export default function NotScannedSince({project}) {
 		return neverScanned;
 	}
 
+	function getDelivered() {
+		let delivered = 0;
+		project.forEach(box => {
+			if (box.scans.some(scan => scan.finalDestination))
+				delivered++;
+		});
+		return delivered;
+	}
+
 	return (
 		<InsightWrapper title={t('notScannedInThePast', {count: since})} height={50}>
 			<Stack style={{height: '75%', width: '100%'}}>
 				{getNeverScanned() ?
-				<Alert severity="info" style={{height: '20%'}}>
+				<Alert severity="info" style={{height: '20%', marginTop: 3}}>
 					{t('thereAreXNeverScanned', {count: getNeverScanned()})}
 				</Alert>
 				: false}
+				{/* {getDelivered() ?
+				<Alert severity="success" style={{height: '20%', marginTop: 3}}>
+					{t('thereAreXDelivered', {count: getDelivered()})}
+				</Alert>
+				: false} */}
 				<ResponsivePie
 					{...commonProperties}
 					data={getNivoPieData(since)}
