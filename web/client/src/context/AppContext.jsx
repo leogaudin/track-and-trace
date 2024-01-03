@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createTheme } from '../theme/index';
-import { getBoxesByAdminId, getScansByBoxes, getCountryName } from '../service';
+import { getBoxesByAdminId } from '../service';
 import { useMediaQuery } from '@mui/material';
 import { toast } from 'react-toastify';
 import { theme } from '../App';

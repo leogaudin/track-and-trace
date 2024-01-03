@@ -68,7 +68,7 @@ function TableCard({
 
   const filteredRows = useMemo(() => {
     return searchEnabled && rows ? filterData(searchQuery, rows) : rows;
-  }, [searchQuery, rows]);
+  }, [searchQuery, rows, searchEnabled]);
 
   const slicedRows = useMemo(() => {
     return filteredRows?.slice((page - 1) * pageSize, page * pageSize);
@@ -112,7 +112,7 @@ function TableCard({
         })}
       </TableRow>
     ));
-  }, [slicedRows]);
+  }, [slicedRows, setDialogOpen, setSelectedItem, translateTimeIndex]);
 
   return (
     <Card style={{ width: '100%', height: '100%', overflow: 'auto', alignItems: 'center' }}>

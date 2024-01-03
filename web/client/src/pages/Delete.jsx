@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Alert, Button, Card, Stack, Typography, CardContent, Box } from '@mui/material';
 import AppContext from '../context/AppContext';
 import { deleteBoxes } from "../service";

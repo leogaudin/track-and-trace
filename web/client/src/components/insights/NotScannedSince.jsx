@@ -48,14 +48,14 @@ export default function NotScannedSince({project}) {
 		return neverScanned;
 	}
 
-	function getDelivered() {
-		let delivered = 0;
-		project.forEach(box => {
-			if (box.scans.some(scan => scan.finalDestination))
-				delivered++;
-		});
-		return delivered;
-	}
+	// function getDelivered() {
+	// 	let delivered = 0;
+	// 	project.forEach(box => {
+	// 		if (box.scans.some(scan => scan.finalDestination))
+	// 			delivered++;
+	// 	});
+	// 	return delivered;
+	// }
 
 	return (
 		<InsightWrapper title={t('notScannedInThePast', {count: since})} height={50}>

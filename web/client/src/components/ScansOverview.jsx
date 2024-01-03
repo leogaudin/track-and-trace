@@ -1,4 +1,3 @@
-import { timeAgo } from '../service/timeAgo';
 import React, { useState, useContext, useMemo } from 'react';
 import BoxSummary from './BoxSummary';
 import TableCard from './reusable/TableCard';
@@ -32,7 +31,7 @@ function ScansOverview({ overrideScans = null, disableDialogs = false, searchEna
 			}
 			return row;
 		});
-	}, [sortedScans, isMobile]);
+	}, [sortedScans, isMobile, disableDialogs]);
 
 	const columns = [];
 	if (!disableDialogs)

@@ -26,21 +26,21 @@ export default function BoxFiltering({boxes, setFilteredBoxes}) {
 
 	useEffect(() => {
 		setFilteredBoxes(boxes ? boxes : []);
-	}, [boxes]);
+	}, [boxes, setFilteredBoxes]);
 
 	useEffect(() => {
+		const updateFilteredBoxes = () => {
+			setFilteredBoxes(boxes?.filter((box) =>
+				(box[selectedOption] === selectedField || selectedOption === 'all')
+				&&
+				(getProgress(box.scans) === progressFilter || progressFilter === 'any')
+			));
+		}
+
 		updateFilteredBoxes();
-	}, [boxes, progressFilter, selectedField, selectedOption]);
+	}, [boxes, progressFilter, selectedField, selectedOption, setFilteredBoxes]);
 
 	const availableOptions = boxes ? Object.keys(boxes[0] || {}).filter((field) => !excludedOptions?.includes(field)) : null;
-
-	const updateFilteredBoxes = () => {
-		setFilteredBoxes(boxes?.filter((box) =>
-			(box[selectedOption] === selectedField || selectedOption === 'all')
-			&&
-			(getProgress(box.scans) === progressFilter || progressFilter === 'any')
-		));
-	}
 
 	const handleOptionChange = (event) => {
 		setSelectedOption(event.target.value);

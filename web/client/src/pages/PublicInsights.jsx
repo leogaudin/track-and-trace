@@ -62,7 +62,7 @@ export default function PublicInsights() {
 					toast.error(t("error"));
 					console.log(error);
 				});
-	}, []);
+	}, [authorized, id, t]);
 
 	if (authorized)
 		return (

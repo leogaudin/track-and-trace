@@ -58,6 +58,8 @@ export function timeAgo(time) {
 						return i18n.t('monthsAgo', {count: Math.floor(seconds / format[2])});
 					case 'years':
 						return i18n.t('yearsAgo', {count: Math.floor(seconds / format[2])});
+					default:
+						return i18n.t('justNow');
 				}
 			}
 		}

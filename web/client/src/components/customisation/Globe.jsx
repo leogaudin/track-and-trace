@@ -24,7 +24,6 @@ function hexToRGBArray(colorCode) {
 export default function Globe() {
   const canvasRef = useRef();
   const SIZE = 700;
-  const color = blue.main;
 
   useEffect(() => {
     let phi = 0;

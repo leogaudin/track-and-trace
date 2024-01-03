@@ -39,7 +39,7 @@ export const SideNav = () => {
   const location = useLocation();
   let content = getContent(location, getItems());
   const user = JSON.parse(localStorage.getItem('user'));
-  const { isMobile, navOpen, setNavOpen, fetchScans, language, setLanguage } = useContext(AppContext);
+  const { isMobile, navOpen, setNavOpen, language, setLanguage } = useContext(AppContext);
   const { t } = useTranslation();
 
   if (user)

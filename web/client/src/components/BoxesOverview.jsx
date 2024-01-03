@@ -1,7 +1,6 @@
 import React, { useState, useContext, useMemo } from 'react';
 import BoxSummary from './BoxSummary';
 import { SeverityPill } from './customisation/SeverityPill';
-import { timeAgo } from '../service/timeAgo'
 import TableCard from './reusable/TableCard';
 import { getProgress } from '../service/statistics';
 import { colorsMap, getTextsMap } from '../constants';
@@ -37,7 +36,7 @@ function BoxesOverview({ pageSize = 10 }) {
 				  ];
 			})
 		  : null;
-	  }, [filteredBoxes, isMobile]);
+	  }, [filteredBoxes, isMobile, scans, textsMap]);
 
 	return (
 		<TableCard
