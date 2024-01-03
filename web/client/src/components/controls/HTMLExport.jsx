@@ -18,6 +18,8 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
         color: '#000000',
         background: '#ffffff',
         ecl: 'H',
+        join: true,
+        pretty: false,
       });
 
       let qrCodeSvg = qrCode.svg();
@@ -93,9 +95,16 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
     `;
   };
 
-  const downloadDocuments = () => {
+  const minify = (s) => {
+    return s
+      .replace(/\>[\r\n ]+\</g, "><")
+      .replace(/(<.*?>)|\s+/g, (m, $1) => $1 ? $1 : ' ')
+      .trim()
+  }
+
+  const downloadDocuments = async () => {
     const htmlContentString = htmlContent(objects);
-    const blob = new Blob([htmlContentString], { type: 'text/html;charset=utf-8' });
+    const blob = new Blob([minify(htmlContentString)], { type: 'text/html;charset=utf-8' });
     saveAs(blob, `${folderName}.html`);
   };
 
