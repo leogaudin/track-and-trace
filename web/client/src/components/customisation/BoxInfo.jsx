@@ -34,7 +34,7 @@ const BoxInfo = ({ box, width = null, height = null }) => {
               {t('district')}: <b>{box?.district}</b>
             </Typography>
             <Typography>
-              {t('project')}: <b>{box?.zone}</b>
+              {t('zone')}: <b>{box?.zone}</b>
             </Typography>
             <Typography>
               {t('institutionType')}: <b>{box?.institutionType}</b>
