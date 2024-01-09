@@ -26,7 +26,7 @@ export default function Home() {
 			>
 				<Grid item xs={12}>
 					<Typography variant="h2" fontWeight={800} component="h1" gutterBottom>
-						Insights
+						t('insights')
 					</Typography>
 					<Alert style={{alignItems: 'center'}} severity={user.publicInsights ? 'success' : 'error'}>
 						{t('yourInsightsAreCurrently')} {user.publicInsights ? t('public') : t('private')}.
