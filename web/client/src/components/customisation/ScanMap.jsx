@@ -43,6 +43,7 @@ function ScanMap({ scans, scansCount }) {
 									color={scan?.finalDestination ? '#10B981' : (index === 0 ? '#0B71E7' : 'white')}
 									zIndexOffset={20}
 									key={scan?.id}
+									radius={(scan?.location.coords.accuracy) / 500 + 1}
 								>
 									<Popup>
 										<code>{scan?.operatorId}</code><br />
