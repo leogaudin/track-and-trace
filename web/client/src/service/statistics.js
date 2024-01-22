@@ -35,5 +35,5 @@ export function calculateDeliveryPercentage(project) {
 
 	const deliveryPercentage = (deliveredBoxes / project.length) * 100;
 
-	return deliveryPercentage.toFixed(0);
+	return deliveryPercentage;
 }
