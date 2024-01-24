@@ -2,13 +2,62 @@ const Scan = require('../models/scans.model');
 const Admin = require('../models/admins.model');
 const Box = require('../models/boxes.model');
 const { createOne, createMany, getById, getAll, deleteOne } = require('./controller');
-const { getCountryNameLocal } = require('./country.ctrl');
+const { feature } = require('@rapideditor/country-coder');
+
+function haversineDistance(coord1, coord2) {
+	const earthRadiusInMeters = 6378137;
+	const { latitude: lat1, longitude: lon1, accuracy: acc1 } = coord1;
+	const { latitude: lat2, longitude: lon2, accuracy: acc2 } = coord2;
+
+	const dLat = (lat2 - lat1) * (Math.PI / 180);
+	const dLon = (lon2 - lon1) * (Math.PI / 180);
+
+	const a =
+		Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+		Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+		Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+	const distanceWithoutAccuracy = earthRadiusInMeters * c;
+
+	// const adjustedDistance = Math.sqrt(distanceWithoutAccuracy ** 2 + (acc1 + acc2) ** 2);
+
+	return distanceWithoutAccuracy;
+}
+
+function isFinalDestination(schoolCoords, boxCoords) {
+	const distance = haversineDistance(schoolCoords, boxCoords);
+	const radiusInMeters = 1000;
+
+	return distance <= radiusInMeters;
+}
 
 const createScan = async (req, res) => {
     try {
-        const { boxId, comment, id, operatorId, location, time, finalDestination } = req.body;
+        const { boxId, comment, id, operatorId, location, finalDestination } = req.body;
 
-        const countryName = getCountryNameLocal(location.coords.longitude, location.coords.latitude);
+        const countryName = feature([location.coords.longitude, location.coords.latitude]).properties.nameEn;
+
+        const box = await Box.findOne({ id: boxId });
+
+        if (!box)
+            return res.status(404).json({ error: "Box not found" });
+
+        // const schoolCoords = {
+        //     latitude: -1.9412437537357468,
+        //     longitude: 30.104437089558818,
+        //     accuracy: 1
+        // };
+
+        // const scanCoords = {
+        //     latitude: location.coords.latitude,
+        //     longitude: location.coords.longitude,
+        //     accuracy: location.coords.accuracy
+        // };
+
+        // console.log("School coords:", schoolCoords);
+        // console.log("Scan coords:", scanCoords);
 
         const newScan = {
             boxId,
@@ -17,14 +66,10 @@ const createScan = async (req, res) => {
             operatorId,
             location,
             countryName,
-            time,
-            finalDestination,
+            time: location.timestamp,
+            finalDestination: finalDestination
+            // finalDestination: isFinalDestination(schoolCoords, scanCoords)
         };
-
-        const box = await Box.findOne({ id: boxId });
-
-        if (!box)
-            return res.status(404).json({ error: "Box not found" });
 
         box.scans = box.scans || [];
 
