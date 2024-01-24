@@ -81,7 +81,7 @@ export default function PublicInsights() {
 					<title>{t("insights")} - Track-and-Trace</title>
 					<meta name="description" content={t("description")} />
 				</Helmet>
-				<Alert severity="error">t('notAuthorized')</Alert>
+				<Alert severity="error">{t('notAuthorized')}</Alert>
 			</>
 		);
 }
