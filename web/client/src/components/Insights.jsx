@@ -1,5 +1,4 @@
 import DeliveryPercent from './insights/DeliveryPercent';
-import { calculateDeliveryPercentage } from '../service/statistics';
 import ProgressFunnel from './insights/ProgressFunnel';
 import { Grid, Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -19,25 +18,25 @@ function Insights({boxes}) {
 		<>
 			{Object.keys(groupedBoxes).map((key, i) => {
 				const sample = groupedBoxes[key];
-				if (sample)
-					return (
-						<Grid item xs={12} key={i}>
-							<Card width={1000}>
-								<CardContent>
-									<DeliveryPercent sample={sample} sampleName={key} />
-									<Grid
-										container
-										padding={3}
-										spacing={2}
-										alignItems='stretch'
-									>
-										<ProgressFunnel sample={sample}/>
-										<NotScannedSince sample={sample}/>
-									</Grid>
-								</CardContent>
-							</Card>
-						</Grid>
-					);
+				if (!sample) return null;
+				return (
+					<Grid item xs={12} key={i}>
+						<Card width={1000}>
+							<CardContent>
+								<DeliveryPercent sample={sample} sampleName={key} />
+								<Grid
+									container
+									padding={3}
+									spacing={2}
+									alignItems='stretch'
+								>
+									<ProgressFunnel sample={sample}/>
+									<NotScannedSince sample={sample}/>
+								</Grid>
+							</CardContent>
+						</Card>
+					</Grid>
+				);
 			})}
 		</>
 	);
