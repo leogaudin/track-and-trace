@@ -3,9 +3,9 @@ import InsightWrapper from '../reusable/InsightWrapper';
 import { commonProperties } from './index';
 import { useTranslation } from 'react-i18next';
 
-export default function ProgressFunnel({project}) {
+export default function ProgressFunnel({sample}) {
 	const {t} = useTranslation();
-	function getNivoFunnelData(project) {
+	function getNivoFunnelData(sample) {
 		const data = [
 			{
 				id: t('total'),
@@ -24,7 +24,7 @@ export default function ProgressFunnel({project}) {
 			}
 		];
 
-		project.forEach(box => {
+		sample.forEach(box => {
 			data[0].value++;
 			if (box.scans && box.scans.length > 0) {
 				const hasFinalDestination = box.scans.some(scan => scan.finalDestination === true);
@@ -45,7 +45,7 @@ export default function ProgressFunnel({project}) {
 				isInteractive={true}
 				currentPartSizeExtension={5}
 				currentBorderWidth={10}
-				data={getNivoFunnelData(project)}
+				data={getNivoFunnelData(sample)}
 				colors={{ 'datum': 'color' }}
 				labelColor="#ffffff"
 				shapeBlending={1}

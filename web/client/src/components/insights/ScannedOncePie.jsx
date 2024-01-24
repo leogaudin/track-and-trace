@@ -3,9 +3,9 @@ import InsightWrapper from '../reusable/InsightWrapper';
 import { commonProperties } from './index';
 import { useTranslation } from 'react-i18next';
 
-export default function ScannedOncePie({project}) {
+export default function ScannedOncePie({sample}) {
 	const {t} = useTranslation();
-	function getNivoPieData(project) {
+	function getNivoPieData(sample) {
 		const data = [
 			{
 				id: t('noscans'),
@@ -19,7 +19,7 @@ export default function ScannedOncePie({project}) {
 			}
 		];
 
-		project.forEach(box => {
+		sample.forEach(box => {
 			if (box.scans && box.scans.length > 0)
 				data[1].value++;
 			else
@@ -33,7 +33,7 @@ export default function ScannedOncePie({project}) {
 		<InsightWrapper title={t('progressFunnel')} width={35}>
 			<ResponsivePie
 				{...commonProperties}
-				data={getNivoPieData(project)}
+				data={getNivoPieData(sample)}
 				colors={{ scheme: 'set1'}}
 				shapeBlending={1}
 				borderWidth={1}

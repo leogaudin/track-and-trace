@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Alert, Slider, Stack } from '@mui/material';
 
-export default function NotScannedSince({project}) {
+export default function NotScannedSince({sample}) {
 	const {t} = useTranslation();
 	const [since, setSince] = useState(3);
 	function getNivoPieData(days) {
@@ -25,7 +25,7 @@ export default function NotScannedSince({project}) {
 		const daysTimestamp = days * 24 * 60 * 60 * 1000;
 		const sinceTimestamp = nowTimestamp - daysTimestamp;
 
-		project.forEach(box => {
+		sample.forEach(box => {
 			if (box.scans && box.scans.length > 0) {
 				const lastScan = box.scans[box.scans.length - 1];
 				const isDelivered = box.scans.some(scan => scan.finalDestination);
@@ -41,7 +41,7 @@ export default function NotScannedSince({project}) {
 
 	function getNeverScanned() {
 		let neverScanned = 0;
-		project.forEach(box => {
+		sample.forEach(box => {
 			if (!box.scans || box.scans.length === 0)
 				neverScanned++;
 		});
@@ -50,7 +50,7 @@ export default function NotScannedSince({project}) {
 
 	// function getDelivered() {
 	// 	let delivered = 0;
-	// 	project.forEach(box => {
+	// 	sample.forEach(box => {
 	// 		if (box.scans.some(scan => scan.finalDestination))
 	// 			delivered++;
 	// 	});
