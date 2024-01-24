@@ -89,3 +89,17 @@ export async function setInsights(id, publicInsights) {
 export async function getInsights(id) {
   return await sendRequest('get', `insights/${id}`);
 }
+
+export function groupByProperty(boxes, propertyName) {
+  return boxes.reduce((acc, box) => {
+    const property = box[propertyName];
+    if (!property) {
+      return acc;
+    }
+    if (!acc[property]) {
+      acc[property] = [];
+    }
+    acc[property].push(box);
+    return acc;
+  }, {});
+}
