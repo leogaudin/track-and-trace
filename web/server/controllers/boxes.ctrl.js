@@ -10,6 +10,9 @@ const deleteBox = deleteOne(Box);
 const deleteBoxes = deleteMany(Box);
 const getBoxesByAdminId = async (req, res) => {
     try {
+        const admin = await Admin.find({id: req.params.adminId});
+        if (!admin.publicInsights && !req.headers['x-authorization'])
+            return res.status(401).json({ success: false, error: 'API key required' });
         // if (!req.headers['x-authorization']) {
         //     return res.status(401).json({ success: false, error: 'API key required' });
         // }
