@@ -23,8 +23,8 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 				htName,
 				htPhone,
 				institutionType,
-				schoolLatitude,
-				schoolLongitude,
+				schoolLatitude: parseFloat(schoolLatitude),
+				schoolLatitude: parseFloat(schoolLongitude),
 				adminId: user.id,
 				createdAt: new Date().getTime()
 			});
