@@ -45,8 +45,8 @@ const createScan = async (req, res) => {
             return res.status(404).json({ error: "Box not found" });
 
         const schoolCoords = {
-            latitude: box.school_latitude,
-            longitude: box.school_longitude,
+            latitude: box.schoolLatitude,
+            longitude: box.schoolLongitude,
             accuracy: 1
         };
 

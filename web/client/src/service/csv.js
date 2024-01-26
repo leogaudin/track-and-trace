@@ -1,5 +1,6 @@
 import Papa from 'papaparse';
 import { addBoxes } from './index';
+import SparkMD5 from 'spark-md5';
 const lzstring = require('lz-string');
 
 function isCSVValid(file) {
@@ -12,9 +13,9 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 	Papa.parse(text, {
 		worker: true,
 		step: (element) => {
-			const [id, project, division, district, zone, school, htName, htPhone, institutionType, schoolLatitude, schoolLongitude] = element.data;
-			boxes.push({
-				id,
+			const [project, division, district, zone, school, htName, htPhone, institutionType, schoolLongitude, schoolLatitude ] = element.data;
+			const newBox = {
+				id: '',
 				project,
 				division,
 				district,
@@ -23,11 +24,14 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 				htName,
 				htPhone,
 				institutionType,
+				schoolLongitude: parseFloat(schoolLongitude),
 				schoolLatitude: parseFloat(schoolLatitude),
-				schoolLatitude: parseFloat(schoolLongitude),
 				adminId: user.id,
 				createdAt: new Date().getTime()
-			});
+			};
+			newBox.id = SparkMD5.hash(JSON.stringify(newBox));
+
+			boxes.push(newBox);
 		},
 		complete: () => {
 			boxes.shift();
