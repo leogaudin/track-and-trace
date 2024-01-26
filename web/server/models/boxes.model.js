@@ -16,8 +16,8 @@ const Box = new Schema(
 		adminId: { type: String, required: true },
 		createdAt: { type: Date, required: true },
 		scans: { type: Array, required: false },
-		school_latitude: { type: Number, required: false},
-		school_longitude: { type: Number, required: false},
+		schoolLatitude: { type: Number, required: false},
+		schoolLongitude: { type: Number, required: false},
 	}
 )
 
