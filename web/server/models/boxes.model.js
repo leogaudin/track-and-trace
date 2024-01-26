@@ -1,3 +1,4 @@
+const { Decimal128 } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -15,6 +16,8 @@ const Box = new Schema(
 		adminId: { type: String, required: true },
 		createdAt: { type: Date, required: true },
 		scans: { type: Array, required: false },
+		school_latitude: { type: Number, required: false},
+		school_longitude: { type: Number, required: false},
 	}
 )
 

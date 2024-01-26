@@ -44,20 +44,17 @@ const createScan = async (req, res) => {
         if (!box)
             return res.status(404).json({ error: "Box not found" });
 
-        // const schoolCoords = {
-        //     latitude: -1.9412437537357468,
-        //     longitude: 30.104437089558818,
-        //     accuracy: 1
-        // };
+        const schoolCoords = {
+            latitude: box.school_latitude,
+            longitude: box.school_longitude,
+            accuracy: 1
+        };
 
-        // const scanCoords = {
-        //     latitude: location.coords.latitude,
-        //     longitude: location.coords.longitude,
-        //     accuracy: location.coords.accuracy
-        // };
-
-        // console.log("School coords:", schoolCoords);
-        // console.log("Scan coords:", scanCoords);
+        const scanCoords = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            accuracy: location.coords.accuracy
+        };
 
         const newScan = {
             boxId,
@@ -67,8 +64,8 @@ const createScan = async (req, res) => {
             location,
             countryName,
             time: location.timestamp,
-            finalDestination: finalDestination
-            // finalDestination: isFinalDestination(schoolCoords, scanCoords)
+            // finalDestination: finalDestination
+            finalDestination: isFinalDestination(schoolCoords, scanCoords)
         };
 
         box.scans = box.scans || [];
