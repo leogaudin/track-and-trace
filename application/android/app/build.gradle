@@ -98,8 +98,8 @@ android {
         applicationId "com.leogaudin.tnt"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11218
-        versionName "1.2.8"
+        versionCode 11219
+        versionName "1.2.9"
         missingDimensionStrategy 'react-native-camera', 'general'
     }
 
