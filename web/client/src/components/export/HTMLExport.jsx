@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'qrcode-svg';
 import { saveAs } from 'file-saver';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) => {
@@ -109,11 +109,11 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
   };
 
   return (
-    <div>
+    <Tooltip title="Downloads the boxes as labels with QR codes to be printed" arrow placement='top'>
       <Button variant={'contained'} color='success' size='large' onClick={downloadDocuments}>
-        {t('download', {item: "HTML"})}
+        {t('download', {item: t('printableLabels')})}
       </Button>
-    </div>
+    </Tooltip>
   );
 };
 
