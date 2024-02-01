@@ -113,6 +113,13 @@ export default function Upload({ open, setOpen }) {
                   {hover ? t('drop') : t('dragPrompt')}
                 </Typography>
                 <div style={{paddingTop: 0, width: '100%'}}>
+                  <Alert severity='warning' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
+                    <Typography variant='body1'>
+                      <b>{t('columnOrder')}</b>
+                      <br />
+                      <code>project, division, district, zone, school, htName, htPhone, institutionType, schoolLongitude, schoolLatitude</code>
+                    </Typography>
+                  </Alert>
                 <Alert severity='info' style={{textAlign: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
                     <Typography variant='body1'>
                       <b>{t('supportedTypes')}:</b> .csv
