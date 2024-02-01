@@ -9,6 +9,7 @@ const Scan = new Schema(
 		time: { type: Number, required: true },
 		location: { type: Object, required: true },
 		finalDestination: { type: Boolean, required: true },
+		markedAsReceived: { type: Boolean, required: true },
 		comment: { type: String, required: false }
 	}
 )

@@ -35,7 +35,7 @@ function isFinalDestination(schoolCoords, boxCoords) {
 
 const createScan = async (req, res) => {
     try {
-        const { boxId, comment, id, operatorId, location, finalDestination } = req.body;
+        const { boxId, comment, id, operatorId, location, markedAsReceived } = req.body;
 
         const countryName = feature([location.coords.longitude, location.coords.latitude]).properties.nameEn;
 
@@ -64,7 +64,7 @@ const createScan = async (req, res) => {
             location,
             countryName,
             time: location.timestamp,
-            // finalDestination: finalDestination
+            markedAsReceived,
             finalDestination: isFinalDestination(schoolCoords, scanCoords)
         };
 

@@ -134,7 +134,7 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
                     onValueChange={newValue => setToggleCheckBox(newValue)}
                     style={{marginRight: 10}}
                   />
-                  <Text>Final destination</Text>
+                  <Text>Mark as received (HT only)</Text>
                 </View>
                 <View style={[styles.horizontal,]}>
                   <Button
@@ -158,7 +158,7 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
                         operatorId: login,
                         time: Date.now(),
                         location: userLocation,
-                        finalDestination: toggleCheckBox,
+                        markedAsReceived: toggleCheckBox,
                         comment: comment,
                       };
                       dataToSend.id = SparkMD5.hash(JSON.stringify(dataToSend));
