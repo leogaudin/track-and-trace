@@ -103,3 +103,13 @@ export function groupByProperty(boxes, propertyName) {
     return acc;
   }, {});
 }
+
+export function getLastFinalScan(box) {
+  const scans = box.scans;
+  if (!scans || !scans.length) return null;
+  const finalScans = scans.filter(scan => scan.finalDestination);
+  if (!finalScans.length) return null;
+  return finalScans.reduce((acc, scan) => {
+    return acc.time > scan.time ? acc : scan;
+  });
+}

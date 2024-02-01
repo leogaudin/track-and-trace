@@ -150,6 +150,11 @@ i18n
 					progress: 'Progress',
 					any: 'Any',
 					all: 'All',
+					columnOrder: 'Column order',
+					printableLabels: 'Printable labels',
+					printableLabelsDetail: 'Downloads the boxes as labels with QR codes to be printed',
+					endOfDeliveryReport: 'End of delivery report',
+					endOfDeliveryReportDetail: 'Downloads a report with, for each box, the id, the school, if it reached final destination, and if so the date of the scan',
 				}
 			},
 			fr: {
@@ -285,6 +290,11 @@ i18n
 					progress: 'Progression',
 					any: 'Tous',
 					all: 'Tous',
+					columnOrder: 'Ordre des colonnes',
+					printableLabels: 'Étiquettes imprimables',
+					printableLabelsDetail: 'Télécharge les boîtes sous forme d\'étiquettes avec QR codes à imprimer',
+					endOfDeliveryReport: 'Rapport de fin de livraison',
+					endOfDeliveryReportDetail: 'Télécharge un rapport avec, pour chaque boîte, l\'id, l\'école, si elle a atteint sa destination finale, et si oui la date du scan',
 				}
 			},
 			es: {
@@ -420,6 +430,11 @@ i18n
 					progress: 'Progreso',
 					any: 'Cualquiera',
 					all: 'Todos',
+					columnOrder: 'Orden de las columnas',
+					printableLabels: 'Etiquetas imprimibles',
+					printableLabelsDetail: 'Descarga las cajas como etiquetas con códigos QR para imprimir',
+					endOfDeliveryReport: 'Informe de fin de entrega',
+					endOfDeliveryReportDetail: 'Descarga un informe con, para cada caja, el id, la escuela, si llegó al destino final, y si es así la fecha del escaneo',
 				}
 			},
 			de: {
@@ -555,6 +570,8 @@ i18n
 					progress: 'Fortschritt',
 					any: 'Alle',
 					all: 'Alle',
+					columnOrder: 'Spaltenreihenfolge',
+					printableLabels: 'Druckbare Etiketten',
 				}
 			}
 		},

@@ -109,9 +109,9 @@ const HTMLExport = ({ objects, folderName = 'Documents', itemName = 'Item' }) =>
   };
 
   return (
-    <Tooltip title="Downloads the boxes as labels with QR codes to be printed" arrow placement='top'>
+    <Tooltip title={t('printableLabelsDetail')} arrow placement='top'>
       <Button variant={'contained'} color='success' size='large' onClick={downloadDocuments}>
-        {t('download', {item: t('printableLabels')})}
+        {t('printableLabels')}
       </Button>
     </Tooltip>
   );
