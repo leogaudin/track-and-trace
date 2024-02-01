@@ -47,6 +47,8 @@ export default function Login(this: any) {
                           marginVertical: 15,
                           fontSize: 20,
                           textAlign: 'left',
+                          color: '#000',
+                          paddingVertical: 0
                       },
                   }}
                   flagStyle={{marginLeft: 55}}
