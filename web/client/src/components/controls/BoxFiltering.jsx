@@ -21,7 +21,9 @@ export default function BoxFiltering({boxes, setFilteredBoxes}) {
 		'adminId',
 		'createdAt',
 		'__v',
-		'scans'
+		'scans',
+		'schoolLatitude',
+		'schoolLongitude',
 	  ];
 
 	useEffect(() => {
