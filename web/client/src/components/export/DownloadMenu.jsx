@@ -1,8 +1,9 @@
-import {Button, Menu, Tooltip} from "@mui/material";
+import {Button, IconButton, Menu, Tooltip} from "@mui/material";
 import { downloadCSV, downloadJson } from ".";
 import { useState } from "react";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function DownloadMenu({data, title, detail}) {
+export default function DownloadMenu({data, title, isThreeDots = true, detail}) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
@@ -20,14 +21,23 @@ export default function DownloadMenu({data, title, detail}) {
 
 	return (
 		<Tooltip placement="top" title={detail} arrow>
-			<Button
+			{isThreeDots
+			? <IconButton
+				aria-label="more"
+				aria-controls="long-menu"
+				aria-haspopup="true"
+				onClick={handleClick}
+			>
+				<MoreVertIcon />
+			</IconButton>
+			: <Button
 				variant="contained"
 				color="success"
 				size="large"
 				onClick={handleClick}
 			>
 				{title}
-			</Button>
+			</Button>}
 			<Menu
 				anchorEl={anchorEl}
 				open={open}

@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function ScansPerDate({project}) {
 	const {t} = useTranslation();
-	function getNivoScansOverTime(project) {
+
+	function getNivoScansOverTime() {
 		const scans = project.reduce((accumulator, box) => {
 			if (box.scans && Array.isArray(box.scans))
 				return accumulator.concat(box.scans);
@@ -38,8 +39,10 @@ export default function ScansPerDate({project}) {
 		];
 	}
 
+	const data = getNivoScansOverTime();
+
 	return (
-		<InsightWrapper title={t('scansPerDate')}>
+		<InsightWrapper title={t('scansPerDate')} data={data}>
 			<ResponsiveLine
 				{...commonProperties}
 				areaOpacity={1}
@@ -54,7 +57,7 @@ export default function ScansPerDate({project}) {
 					tickValues: 3
 				}}
 				curve="step"
-				data={getNivoScansOverTime(project)}
+				data={data}
 				enableArea
 				pointSize={5}
 				pointColor={'#fff'}

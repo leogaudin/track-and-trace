@@ -2,12 +2,14 @@ import { ResponsivePie } from '@nivo/pie'
 import InsightWrapper from '../reusable/InsightWrapper';
 import { commonProperties } from './index';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Slider, Stack } from '@mui/material';
 
 export default function NotScannedSince({sample}) {
 	const {t} = useTranslation();
 	const [since, setSince] = useState(3);
+	const [data, setData] = useState([]);
+
 	function getNivoPieData(days) {
 		const data = [
 			{
@@ -57,8 +59,12 @@ export default function NotScannedSince({sample}) {
 	// 	return delivered;
 	// }
 
+	useEffect(() => {
+		setData(getNivoPieData(since));
+	}, [since]);
+
 	return (
-		<InsightWrapper title={t('notScannedInThePast', {count: since})} height={50}>
+		<InsightWrapper title={t('notScannedInThePast', {count: since})} height={50} data={data} >
 			<Stack style={{height: '75%', width: '100%'}}>
 				{getNeverScanned() ?
 				<Alert severity="info" style={{height: '20%', marginTop: 3}}>
@@ -72,7 +78,7 @@ export default function NotScannedSince({sample}) {
 				: false} */}
 				<ResponsivePie
 					{...commonProperties}
-					data={getNivoPieData(since)}
+					data={data}
 					colors={['#0949FF', '#F04438', '#D3D3D3']}
 					innerRadius={0.5}
 					padAngle={0.7}

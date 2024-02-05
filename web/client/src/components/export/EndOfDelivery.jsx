@@ -14,13 +14,21 @@ export default function EndOfDelivery({boxes}) {
 				id: box.id,
 				school: box.school,
 				delivered: !!lastScan,
-				date: lastScan ? new Date(lastScan?.location.timestamp).toLocaleDateString() : '',
+				confirmedByHt: lastScan?.markedAsReceived,
+				date: lastScan ? new Date(lastScan?.location.timestamp) : null,
+				operatorId: lastScan?.operatorId,
 			}
+		});
+		// Order by dates
+		toExport.sort((a, b) => a?.date - b?.date);
+		// Format dates
+		toExport.forEach(box => {
+			box.date = box.date ? box.date.toLocaleDateString() : '';
 		});
 		setToExport(toExport);
 	}, [boxes]);
 
 	return (
-		<DownloadMenu data={toExport} title={t('endOfDeliveryReport')} detail={t('endOfDeliveryReportDetail')}/>
+		<DownloadMenu isThreeDots={false} data={toExport} title={t('endOfDeliveryReport')} detail={t('endOfDeliveryReportDetail')}/>
 	);
 }

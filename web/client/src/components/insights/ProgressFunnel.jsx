@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function ProgressFunnel({sample}) {
 	const {t} = useTranslation();
-	function getNivoFunnelData(sample) {
+
+	function getNivoFunnelData() {
 		const data = [
 			{
 				id: t('total'),
@@ -38,14 +39,16 @@ export default function ProgressFunnel({sample}) {
 		return data;
 	}
 
+	const data = getNivoFunnelData();
+
 	return (
-		<InsightWrapper title={t('progressFunnel')} width={35}>
+		<InsightWrapper title={t('progressFunnel')} width={35} data={data}>
 			<ResponsiveFunnel
 				{...commonProperties}
 				isInteractive={true}
 				currentPartSizeExtension={5}
 				currentBorderWidth={10}
-				data={getNivoFunnelData(sample)}
+				data={data}
 				colors={{ 'datum': 'color' }}
 				labelColor="#ffffff"
 				shapeBlending={1}

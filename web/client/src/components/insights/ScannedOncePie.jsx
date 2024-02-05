@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function ScannedOncePie({sample}) {
 	const {t} = useTranslation();
-	function getNivoPieData(sample) {
+
+	function getNivoPieData() {
 		const data = [
 			{
 				id: t('noscans'),
@@ -29,11 +30,13 @@ export default function ScannedOncePie({sample}) {
 		return data;
 	}
 
+	const data = getNivoPieData();
+
 	return (
-		<InsightWrapper title={t('progressFunnel')} width={35}>
+		<InsightWrapper title={t('progressFunnel')} width={35} data={data}>
 			<ResponsivePie
 				{...commonProperties}
-				data={getNivoPieData(sample)}
+				data={data}
 				colors={{ scheme: 'set1'}}
 				shapeBlending={1}
 				borderWidth={1}
