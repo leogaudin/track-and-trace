@@ -34,29 +34,6 @@ export function getItems() {
 	];
 }
 
-export function getHomeCards() {
-	return [
-		{
-			id: 'boxes',
-			title: i18n.t('boxes'),
-			icon: <BoxIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
-			route: '/boxes',
-		},
-		{
-			id: 'scans',
-			title: i18n.t('scans'),
-			icon: <ScanIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
-			route: '/scans',
-		},
-		{
-			id: 'export',
-			title: i18n.t('export'),
-			icon: <ExportIcon sx={{ fontSize: 96, marginBottom: 2 }} />,
-			route: '/export',
-		},
-	];
-}
-
 export function getTextsMap() {
 	return {
 		noscans: i18n.t('noscans'),
