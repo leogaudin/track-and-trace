@@ -1,6 +1,6 @@
 const Box = require('../models/boxes.model');
 const Admin = require('../models/admins.model');
-const { createOne, createMany, getById, getAll, deleteOne, deleteMany } = require('./controller');
+const { createOne, createMany, getById, getAll, deleteOne, deleteMany } = require('./base');
 
 const createBox = createOne(Box);
 const createBoxes = createMany(Box);

@@ -1,5 +1,5 @@
 const Admin = require('../models/admins.model')
-const { createOne, createMany, getById, getAll, deleteOne } = require('./controller');
+const { createOne, createMany, getById, getAll, deleteOne } = require('./base');
 
 const createAdmin = createOne(Admin);
 const createAdmins = createMany(Admin);
