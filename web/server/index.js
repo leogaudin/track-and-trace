@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import db from './db';
 import boxesRouter from './routes/boxes.router';
 import scansRouter from './routes/scans.router';
 import adminsRouter from './routes/admins.router';
