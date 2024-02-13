@@ -15,8 +15,6 @@ dotenv.config();
 const mongoString = process.env.STRING_URI;
 
 mongoose.connect(mongoString, {
-    useNewUrlParser: true, // Avoid deprecation warning
-    useUnifiedTopology: true, // Avoid deprecation warning
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
     socketTimeoutMS: 300000, // Close sockets after 5 minutes of inactivity
 });
