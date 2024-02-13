@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Alert, Card, Stack, Typography, CardContent, Box, CardHeader, Grid, Tooltip } from '@mui/material';
+import { Alert, Card, Stack, Typography, CardContent, Box } from '@mui/material';
 import HTMLExport from '../components/export/HTMLExport';
 import AppContext from '../context/AppContext';
 import { useTranslation } from 'react-i18next';

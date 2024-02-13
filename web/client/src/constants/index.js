@@ -1,6 +1,3 @@
-import BoxIcon from '@mui/icons-material/Archive';
-import ScanIcon from '@mui/icons-material/Scanner';
-import ExportIcon from '@mui/icons-material/ImportExport';
 import { Home as HomeIcon, Inventory as InventoryIcon, QrCodeScanner as QrCodeScannerIcon, IosShare as IosShareIcon, Delete as DeleteIcon } from '@mui/icons-material'
 import i18n from './language';
 
