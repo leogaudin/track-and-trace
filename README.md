@@ -4,8 +4,6 @@ The TnT codebase is divided into two major folders, [**Web**](https://github.com
 
 This paper provides an overview of the main and essential parts of this codebase.
 
-If you have any doubts important for the maintenance and development cycle of TnT, please contact [leo@gaudin.it](mailto:leo@gaudin.it).
-
 # [**Web**](https://github.com/leogaudin/track-and-trace/blob/main/web/)
 
 ## [**Client**](https://github.com/leogaudin/track-and-trace/blob/main/web/client/)
