@@ -133,6 +133,7 @@ export default function SendScanModal({modalVisible, setModalVisible, data}: Res
                     value={toggleCheckBox}
                     onValueChange={newValue => setToggleCheckBox(newValue)}
                     style={{marginRight: 10}}
+                    tintColors={{true: '#007AFF', false: '#C7C7CC'}}
                   />
                   <Text>Mark as received (HT only)</Text>
                 </View>
