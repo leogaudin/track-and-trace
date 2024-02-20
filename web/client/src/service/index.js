@@ -52,10 +52,24 @@ export async function getBox(id) {
 }
 
 export async function deleteBoxes(boxes) {
-  const idsToDelete = boxes.map(box =>  box.id);
-  const deleteConditions = { id: { $in: idsToDelete } };
+  const batchSize = 250;
+  const idsToDelete = boxes.map(box => box.id);
+  const deleteConditions = { id: { $in: [] } };
   const requestBody = { deleteConditions };
-  return await sendRequest('delete', `boxes`, requestBody);
+  let startIndex = 0;
+  let endIndex = batchSize;
+  let deletedCount = 0;
+
+  while (startIndex < idsToDelete.length) {
+    const batchIds = idsToDelete.slice(startIndex, endIndex);
+    deleteConditions.id.$in = batchIds;
+    const response = await sendRequest('delete', 'boxes', requestBody);
+    deletedCount += response.deletedCount;
+    startIndex = endIndex;
+    endIndex = startIndex + batchSize;
+  }
+
+  return { deletedCount };
 }
 
 export async function getScans() {
