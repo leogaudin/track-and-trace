@@ -5,6 +5,7 @@ import { deleteBoxes } from "../service";
 import ConfirmDialog from '../components/customisation/ConfirmDialog';
 import { useTranslation } from 'react-i18next';
 import BoxFiltering from '../components/controls/BoxFiltering';
+import { toast } from 'react-toastify';
 
 export default function Delete() {
   const {boxes} = useContext(AppContext);
@@ -45,6 +46,9 @@ export default function Delete() {
                 .then(() => {
                   window.location.reload();
                 })
+                .catch((err) => {
+                  toast.error(err.response?.data?.message || err.message);
+                });
             }}
           />
         </CardContent>

@@ -9,6 +9,7 @@ import ConfirmDialog from "./customisation/ConfirmDialog";
 import { deleteBoxes } from "../service";
 import AppContext from "../context/AppContext";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export default function BoxSummary({ id, open, setOpen }) {
 	const {boxes, scans, isMobile} = useContext(AppContext);
@@ -82,6 +83,9 @@ export default function BoxSummary({ id, open, setOpen }) {
 							.then(() => {
 								window.location.reload();
 							})
+							.catch((err) => {
+								toast.error(err.response?.data?.message || err.message);
+							});
 					}}
 				/>
 			</DialogContent>
