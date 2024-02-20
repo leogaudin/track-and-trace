@@ -29,7 +29,7 @@ function parseCSV(text, setUploadProgress, setResults, setIsLoading, setComplete
 				adminId: user.id,
 				createdAt: new Date().getTime()
 			};
-			newBox.id = SparkMD5.hash(JSON.stringify(newBox));
+			newBox.id = SparkMD5.hash(JSON.stringify(newBox) + new Date().now());
 
 			boxes.push(newBox);
 		},
