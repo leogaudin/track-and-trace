@@ -127,3 +127,13 @@ export function getLastFinalScan(box) {
     return acc.time > scan.time ? acc : scan;
   });
 }
+
+export function getLastMarkedAsReceivedScan(box) {
+  const scans = box.scans;
+  if (!scans || !scans.length) return null;
+  const markedAsReceivedScans = scans.filter(scan => scan.markedAsReceived);
+  if (!markedAsReceivedScans.length) return null;
+  return markedAsReceivedScans.reduce((acc, scan) => {
+    return acc.time > scan.time ? acc : scan;
+  });
+}
