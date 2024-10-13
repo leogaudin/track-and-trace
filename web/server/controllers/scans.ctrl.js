@@ -112,4 +112,5 @@ module.exports = {
     getScans,
     getScanById,
     getScansByBoxes,
+    isFinalDestination,
 }

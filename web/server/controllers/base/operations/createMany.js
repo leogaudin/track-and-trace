@@ -27,28 +27,14 @@ const createMany = (Model, apiKeyNeeded = true) => async (req, res) => {
 			}
 
 			for (const instance of instances) {
-				if (!instance.id) {
+				if (!instance.id)
 					invalidInstances.push({instance, error: `You must provide an id for the item`});
-					continue;
-				}
-
-				if (apiKeyNeeded && !apiKeyChecked) {
-					invalidInstances.push({instance, error: 'API key check failed'});
-					continue;
-				}
-
-				try {
-					const existent = await Model.findOne({ id: instance.id });
-
-					if (existent)
-						invalidInstances.push({instance, error: `Item with ID ${existent.id} already exists`});
-					else
-						validInstances.push(instance);
-				} catch (error) {
-					console.error('Error occurred during existing item check:', error);
-					return handle400Error(res, error);
-				}
+				else
+					validInstances.push(instance);
 			}
+
+			if (apiKeyNeeded && !apiKeyChecked)
+				return handle400Error(res, 'API key check failed');
 
 			try {
 				await Model.insertMany(validInstances);
