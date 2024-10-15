@@ -58,6 +58,8 @@ const updateCoordinates = async (req, res) => {
             const boxesToUpdate = await Box.find({ school: box.school, adminId: admin.id });
             await Promise.all(boxesToUpdate.map(async (box) => {
                 box.scans = box.scans || [];
+                if (!box.scans.length)
+                    return ;
                 box.scans.forEach((scan) => {
                     const schoolCoords = {
                         latitude: box.schoolLatitude,
