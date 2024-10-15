@@ -10,5 +10,6 @@ router.delete('/boxes', BoxCtrl.deleteBoxes);
 router.get('/box/:id', BoxCtrl.getBoxById);
 router.get('/boxes', BoxCtrl.getBoxes);
 router.get('/boxes/:adminId', BoxCtrl.getBoxesByAdminId);
+router.post('/boxes/coords', BoxCtrl.updateCoordinates);
 
 module.exports = router;
